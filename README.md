@@ -1,4 +1,2 @@
 # ThundrPuffin
-superblogg
-hggh
-g
+superblogg, bästa bloggen hnng
