@@ -1,0 +1,7 @@
+body{
+  background-image: url("Texture/Background.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: auto;
+  color:pink;
+}
