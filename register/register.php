@@ -1,9 +1,26 @@
+<?php
+session_start();
+
+  require('Helpers/db.php');
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 
+<script src="Helpers/IP.js"></script><!--LocalIp-->
+ <?php
+ $IP;
+  if (!empty($_SESSION['errorMsg'])) {
+    ?>
+    <h2><?php echo $_SESSION['errorMsg'];?></h2>
+    <?php
+  }
+  ?>
+
 	<head>
 	
-	<title>thudrPuffin</title>
+	<title>thundrPuffin</title>
 	
 	<link rel="stylesheet" type="text/css" href="registerStyle.css">
 	
@@ -16,7 +33,7 @@
 
 	</head>
 
-	<body>
+	<body onload="GetLocalIp(); ">
 	
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
@@ -36,7 +53,7 @@
 	
 		<div id="content">
 	
-			<form>
+			<form action="Helpers/Reg_Check.php" method="post">
 			
 				<div class="form-group">
 					<div class="row">
@@ -44,7 +61,7 @@
 						<div class="col-md-4"></div>
 						<div class="col-sm-4 col-md-4">
 							<label class="control-label" for="usr">Username:</label>
-							<input type="text" class="form-control" id="usr">
+							<input type="text" class="form-control" id="usr" name="username" value="">
 						</div>
 						<div class="col-md-4"></div>
 					</div>
@@ -56,7 +73,7 @@
 						<div class="col-md-4"></div>
 						<div class="col-sm-4">
 							<label class="control-label" for="pwd">Password:</label>
-							<input type="password" class="form-control" id="pwd">
+							<input type="password" class="form-control" id="pwd" name="password" value="">
 						</div>
 						<div class="col-md-4"></div>
 					</div>
@@ -68,7 +85,7 @@
 						<div class="col-md-4"></div>
 						<div class="col-sm-4">
 							<label class="control-label" for="pwd">Repeat Password:</label>
-							<input type="rePassword" class="form-control" id="repeatPwd">
+							<input type="rePassword" class="form-control" id="repeatPwd" name="password2" value="">
 						</div>
 						<div class="col-md-4"></div>
 					</div>
@@ -80,16 +97,28 @@
 						<div class="col-md-4"></div>
 						<div class="col-sm-4">
 							<label class="control-label" for="email">Email address:</label>
-							<input type="email" class="form-control" id="email">
+							<input type="email" class="form-control" id="email" name="email" value="">
+							<input id="Public" type="text" name="localIP" value="" hidden >
+							<input id="Local" type="text" name="publicIP" value="" hidden >
 						</div>
 						<div class="col-md-4"></div>
 					</div>
 				</div>
+
+				<script type="application/javascript">
+				function getIP(json) {
+					document.getElementById("Public").value=json.ip; //
+					//document.write("My public IP address is: ", json.ip);
+				}
+				</script>
+
+				<script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+
 				<div class="form-group">
 					<div class="row">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
-							<button type="submit" class="btn btn-default">Register</button>
+							<button type="submit" class="btn btn-default" value="Sign Up">Register</button>
 						</div>
 						<div class="col-md-4"></div>
 					</div>
