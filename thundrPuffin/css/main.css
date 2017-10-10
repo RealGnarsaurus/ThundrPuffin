@@ -1,5 +1,8 @@
 /* **** Main CSS containing global styling like navbar-styling, fonts
 and other general websitestyles **** */
+body {
+    background-color: #eee;
+}
 @font-face {
     font-family: Heebo;
     src: url(../font-pkg/heebo/Heebo-Regular_0.ttf);
@@ -15,9 +18,28 @@ and other general websitestyles **** */
 * {
     margin: 0;
     padding: 0;
+    font-family: 'HeeboLight';
+}
+h1 {
+    font-family: 'ZillaSlab';
+    font-weight: bold;
+}
+h3 {
+    font-family: 'ZillaSlab';
+    font-weight: bold;
+}
+h4 {
+    font-family: 'HeeboLight';
+    font-size: 24px;
+    font-weight: bold;
+}
+p {
+    font-family: 'HeeboLight';
+    font-size: 20px;
 }
 #navbarBg {
     background-color: #eb2424;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     
 }
 #navbarBg a {
@@ -44,4 +66,8 @@ and other general websitestyles **** */
     margin: 0;
     padding: 0;
     border: none;
+}
+.nav li:hover {
+    background-color: #eee;
+    color: #535353;
 }

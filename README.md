@@ -1,4 +1,0 @@
-# ThundrPuffin
-superblogg
-hggh
-g

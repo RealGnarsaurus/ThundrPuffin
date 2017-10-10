@@ -29,9 +29,40 @@
                     <li><a href="#">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Login</a></li>
+                    <li><a href="login.php">Login</a></li>
                 </ul>
             </div>
         </nav>
+        <div class="container" id="content">
+            <div class="row">
+                <div class="welcomeHeader">
+                    <h1>Welcome to the simple blog platform</h1>
+                    <h3>Create your blog and get started</h3>
+                </div>
+            </div>
+            <div class="row feature">
+                <div class="col-md-5 featureImg">
+                    <img src="img/featureImg1.png"/>
+                </div>
+                <div class="col-md-7 featureText">
+                    <h4>Lightweight</h4>
+                    <p>thundrPuffin offers one of the most lightweight blog platforms
+                        on the internet. Simple to use, simple to share - all the important stuff!
+                    </p>
+                </div>
+            </div>
+            <div class="row feature">
+                <div class="col-md-7 featureText">
+                    <h4>Simplicity</h4>
+                    <p>As mentioned, thundrPuffin is a really simple blog platform! There
+                        is no confusing or overly complicated functions that is too hard to use
+                        or which you'll never use! Keeping it simple is king!
+                    </p>
+                </div>
+                <div class="col-md-5 featureImg">
+
+                </div>
+            </div>
+        </div>
     </body>
 </html>
