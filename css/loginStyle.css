@@ -1,0 +1,16 @@
+* {
+	margin:0;
+	Padding:0;
+}
+
+#dontHaveAccount {
+	margin: auto;
+	max-width:180px;
+}
+#forgottenPsw {
+	margin: auto;
+	max-width:180px;
+}
+#content {
+	margin-top:20%;
+}

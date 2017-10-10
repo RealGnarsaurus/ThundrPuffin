@@ -1,68 +1,80 @@
 <!DOCTYPE html>
-<html lang="sv">
-
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" 
-	integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<title>thundrPuffin</title>
-
-</head>
-
-<body>
-	
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">ThundrPuffin</a>
+<html>
+	<head>	
+		<title>thundrPuffin</title>				
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/loginStyle.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body>	
+		<nav class="navbar navbar-default">
+			<div class="container-fluid navbarBg">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="welcome.php">ThundrPuffin</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#">Page 1</a></li>
+					<li><a href="#">Page 2</a></li>
+					<li><a href="#">Page 3</a></li>
+				</ul>
 			</div>
-			<div class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Browse</a></li>
-				<li><a href="#">Features</a></li>
-				<li><a href="#">About</a></li>
-			</div>
-			<div class="nav navbar-nav navbar-right">
-				<li><a href="register.php" class="btn btn-primary">Register</a></li>
-				<li><a href="login.php" class="btn btn-primary"></a></li>
-			</div>
-		</div>
-	</nav>
-
-	<div id="loginForms">
-		<div id="postLogin">
-			<form action="login.php">
-				<label><b>Username</b></label>
-				<input type="text" placeholder="Username" name="uname" required>
-				
-				<label><b>Password</b></label>
-				<input type="password" placeholder="Password" name="psw" required>
-				
-				</br>
-
-				<button type="submit">Login</button>
-				<input type="checkbox" checked="checked"> Remember me
+		</nav>		
+		<div class="container">		
+			<div id="content">			
+				<form>				
+					<div class="form-group">
+						<div class="row">							
+							<div class="col-md-4"></div>
+							<div class="col-sm-4 col-md-4">
+								<label class="control-label" for="usr">Username:</label>
+								<input type="text" class="form-control" id="usr">
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>					
+					<div class="form-group">
+						<div class="row">
+							
+							<div class="col-md-4"></div>
+							<div class="col-sm-4">
+								<label class="control-label" for="pwd">Password:</label>
+								<input type="password" class="form-control" id="pwd">
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>					
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<button type="submit" class="btn btn-default">Login</button>
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>
+					
+					<div id="register">					
+						<div id="dontHaveAccount">					
+							<a href="../register/register.php">Dont have an account yet?</a>						
+						</div>				
+					</div>				
+					<div id="forgotPsw">					
+						<div id="forgottenPsw">					
+							<a href="../forgottenPsw/forgottenPsw.php">Forgot password?</a>						
+						</div>				
+					</div>			
+													
+				</form>			
+						
+			</div>		
 		</div>		
-	</div>
-		<div id="accountSupport">
-		
-			<div id="register">
-			
-				<a href="url">Register</a>
-				
-			</div>
-			
-			<div id="forgotPassword">
-			
-				<a href="url">Forgotten password?</a>
-				
-			</div>
-	
-	</div>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-</body>
-
+		<div class="footer">		
+			<div class="panel-footer">Footer</div>			
+		</div>
+	</body>
 </html>
