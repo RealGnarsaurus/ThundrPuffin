@@ -1,10 +1,25 @@
+<?php
+session_start();
+
+  require('Helpers/db.php');
+  //$password = password_hash($password, PASSWORD_DEFAULT);
+ ?>
+
 <!DOCTYPE html>
 <html>
+
+<?php
+  if (!empty($_SESSION['errorMsg'])) {
+    ?>
+    <h2><?php echo $_SESSION['errorMsg'];?></h2>
+    <?php
+
+  }
+  ?>
 
 	<head>
 	
 	<title>thudrPuffin</title>
-	
 	<link rel="stylesheet" type="text/css" href="loginStyle.css">
 	
 	<meta charset="utf-8">
@@ -36,7 +51,7 @@
 	
 		<div id="content">
 		
-			<form>
+			<form action="Helpers/Login_Check.php" method="post">
 			
 				<div class="form-group">
 					<div class="row">
@@ -44,7 +59,7 @@
 						<div class="col-md-4"></div>
 						<div class="col-sm-4 col-md-4">
 							<label class="control-label" for="usr">Username:</label>
-							<input type="text" class="form-control" id="usr">
+							<input type="text" class="form-control" id="usr" name="loginCred" value="">
 						</div>
 						<div class="col-md-4"></div>
 					</div>
@@ -56,7 +71,7 @@
 						<div class="col-md-4"></div>
 						<div class="col-sm-4">
 							<label class="control-label" for="pwd">Password:</label>
-							<input type="password" class="form-control" id="pwd">
+							<input type="password" class="form-control" id="pwd" name="password" value="">
 						</div>
 						<div class="col-md-4"></div>
 					</div>
@@ -66,7 +81,7 @@
 					<div class="row">
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
-							<button type="submit" class="btn btn-default">Login</button>
+							<button type="submit" class="btn btn-default" value="Login">Login</button>
 						</div>
 						<div class="col-md-4"></div>
 					</div>
