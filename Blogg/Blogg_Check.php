@@ -1,10 +1,22 @@
 <?php
 session_start();
-require('db.php');
+function getLineWithString($fileName,$Row,$AlteredValue) {
+$line_i_am_looking_for = $Row;
+$lines = file( $fileName , FILE_IGNORE_NEW_LINES );
+$lines[$line_i_am_looking_for] = 'background-color:'. $AlteredValue . ";";
+file_put_contents( $fileName , implode( "\n", $lines ) );
+}
+require('Helpers/db.php');
+$userID = $_SESSION['userID'];
 if ($_POST['choice'] == "updateBlogg") {
   $extension = "jpg";
-  $target_dir = "../1/Texture/";
+  $target_dir = "Blogg/$userID/Texture/";
   //Replaces Background img;
+  if (!empty($_POST['BBC'])) {
+      echo $_POST['BBC'];
+      getLineWithString("Blogg/$userID/style.css","5",$_POST['BBC']);
+
+    }
   if (!empty(basename($_FILES["BG"]["name"]))) {
 
     $target_file = $target_dir . basename($_FILES["BG"]["name"]);
@@ -58,7 +70,7 @@ if ($_POST['choice'] == "updateBlogg") {
     $filename=$_FILES["HeaderImage"]["name"];
     $newfilename=$target_dir ."HeaderImage." . $extension;
     $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    $imageFileType = pathinfo($HeaderImage,PATHINFO_EXTENSION);
     // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
         $check = getimagesize($_FILES["HeaderImage"]["tmp_name"]);
@@ -104,7 +116,7 @@ if ($_POST['choice'] == "updateBlogg") {
     $filename=$_FILES["LefterImage"]["name"];
     $newfilename=$target_dir ."LefterImage." . $extension;
     $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    $imageFileType = pathinfo($LefterImage,PATHINFO_EXTENSION);
     // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
         $check = getimagesize($_FILES["LefterImage"]["tmp_name"]);
@@ -150,7 +162,7 @@ if ($_POST['choice'] == "updateBlogg") {
     $filename=$_FILES["RighterImage"]["name"];
     $newfilename=$target_dir ."RighterImage." . $extension;
     $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    $imageFileType = pathinfo($RighterImage,PATHINFO_EXTENSION);
     // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
         $check = getimagesize($_FILES["RighterImage"]["tmp_name"]);
@@ -209,97 +221,81 @@ if ($_POST['choice'] == "updateBlogg") {
     $_SESSION['errorBlogMsg']  = "cant update blog";
     }
   $_SESSION['errorBlogMsg']  = "Blogg Uppdated";
-  header("Location:../ManageBlogg.php");
+  //header("Location:ManageBlogg.php");
 }
 if ($_POST['choice'] == "addBlogg") {
 
   if (!empty($_POST['bloggName']) && !empty($_POST['userID'])) {
     $bloggName = $_POST['bloggName'];
-    $userID = $_POST['userID'];
 
-    $sql = "SELECT * FROM blogg where Name='$bloggName'"; //Check if user has blogg
+    $sql = "SELECT * FROM blogg where UserID='$userID'"; //Check if user has blogg
     echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
     if (empty($result)) {
       $sql2 = "INSERT INTO `blogg`(`ID`, `Name`, `UserID`) VALUES (null,'$bloggName','$userID')"; //Check if user has blogg
-      echo $sql2;
+      //echo $sql2;
       $stmt2 = $dbh->prepare($sql2);
       $stmt2->execute();
       if ($stmt2) { //If correctly inserted to databsae, create folders
-        $index = "";
-        $style = "";
-        $blogCheck = "";
-        $db = "";
-        $edit = "";
-        $IP = "";
-        $newPost = "";
         //Create Files
-        if (!is_dir('../Blogg')) {
-          mkdir('../Blogg', 0777, true); //Creates A Folder Containing All Bloggs
-          echo("Container folder created");
+        if (!is_dir('Blogg/'.$userID)) {
+          mkdir('Blogg/'.$userID, 0777, true); //Creates A Personal Blogg Folder
+          echo("personal folder created");
         }
-          if (!is_dir('../Blogg/'.$userID)) {
-            mkdir('../Blogg/'.$userID, 0777, true); //Creates A Personal Blogg Folder
-            echo("personal folder created");
+
+        if (!is_dir('Blogg/'.$userID.'/Helpers')) {
+          mkdir('Blogg/'.$userID.'/Helpers', 0777, true); //Creates Helper Folder
+          if (is_dir('Blogg/'.$userID.'/Helpers')) {
+
+            $index = fopen('Blogg/'.$userID.'/Index.php', "w");
+            $style = fopen('Blogg/'.$userID.'/style.css', "w");
+            $blogCheck = fopen('Blogg/'.$userID.'/Helpers/Blogg_Check.php', "w");
+            $db = fopen('Blogg/'.$userID.'/Helpers/db.php', "w");
+            $edit = fopen('Blogg/'.$userID.'/Helpers/Edit.js', "w");
+            $IP = fopen('Blogg/'.$userID.'/Helpers/IP.js', "w");
+            $newPost = fopen('Blogg/'.$userID.'/Helpers/newPost.php', "w");
+
           }
+        }
 
-          if (!is_dir('../Blogg/'.$userID.'/Helpers')) {
-            mkdir('../Blogg/'.$userID.'/Helpers', 0777, true); //Creates Helper Folder
-            if (is_dir('../Blogg/'.$userID.'/Helpers')) {
+        if (!is_dir('Blogg/'.$userID.'/Texture')) {
+            mkdir('Blogg/'.$userID.'/Texture', 0777, true); //Creates Helper Folder
+        }
+      //At this point all files should have been created
+      $sIndex = "Blogg/sf/Index.php"; //all static files (basic of blogg)
+      $csIndex = file_get_contents($sIndex); //all static content in files
 
-              $index = fopen('../Blogg/'.$userID.'/Index.php', "w");
-              $style = fopen('../Blogg/'.$userID.'/style.css', "w");
-              $blogCheck = fopen('../Blogg/'.$userID.'/Helpers/Blogg_Check.php', "w");
-              $db = fopen('../Blogg/'.$userID.'/Helpers/db.php', "w");
-              $edit = fopen('../Blogg/'.$userID.'/Helpers/Edit.js', "w");
-              $IP = fopen('../Blogg/'.$userID.'/Helpers/IP.js', "w");
-              $newPost = fopen('../Blogg/'.$userID.'/Helpers/newPost.php', "w");
+      $sStyle =  "Blogg/sf/style.css";
+      $csStyle = file_get_contents($sStyle);
 
-            }
-          }
+      $sDb =  "Blogg/sf/Helpers/db.php";
+      $csDb = file_get_contents($sDb);
 
-          if (!is_dir('../Blogg/'.$userID.'/Texture')) {
-              mkdir('../Blogg/'.$userID.'/Texture', 0777, true); //Creates Helper Folder
-          }
-        //At this point all files should have been created
-        $sIndex = "../sf/Index.php"; //all static files (basic of blogg)
-        $csIndex = file_get_contents($sIndex); //all static content in files
+      $sEdit =  "Blogg/sf/Helpers/Edit.js";
+      $csEdit = file_get_contents($sEdit);
 
-        $sStyle =  "../sf/style.css";
-        $csStyle = file_get_contents($sStyle);
+      $sIP =  "Blogg/sf/Helpers/IP.js";
+      $csIP = file_get_contents($sIP);
 
-        $sBlogCheck =  "../sf/Helpers/Blogg_Check.php";
-        $csBlogCheck = file_get_contents($sBlogCheck);
-
-        $sDb =  "../sf/Helpers/db.php";
-        $csDb = file_get_contents($sDb);
-
-        $sEdit =  "../sf/Helpers/Edit.js";
-        $csEdit = file_get_contents($sEdit);
-
-        $sIP =  "../sf/Helpers/IP.js";
-        $csIP = file_get_contents($sIP);
-
-        $sNewPost =  "../sf/Helpers/newPost.php";
-        $csNewPost = file_get_contents($sNewPost);
+      $sNewPost =  "Blogg/sf/Helpers/newPost.php";
+      $csNewPost = file_get_contents($sNewPost);
 
 
-        file_put_contents('../Blogg/'.$userID.'/Index.php', $csIndex);
-        file_put_contents('../Blogg/'.$userID.'/style.css', $csStyle);
-        file_put_contents('../Blogg/'.$userID.'/Helpers/Blogg_Check.php', $csBlogCheck);
-        file_put_contents('../Blogg/'.$userID.'/Helpers/db.php', $csDb);
-        file_put_contents('../Blogg/'.$userID.'/Helpers/Edit.js', $csEdit);
-        file_put_contents('../Blogg/'.$userID.'/Helpers/IP.js', $csIP);
-        file_put_contents('../Blogg/'.$userID.'/Helpers/newPost.php', $csNewPost);
-      }
+      file_put_contents('Blogg/'.$userID.'/Index.php', $csIndex);
+      file_put_contents('Blogg/'.$userID.'/style.css', $csStyle);
+      file_put_contents('Blogg/'.$userID.'/Helpers/db.php', $csDb);
+      file_put_contents('Blogg/'.$userID.'/Helpers/Edit.js', $csEdit);
+      file_put_contents('Blogg/'.$userID.'/Helpers/IP.js', $csIP);
+      file_put_contents('Blogg/'.$userID.'/Helpers/newPost.php', $csNewPost);
     }
   }
-  else{
+}
+else{
 
-    $_SESSION['errorBlogMsg']  = "How did you even do dizz, no userid or bloggname";
-  }
-  $_SESSION['errorBlogMsg']  = "Blogg Added M@thafucka";
-  header("Location:../ManageBlogg.php");
+  $_SESSION['errorBlogMsg']  = "How did you even do dizz, no userid or bloggname";
+}
+$_SESSION['errorBlogMsg']  = "Blogg Added";
+header("Location:ManageBlogg.php");
 }
 ?>

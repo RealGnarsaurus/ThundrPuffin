@@ -32,7 +32,7 @@ function getLineWithString($fileName, $str,$endPoint) {
     //echo count($lines);
 
     for ($i=0; $i < count($lines); $i++) {
-        if (strpos($lines[$i], $str) !== false) { //Finds Words
+        if (strpos($lines[$i], $str) !== false) { //Finds startpos for Words
             //echo $lines[$i];
 
               //echo $i . $lines[$i];
@@ -41,7 +41,7 @@ function getLineWithString($fileName, $str,$endPoint) {
     }
     $canFind = "true";
     for ($j=$startRow; $j < count($lines); $j++) {
-        if (strpos($lines[$j], $endPoint) !== false && $canFind == "true") { //Finds Words
+        if (strpos($lines[$j], $endPoint) !== false && $canFind == "true") { //Finds endpos of Words
             //echo $lines[$i];
             //echo $j;
             $endRow = $j;

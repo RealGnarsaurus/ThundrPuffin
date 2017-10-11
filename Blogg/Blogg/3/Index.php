@@ -1,16 +1,16 @@
 <?php
 session_start();
 require('Helpers/db.php');
-$bloggID = $_GET['ID'];
-
-$sql = "SELECT * FROM blogg where UserID='$bloggID'";
+$bloggID = $_GET['bloggID'];
+$userID = $_SESSION['userID'];
+$sql = "SELECT * FROM blogg where UserID='$userID'";
 //echo $sql;
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
 $resTemp = $result[0]->ID;
-//echo $resTemp;
-$sql2 = "SELECT * FROM post where UserID='$resTemp'";
+echo $resTemp;
+$sql2 = "SELECT * FROM post where BloggID='$resTemp'";
 //echo $sql2;
 $stmt2 = $dbh->prepare($sql2);
 $stmt2->execute();
@@ -25,7 +25,7 @@ $result2 = $stmt2->fetchAll();
  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
  <body onload="GetLocalIp();">
    <br>
-   <a href="../../../Index.php">Gotta Go Back</a>
+   <a href="../../Index.php">Gotta Go Back</a>
    <br>
    <div id="container">
      <div id="header">
@@ -37,8 +37,8 @@ $result2 = $stmt2->fetchAll();
       <br>
         <input id="local" type="text" name="localIP" value="" hidden>
         <input id="public" type="text" name="publicIP" value="" hidden>
-        <input type="text" name="bloggID" value="<?php echo $bloggID;//6?>" hidden>
-        <input type="text" name="userID" value="<?php echo $resTemp;//23?>" hidden>
+        <input type="text" name="userID" value="<?php echo $bloggID;?>"hidden>
+        <input type="text" name="bloggID" value="<?php echo $resTemp;?>"hidden>
         <input type="text" name="choice" value="post" hidden>
         <input type="submit" name="" value="Send">
     </form>
@@ -65,16 +65,16 @@ $result2 = $stmt2->fetchAll();
              <input  type="text" name="choice" value="comment" hidden>
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
              <input id="local" type="text" name="localIP" value="" hidden>
-             <input id="public" type="text" name="publicIP" value="" hidden>
-             <input class="SB<?php echo $res2Temp?>" type="submit" name="" value="Send" hidden>
+             <input id="Public" type="text" name="publicIP" value="" hidden>
              <script type="application/javascript">
                function getIP(json) {
-                 var pIP = json.ip;
-                 document.getElementById("public").value=pIP;
+                 document.getElementById("Public").value=json.ip; //
                  //document.write("My public IP address is: ", json.ip);
                }
              </script>
              <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
+             <input class="SB<?php echo $res2Temp?>" type="submit" name="" value="Send" hidden>
+
          </form>
       </div>
 
@@ -83,7 +83,7 @@ $result2 = $stmt2->fetchAll();
          ?>
 
          <div id="comment">
-          <h3><?php echo $res2->Dates . " - " . $res3->Message ;//This Prints The Post?></h3>
+          <h3><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
          </div>
 
          <br>

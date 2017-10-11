@@ -1,15 +1,19 @@
 body{
   background-image: url("Texture/BackGround.jpg");
-
   background-repeat: no-repeat;
-  width: 100%;
+  width: 99%;
   height: auto;
-  color:black;
+  background-color:#80ff80;
+}
+div#container{
+  width: 100%;
+  height: 100%;
 }
 div#newPost textarea,form{
-  width: 99%;
+  width: 100%;
   height: 200px;
   margin: auto;
+  font-size: 25px;
 }
 div#newPost input{
   margin: auto;
@@ -19,10 +23,16 @@ div#newPost input{
 }
 div#header{
   width: 100%;
-  height: auto;
-  background-color: red;
+  height: 200px;
   text-align: center;
   background-image: url("Texture/HeaderImage.jpg");
+  margin-top: -40px;
+  background-size: 1920px 200px;
+  background-repeat: no-repeat;
+  color:White;
+  font-size: 25px;
+}
+div#newPost{
 }
 div#postFeed{
   width: 80%;
@@ -33,6 +43,8 @@ div#post{
   border-style: solid;
   border-width: 2px;
   border-color: black;
+  background-color: white;
+  font-size: 10px;
 }
 div#comment{
   width: 65%;
@@ -40,7 +52,8 @@ div#comment{
   border-style: solid;
   border-width: 2px;
   border-color: black;
-  background-color: blue;
+  background-color: white;
+  font-size: 9px;
 }
 div#comment:nth-child(even){
   width: 65%;

@@ -15,7 +15,8 @@ if (!empty($result)) { //IF Database Contains Username/Email -> check password
   echo  " || " . $result[0]->Password;
   if (password_verify($password, $result[0]->Password)) { //Entered pw - database pw
     $_SESSION['errorMsg'] = "Logged In";
-    header("Location:../Login.php");
+    $_SESSION['userID'] = $result[0]->ID;
+    header("Location:../Index.php");
   }
   else{
     $_SESSION['errorMsg'] = "Wrong Password";

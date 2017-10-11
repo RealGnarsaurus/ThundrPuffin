@@ -11,7 +11,9 @@ $result = $stmt->fetchAll();
  <html>
  <body>
    <div id="">
-
+     <a href="Registrera.php">reg</a>
+     <a href="Login.php">login</a>
+     <a href="ManageBlogg.php">manage</a>
      <tr>
        <th>Name</th>
        <th>ID</th>
@@ -19,14 +21,16 @@ $result = $stmt->fetchAll();
      <br>
      <?php
         foreach ($result as $res) {?>
-          <a href="Blogg/Blogg/<?php echo $res->UserID;?>/?ID=<?php echo $res->UserID;?>">
+          <form action="Blogg/Blogg/<?php echo $res->UserID;?>" method="post">
+            <input type="number" name="bloggID" value="" hidden>
+            <input type="submit" name="" value="<?php echo $res->Name;?>">
            <tr>
              <?php echo $res->Name;?>
            </tr>
            <tr>
              <?php echo $res->UserID;?>
            </tr>
-         </a>
+         </form>
      <br>
      <?php
      }
