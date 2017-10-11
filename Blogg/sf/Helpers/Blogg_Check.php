@@ -2,8 +2,9 @@
 session_start();
 require('db.php');
 if ($_POST['choice'] == "updateBlogg") {
+  $userID = $_POST['userID'];
   $extension = "jpg";
-  $target_dir = "../1/Texture/";
+  $target_dir = "'../Blogg/'.$userID.'/Texture/'";
   //Replaces Background img;
   if (!empty(basename($_FILES["BG"]["name"]))) {
 
@@ -258,7 +259,15 @@ if ($_POST['choice'] == "addBlogg") {
 
             }
           }
-
+          else{
+            $index = fopen('../Blogg/'.$userID.'/Index.php', "w");
+            $style = fopen('../Blogg/'.$userID.'/style.css', "w");
+            $blogCheck = fopen('../Blogg/'.$userID.'/Helpers/Blogg_Check.php', "w");
+            $db = fopen('../Blogg/'.$userID.'/Helpers/db.php', "w");
+            $edit = fopen('../Blogg/'.$userID.'/Helpers/Edit.js', "w");
+            $IP = fopen('../Blogg/'.$userID.'/Helpers/IP.js', "w");
+            $newPost = fopen('../Blogg/'.$userID.'/Helpers/newPost.php', "w");
+          }
           if (!is_dir('../Blogg/'.$userID.'/Texture')) {
               mkdir('../Blogg/'.$userID.'/Texture', 0777, true); //Creates Helper Folder
           }
@@ -300,6 +309,6 @@ if ($_POST['choice'] == "addBlogg") {
     $_SESSION['errorBlogMsg']  = "How did you even do dizz, no userid or bloggname";
   }
   $_SESSION['errorBlogMsg']  = "Blogg Added M@thafucka";
-  header("Location:../ManageBlogg.php");
+  //header("Location:../ManageBlogg.php");
 }
 ?>

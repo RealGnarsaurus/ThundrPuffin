@@ -33,8 +33,11 @@ session_start();
     Email:
     <br>
     <input type="text" name="email" value="">
-    <input id="Public" type="text" name="localIP" value="" hidden>
-    <input id="Local" type="text" name="publicIP" value="" hidden>
+    <br>
+    <input id="Public" type="text" name="localIP" value="" >
+    <br>
+    <input id="Local" type="text" name="publicIP" value="" >
+    <br>
     <script type="application/javascript">
       function getIP(json) {
         document.getElementById("Public").value=json.ip; //
