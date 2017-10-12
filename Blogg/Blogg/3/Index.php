@@ -2,8 +2,11 @@
 session_start();
 require('Helpers/db.php');
 $bloggID = $_GET['bloggID'];
-$userID = $_SESSION['userID'];
-$sql = "SELECT * FROM blogg where UserID='$userID'";
+if (!empty($_SESSION['userID'])) {
+  $userID = $_SESSION['userID'];
+}
+
+$sql = "SELECT * FROM blogg where UserID='$bloggID'";
 //echo $sql;
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
