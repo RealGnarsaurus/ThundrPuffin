@@ -11,10 +11,9 @@
 }
 .container {
 	background-color: #dddddd;
-	height: 900px;
-	max-height:50%;
-	margin: 0;
-	border-radius:8px;
+    height: 100vh;
+    max-height: 900px;
+    min-height: 560px;
 }
 
 #content
