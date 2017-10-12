@@ -30,13 +30,13 @@ session_start();
 		<nav class="navbar navbar-default">
 			<div class="container-fluid" id="navbarBg">
 				<div class="navbar-header">
-				<a class="navbar-brand" href="#">ThundrPuffin</a>
+				<a class="navbar-brand" id="brand" href="#">ThundrPuffin</a>
 				</div>
 				<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Page 1</a></li>
-				<li><a href="#">Page 2</a></li>
-				<li><a href="#">Page 3</a></li>
+				<li><a href="welcome.php">Home</a></li>
+				<li><a href="#">Browse blogs</a></li>
+				<li><a href="#">Features</a></li>
+				<li><a href="#">About</a></li>
 				</ul>
 			</div>
 		</nav>		
@@ -98,16 +98,12 @@ session_start();
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
 								<button type="submit" class="btn btn-default" value="Sign Up">Register</button>
+								<a class="btn btn-default" href="login.php">Already registered?</a>
 							</div>
 							<div class="col-md-4"></div>
 						</div>
 					</div>										
-				</form>			
-				<div id="backLogin">					
-					<div id="haveAccount">					
-						<a href="../login/login.php">Already have an account?</a>						
-					</div>				
-				</div>				
+				</form>							
 			</div>				
 		</div>		
 	</body>

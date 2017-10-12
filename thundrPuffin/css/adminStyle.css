@@ -8,15 +8,17 @@ body
 {
 	height: 100%;
 	width: 100%;
+	overflow-y: hidden;
+	overflow-x: hidden;
 }
 
 .container {
-	background-color: #dddddd;
-	height: 800px;
-	max-height:50%;
-	margin: 0;
-	border-radius:8px;
-	width:84%!important;
+	background-color: #535353;
+    height: 100vh;
+    max-height: 897px;
+	min-height: 560px;
+	color: #dddddd;
+	width:84vw;
 }
 
 #content
@@ -24,16 +26,13 @@ body
 	margin-top:20%;
 }
 
-#logOut
-{
-    margin-right: 15%;
-}
-
 #adminSideNav
 {
 	float: left;
-	width: 16%;
-	height: 800px;
+	width: 16vw;
+	height: 100vh;
+    max-height: 897px;
+	min-height: 560px;
 	display: block;
 	background-color: #333333;
 	overflow-y: hidden;
