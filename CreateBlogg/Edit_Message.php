@@ -17,7 +17,7 @@
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
     if ($stmt) {
-      $sql2 = "UPDATE post SET Post = '$editTextAfter'";
+      $sql2 = "UPDATE post SET Post = '$editTextAfter' where ID='$editPostID'";
       echo $sql2;
       $stmt2 = $dbh->prepare($sql2);
       $stmt2->execute();
@@ -55,23 +55,19 @@ if ($_POST['choice'] == "Comment") {
 }
 if ($_POST['choice'] == "Report") {
 
-  if (!empty($_POST['editUserID']) && !empty($_POST['bloggID']) && !empty($_POST['editCommentID']) && !empty($_POST['editTextBefore']) && !empty($_POST['editTextAfter'])) {
-    $editUserID = $_POST['editUserID'];
-    $editBloggID = $_POST['bloggID'];
-    $editCommentID = $_POST['editCommentID'];
-    $editTextBefore = $_POST['editTextBefore'];
-    $editTextAfter = $_POST['editTextAfter'];
+  if (!empty($_POST['bloggID']) && !empty($_POST['reportUserID']) && !empty($_POST['reportPrio'])&& !empty($_POST['reportUrl'])) {
+    $bloggID = $_POST['bloggID'];
+    $reportPostID = $_POST['reportPostID'];
+    $reportCommentID = $_POST['reportCommentID'];
+    $reportUserID = $_POST['reportUserID'];
+    $reportPrio = $_POST['reportPrio'];
+    $reportUrl = $_POST['reportUrl'];
 
-    $sql = "INSERT INTO editcomment (`ID`, `UserID`, `CommentID`, `BloggID`, `TextBefore`, `TextNew`) VALUES (null,'$editUserID','$editCommentID','$editBloggID','$editTextBefore','$editTextAfter')";
+    $sql = "INSERT INTO report (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`,`Url`) VALUES (null,'$bloggID','$reportPostID','$reportCommentID','$reportUserID','$reportPrio','$reportUrl')";
     echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->execute();
-    if ($stmt) {
-      $sql2 = "UPDATE comment SET Message = '$editTextAfter'";
-      echo $sql2;
-      $stmt2 = $dbh->prepare($sql2);
-      $stmt2->execute();
-    }
+    header("Location:".$reportUrl);
   }
   else{
 

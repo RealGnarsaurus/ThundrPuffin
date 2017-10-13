@@ -56,24 +56,48 @@ $result2 = $stmt2->fetchAll();
 
              <input type="text" name="editUserID" value="<?php echo $userID;?>">
              <input type="text" name="editPostID" value="<?php echo $res2Temp;?>">
-             <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>">
-             <input type="text" name="editTextAfter" value="<?php echo $res2->Post;?>">
+             <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>" hidden>
+             <input type="text" name="editTextAfter" placeholder="<?php echo $res2->Post;?>" value="">
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
              <input type="text" name="choice" value="Post">
              <input type="submit"name="" value="Edit">
 
            </form>
+           <?php
+           $sql5 = "SELECT * FROM report where UserID='$userID' AND PostID='$res2Temp' AND CommentID = '0'";
+           echo $sql5;
+           $stmt5 = $dbh->prepare($sql5);
+           $stmt5->execute();
+           $result5 = $stmt5->fetchAll();
+           if (empty($result5)) {
+
+           ?>
+           <!--This is for report system-->
            <form action="../../Edit_Message.php" method="post">
 
-             <input type="text" name="editUserID" value="<?php echo $userID;?>">
-             <input type="text" name="editPostID" value="<?php echo $res2Temp;?>">
-             <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>">
-             <input type="text" name="editTextAfter" value="<?php echo $res2->Post;?>">
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+             <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>">
+             <input type="text" name="reportUserID" value="<?php echo $userID;?>">
+             <?php
+             $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+             if (empty($userID)){?>
+               <input type="text" name="reportPrio" value="5">
+
+               <?php
+             }
+             else{?>
+               <input type="text" name="reportPrio" value="1">
+               <?php
+
+             }?>
+             <input type="text" name="reportUrl" value="<?php echo $link;?>">
              <input type="text" name="choice" value="Report">
-             <input type="submit"name="" value="Edit">
+             <input type="submit"name="" value="Report">
 
            </form>
+           <?php
+         }
+            ?>
          </h2>
          <?php
 
@@ -120,6 +144,41 @@ $result2 = $stmt2->fetchAll();
            <input type="submit"name="" value="Edit">
 
          </form>
+         <?php
+         $sql4 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res2Temp'";
+         echo $sql4;
+         $stmt4 = $dbh->prepare($sql4);
+         $stmt4->execute();
+         $result4 = $stmt4->fetchAll();
+         if (empty($result4)) {
+
+         ?>
+         <form action="../../Edit_Message.php" method="post">
+
+           <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+           <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>">
+           <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>">
+           <input type="text" name="reportUserID" value="<?php echo $userID;?>">
+           <?php
+           $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+           if (empty($userID)){?>
+             <input type="text" name="reportPrio" value="5">
+
+             <?php
+           }
+           else{?>
+             <input type="text" name="reportPrio" value="1">
+             <?php
+
+           }?>
+           <input type="text" name="reportUrl" value="<?php echo $link;?>">
+           <input type="text" name="choice" value="Report">
+           <input type="submit"name="" value="Report">
+
+         </form>
+         <?php
+        }
+          ?>
          <br>
          <br>
          <?php
