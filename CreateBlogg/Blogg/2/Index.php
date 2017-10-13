@@ -52,12 +52,25 @@ $result2 = $stmt2->fetchAll();
 
 
          <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?><button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
-           <form action="Edit_Message.php" method="post">
+           <form action="../../Edit_Message.php" method="post">
 
              <input type="text" name="editUserID" value="<?php echo $userID;?>">
              <input type="text" name="editPostID" value="<?php echo $res2Temp;?>">
              <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>">
-             <input type="text" name="editTextAfter" value="">
+             <input type="text" name="editTextAfter" value="<?php echo $res2->Post;?>">
+             <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+             <input type="text" name="choice" value="Post">
+             <input type="submit"name="" value="Edit">
+
+           </form>
+           <form action="../../Edit_Message.php" method="post">
+
+             <input type="text" name="editUserID" value="<?php echo $userID;?>">
+             <input type="text" name="editPostID" value="<?php echo $res2Temp;?>">
+             <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>">
+             <input type="text" name="editTextAfter" value="<?php echo $res2->Post;?>">
+             <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+             <input type="text" name="choice" value="Report">
              <input type="submit"name="" value="Edit">
 
            </form>
@@ -96,7 +109,17 @@ $result2 = $stmt2->fetchAll();
          <div id="comment">
           <h3><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
          </div>
+         <form action="../../Edit_Message.php" method="post">
 
+           <input type="text" name="editUserID" value="<?php echo $userID;?>">
+           <input type="text" name="editCommentID" value="<?php echo $res2Temp;?>">
+           <input type="text" name="editTextBefore" value="<?php echo $res3->Message;?>">
+           <input type="text" name="editTextAfter" value="<?php echo $res3->Message;?>">
+           <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+           <input type="text" name="choice" value="Comment">
+           <input type="submit"name="" value="Edit">
+
+         </form>
          <br>
          <br>
          <?php
