@@ -104,7 +104,7 @@ else if(empty($_SESSION['Login'])){
       //echo "cant create new"; //Manage Blogg
       ?>
       <div id="AdminMenu">
-          <form action="Blogg/<?php echo $userID;?>/Index.php" method="GET">
+          <form action="Blogg/<?php echo $userID;?>/Index.php?blogg" method="GET">
             <input type="text" name="bloggID" value="<?php echo $userID;?>" hidden>
             <input type="submit" name="" value="Goto Blogg">
           </form>

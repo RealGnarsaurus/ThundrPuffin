@@ -4,10 +4,15 @@ require('Helpers/db.php');
 if (!empty($_POST['reportedPostID'])) {
     $reportedPostID = $_POST['reportedPostID'];
 }
+else{
+  $reportedPostID = "*";
+}
 if (!empty($_POST['reportedCommentID'])) {
   $reportedCommentID = $_POST['reportedCommentID'];
 }
-
+else{
+  $reportedCommentID = "*";
+}
 $bloggID = $_GET['bloggID'];
 $userID = $_SESSION['userID'];
 $sql7 = "SELECT * FROM permission where UserID='$userID'";
@@ -84,12 +89,12 @@ $result2 = $stmt2->fetchAll();
             ?>
            <form  action="../../Edit_Message.php" method="post">
 
-             <input type="text" name="editUserID" value="<?php echo $userID;?>">
-             <input type="text" name="editPostID" value="<?php echo $res2Temp;?>">
+             <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
+             <input type="text" name="editPostID" value="<?php echo $res2Temp;?>" hidden>
              <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>" hidden>
              <input type="text" name="editTextAfter" placeholder="<?php echo $res2->Post;?>" value="">
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
-             <input type="text" name="choice" value="Post">
+             <input type="text" name="choice" value="Post" hidden>
              <input type="submit"name="" value="Edit">
 
            </form>
@@ -177,18 +182,18 @@ $result2 = $stmt2->fetchAll();
          </div>
          <form action="../../Edit_Message.php" method="post">
 
-           <input type="text" name="editUserID" value="<?php echo $userID;?>">
-           <input type="text" name="editCommentID" value="<?php echo $res2Temp;?>">
-           <input type="text" name="editTextBefore" value="<?php echo $res3->Message;?>">
-           <input type="text" name="editTextAfter" value="<?php echo $res3->Message;?>">
+           <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
+           <input type="text" name="editCommentID" value="<?php echo $res2Temp;?>" hidden>
+           <input type="text" name="editTextBefore" value="<?php echo $res3->Message;?>" hidden>
+           <input type="text" name="editTextAfter" value="<?php echo $res3->Message;?>" hidden>
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
-           <input type="text" name="choice" value="Comment">
+           <input type="text" name="choice" value="" placeholder="Edit Comment">
            <input type="submit"name="" value="Edit">
 
          </form>
          <?php
          $sql4 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res2Temp'";
-         echo $sql4;
+         //echo $sql4;
          $stmt4 = $dbh->prepare($sql4);
          $stmt4->execute();
          $result4 = $stmt4->fetchAll();

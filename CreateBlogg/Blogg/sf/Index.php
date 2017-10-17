@@ -3,7 +3,18 @@ session_start();
 require('Helpers/db.php');
 $bloggID = $_GET['bloggID'];
 $userID = $_SESSION['userID'];
-
+if (!empty($_POST['reportedPostID'])) {
+    $reportedPostID = $_POST['reportedPostID'];
+}
+else{
+  $reportedPostID = "*";
+}
+if (!empty($_POST['reportedCommentID'])) {
+  $reportedCommentID = $_POST['reportedCommentID'];
+}
+else{
+  $reportedCommentID = "*";
+}
 $sql7 = "SELECT * FROM permission where UserID='$userID'";
 //echo $sql;
 $stmt7 = $dbh->prepare($sql7);
@@ -66,9 +77,9 @@ $result2 = $stmt2->fetchAll();
          <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?><button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
            <form action="Edit_Message.php" method="post">
 
-             <input type="text" name="editUserID" value="<?php echo $userID;?>">
-             <input type="text" name="editPostID" value="<?php echo $res2Temp;?>">
-             <input type="text" name="editTextBefore" value="<?php echo $res2->Message;?>">
+             <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
+             <input type="text" name="editPostID" value="<?php echo $res2Temp;?>" hidden>
+             <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>" hidden>
              <input type="text" name="editTextAfter" value="">
              <input type="submit"name="" value="Edit">
 

@@ -2,8 +2,17 @@
 session_start();
 require('Helpers/db.php');
 $bloggID = $_GET['bloggID'];
-if (!empty($_SESSION['userID'])) {
-  $userID = $_SESSION['userID'];
+if (!empty($_POST['reportedPostID'])) {
+    $reportedPostID = $_POST['reportedPostID'];
+}
+else{
+  $reportedPostID = "*";
+}
+if (!empty($_POST['reportedCommentID'])) {
+  $reportedCommentID = $_POST['reportedCommentID'];
+}
+else{
+  $reportedCommentID = "*";
 }
 
 $sql = "SELECT * FROM blogg where UserID='$bloggID'";
