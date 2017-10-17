@@ -137,8 +137,8 @@ else if(empty($_SESSION['Login'])){
             Text Size    [Post]: <input type="number" name="TFPS" placeholder="Normal is 10px"><br>
             Text Size [Comment]:  <input type="number" name="TFCS" placeholder="Normal is 9px"><br><br>
             Text Color [Header]: <input type="color" name="TCH" id="HeaderColor"><br>
-            Text Color   [Post]: <input type="color" name="TCP" id="HeaderColor"><br>
-            Text Color [Comment]: <input type="color" name="TCC" id="HeaderColor"><br>
+            Text Color   [Comment]: <input type="color" name="TCP" id="HeaderColor"><br>
+            Text Color [Post]: <input type="color" name="TCC" id="HeaderColor"><br>
             <br>
             Text Font:
             <input type="text" name="userID" value="<?php echo $userID;?>" placeholder="<?php echo $result[0]->ID;?>"hidden>

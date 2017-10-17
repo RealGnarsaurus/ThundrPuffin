@@ -1,21 +1,60 @@
 <?php
 session_start();
-function getLineWithString($fileName,$Row,$AlteredValue) {
-$line_i_am_looking_for = $Row;
-$lines = file( $fileName , FILE_IGNORE_NEW_LINES );
-$lines[$line_i_am_looking_for] = 'background-color:'. $AlteredValue . ";";
-file_put_contents( $fileName , implode( "\n", $lines ) );
-}
+function getLineWithString($fileName,$Row,$AlteredValue,$alterText) {
+  $line_i_am_looking_for = $Row;
+  $lines = file( $fileName , FILE_IGNORE_NEW_LINES );
+
+  $lines[$line_i_am_looking_for] = "  ".$alterText . $AlteredValue . ";";
+  file_put_contents( $fileName , implode( "\n", $lines ) );
+};
 require('Blogg/sf/Helpers/db.php');
 $userID = $_SESSION['userID'];
 if ($_POST['choice'] == "updateBlogg") {
   $extension = "jpg";
   $target_dir = "Blogg/$userID/Texture/";
   //Replaces Background img;
-  if (!empty($_POST['BBC'])) {
-      echo $_POST['BBC'];
-      getLineWithString("Blogg/$userID/style.css","5",$_POST['BBC']);
+  //Replaces background color
 
+  if (!empty($_POST['BBC'])) {  //Body background color
+      echo $_POST['BBC'] . " || ";
+      getLineWithString("Blogg/$userID/style.css","1",$_POST['BBC'],'background-color:');
+    }
+    if (!empty($_POST['IPBC'])) { //Input Post Background Color - newpost
+      echo $_POST['IPBC'] . " || ";
+      getLineWithString("Blogg/$userID/style.css","17",$_POST['IPBC'],'background-color:');
+    }
+    if (!empty($_POST['PBC'])) { //Post Background Color
+      echo $_POST['PBC'] . " || ";
+      getLineWithString("Blogg/$userID/style.css","46",$_POST['PBC'],'background-color:');
+    }
+    // if (!empty(!empty($_POST['ICBC']))) { //Input Comment Background Color
+    //   getLineWithString("Blogg/$userID/style.css","5",$_POST['ICBC']);
+    // }
+    // if (!empty(!empty($_POST['CBC']))) {//Comment Background color
+    //   getLineWithString("Blogg/$userID/style.css","5",$_POST['CBC']);
+    // }
+    //Replaces text size
+    if (!empty($_POST['TFHS'])) {//Text Size Header
+      echo $_POST['THFS'] . " || ";
+      getLineWithString("Blogg/$userID/style.css","35",$_POST['TFHS'],'font-size:');
+    }
+    if (!empty($_POST['TFPS'])) {//Text size post
+      getLineWithString("Blogg/$userID/style.css","47",$_POST['TFPS'],'font-size:');
+    }
+    if (!empty($_POST['TFCS'])) { //text size comment
+      getLineWithString("Blogg/$userID/style.css","57",$_POST['TFCS'],'font-size:');
+      getLineWithString("Blogg/$userID/style.css","67",$_POST['TFCS'],'font-size:');
+    }
+    //Replaces text color
+    if (!empty($_POST['TCH'])) { //text color header
+      getLineWithString("Blogg/$userID/style.css","34",$_POST['TCH'],'color:');
+    }
+    if (!empty($_POST['TCP'])) { //text color post
+      getLineWithString("Blogg/$userID/style.css","58",$_POST['TCP'],'color:');
+        getLineWithString("Blogg/$userID/style.css","68",$_POST['TCP'],'color:');
+    }
+    if (!empty($_POST['TCC'])) { //text color comment
+      getLineWithString("Blogg/$userID/style.css","48",$_POST['TCC'],'color:');
     }
   if (!empty(basename($_FILES["BG"]["name"]))) {
 

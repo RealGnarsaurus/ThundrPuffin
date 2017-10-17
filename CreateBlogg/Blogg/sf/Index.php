@@ -42,7 +42,7 @@ $result2 = $stmt2->fetchAll();
    <br>
    <div id="container">
      <div id="header">
-     <h1><?php echo $result[0]->Name;?></h1>
+       <h1><?php echo $result[0]->Name;?></h1>
    </div>
    <div id="newPost">
     <form action="Helpers/newPost.php" method="post">
