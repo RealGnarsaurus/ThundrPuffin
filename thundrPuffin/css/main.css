@@ -37,21 +37,26 @@ p {
     font-family: 'HeeboLight';
     font-size: 20px;
 }
+
+/* **** NORMAL NAVBAR-STYLING **** */
+
 #navbarBg {
     background-color: #eb2424;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
+    height: 100%;
 }
 #navbarBg a {
     color: #dddddd;
     font-family: 'HeeboLight';
     font-size: 18px;
 }
-#navbarBg .active a {
-    color: #535353;
-}
 .navbar-header {
     width: 25%;
+}
+.navbar-header img {
+    display: block;
+    position: absolute;
+    margin-top: 0.2%;
 }
 #brand {
     width: 100%;
@@ -66,8 +71,38 @@ p {
     margin: 0;
     padding: 0;
     border: none;
+    height: 50px;
 }
 .nav li:hover {
-    background-color: #eee;
+    background-color: #535353;
     color: #535353;
+}
+.nav li a:hover {
+    color: #535353;
+}
+.active>a {
+    background-color: #535353 !important;
+}
+/* ***** */
+/* **** SMALL NAVBAR STYLING **** */
+/* .navbarSmall {
+    height: 30px !important;
+    min-height: 0;
+}
+#brandSmall {
+    height: 100%;
+}
+#navbarSmallBg {
+    background-color: #535353;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 100%;
+    min-height: 0;
+} */
+.material-icons {
+    float: left;
+    margin-right: 12%;
+}
+.menuIcons {
+    margin-right: 0 !important;
+    padding-right: 2%;
 }
