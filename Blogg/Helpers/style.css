@@ -1,5 +1,11 @@
 body{
+<<<<<<< HEAD
+  background-image: url('');
+  background: cover;
+  background-color: red;
+=======
 
+>>>>>>> 88d7a64d094eaed7816b99dbcc6df2bbb582089a
 }
 div#preview{
   width: 900px;

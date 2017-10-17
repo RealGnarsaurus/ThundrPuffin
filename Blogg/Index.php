@@ -9,10 +9,17 @@ $result = $stmt->fetchAll();
 ?>
  <!DOCTYPE html>
  <html>
+<<<<<<< HEAD
+ <body style="background-image: url('Helpers/gif.gif');background-size: cover;background-repeat: no-repeat;">
+   <a href="Registrera.php">reg</a>
+   <a href="Login.php">login</a>
+   <a href="CreateBlogg/ManageBlogg.php">manage</a>
+=======
  <body>
    <a href="Registrera.php">reg</a>
    <a href="Login.php">login</a>
    <a href="ManageBlogg.php">manage</a>
+>>>>>>> 88d7a64d094eaed7816b99dbcc6df2bbb582089a
    <div id="">
 
      <tr>

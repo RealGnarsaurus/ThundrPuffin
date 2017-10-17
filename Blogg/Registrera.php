@@ -46,6 +46,8 @@ session_start();
     </script>
     <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
     <br>
+    Accept Eula To Sign Up<button ></button><input type="checkbox" name="EULA" value="Agreed" required="required">
+    <br>
     <input type="submit" value="Sign Up">
   </form>
 
