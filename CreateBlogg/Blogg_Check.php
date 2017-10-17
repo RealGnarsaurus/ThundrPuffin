@@ -288,6 +288,11 @@ if ($_POST['choice'] == "addBlogg") {
       file_put_contents('Blogg/'.$userID.'/Helpers/Edit.js', $csEdit);
       file_put_contents('Blogg/'.$userID.'/Helpers/IP.js', $csIP);
       file_put_contents('Blogg/'.$userID.'/Helpers/newPost.php', $csNewPost);
+
+      $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Message`, `Comment`, `Edit`, `Del`) VALUES ('$bloggID','$userID','1','1','1','1')";
+      //echo $sql;
+      $stmt8 = $dbh->prepare($sql8);
+      $stmt8->execute();
     }
   }
 }

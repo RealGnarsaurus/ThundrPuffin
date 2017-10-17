@@ -3,6 +3,19 @@ session_start();
 require('Helpers/db.php');
 $bloggID = $_GET['bloggID'];
 $userID = $_SESSION['userID'];
+
+$sql7 = "SELECT * FROM permission where UserID='$userID'";
+//echo $sql;
+$stmt7 = $dbh->prepare($sql7);
+$stmt7->execute();
+$result7 = $stmt7->fetchAll();
+if (!empty($result7)) {
+  $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Message`, `Comment`, `Edit`, `Del`) VALUES ('$bloggID','$userID','0','1','0','0')";
+  //echo $sql;
+  $stmt8 = $dbh->prepare($sql8);
+  $stmt8->execute();
+  $result8 = $stmt8->fetchAll();
+}
 $sql = "SELECT * FROM blogg where UserID='$userID'";
 //echo $sql;
 $stmt = $dbh->prepare($sql);

@@ -1,8 +1,28 @@
 <?php
 session_start();
 require('Helpers/db.php');
+if (!empty($_POST['reportedPostID'])) {
+    $reportedPostID = $_POST['reportedPostID'];
+}
+if (!empty($_POST['reportedCommentID'])) {
+  $reportedCommentID = $_POST['reportedCommentID'];
+}
+
 $bloggID = $_GET['bloggID'];
 $userID = $_SESSION['userID'];
+$sql7 = "SELECT * FROM permission where UserID='$userID'";
+//echo $sql;
+$stmt7 = $dbh->prepare($sql7);
+$stmt7->execute();
+$result7 = $stmt7->fetchAll();
+if (!empty($result7)) {
+  $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Message`, `Comment`, `Edit`, `Del`) VALUES ('$bloggID','$userID','0','1','0','0')";
+  //echo $sql;
+  $stmt8 = $dbh->prepare($sql8);
+  $stmt8->execute();
+  $result8 = $stmt8->fetchAll();
+}
+
 $sql = "SELECT * FROM blogg where UserID='$userID'";
 //echo $sql;
 $stmt = $dbh->prepare($sql);
@@ -49,10 +69,20 @@ $result2 = $stmt2->fetchAll();
        $res2Temp = $res2->ID;
        ?>
        <div id="post">
+         <?php
+         if ($res2->ID == $reportedPostID){
+           ?>
+           <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?><button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
+            <?php
+          }
+            else{?>
+              <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?><button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
 
 
-         <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?><button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
-           <form action="../../Edit_Message.php" method="post">
+              <?php
+            }
+            ?>
+           <form  action="../../Edit_Message.php" method="post">
 
              <input type="text" name="editUserID" value="<?php echo $userID;?>">
              <input type="text" name="editPostID" value="<?php echo $res2Temp;?>">
@@ -65,7 +95,7 @@ $result2 = $stmt2->fetchAll();
            </form>
            <?php
            $sql5 = "SELECT * FROM report where UserID='$userID' AND PostID='$res2Temp' AND CommentID = '0'";
-           echo $sql5;
+           //echo $sql5;
            $stmt5 = $dbh->prepare($sql5);
            $stmt5->execute();
            $result5 = $stmt5->fetchAll();
@@ -131,7 +161,19 @@ $result2 = $stmt2->fetchAll();
          ?>
 
          <div id="comment">
-          <h3><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
+           <?php
+            if ($reportedCommentID == $res3->ID) {
+                ?>
+                <h3 style="background-color:red;"><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
+                <?php
+            }
+            else{
+              ?>
+              <h3><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
+              <?php
+            }
+            ?>
+
          </div>
          <form action="../../Edit_Message.php" method="post">
 
