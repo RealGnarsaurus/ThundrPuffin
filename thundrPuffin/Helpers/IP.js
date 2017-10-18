@@ -25,7 +25,8 @@ function GetLocalIp(){
           var displayAddrs = Object.keys(addrs).filter(function (k) { return addrs[k]; });
           LgIpDynAdd = displayAddrs.join(" or perhaps ") || "n/a";
           //alert("IP:"+ LgIpDynAdd);
-          document.getElementById("Local").textContent="Local: " + newAddr;
+          //alert(displayAddrs[0]);
+          document.getElementById("Local").value = displayAddrs[0];
       }
 
       function grepSDP(sdp) {
@@ -48,5 +49,5 @@ function GetLocalIp(){
   })();} catch (ex) { }
 }
 function getIP(json) {
-  document.getElementById("Public").textContent= json.ip;
+  document.getElementById("Public").value = json.ip;
 }
