@@ -11,22 +11,6 @@
 	<link rel="stylesheet" type="text/css" href="css/editProfileStyle.css">
 	</head>
 	<body>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid" id="navbarBg">
-			<div class="navbar-header">
-				<a class="navbar-brand" id="brand" href="#">ThundrPuffin</a>
-			</div>
-			<ul class="nav navbar-nav">
-				<li><a href="welcome.php">Home</a></li>
-				<li><a href="#">Browse blogs</a></li>
-				<li><a href="#">Features</a></li>
-				<li><a href="#">About</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right" id="logOut">
-				<li><a href="logout.php">Logout</a></li>
-			</ul>
-		</div>
-	</nav>
 	<div class="container">
 		<div id="content">
 			<form>
