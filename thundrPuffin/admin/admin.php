@@ -18,21 +18,21 @@
 	</head>
 	<body>
 		<div id="adminSideNav" class="sidenav">
-			<h2>Admin options</h2>
-			<br/>
-			<div class="row">
-				<button type="button" class="btn" id="manageUser" onClick="loadDoc()"><span class="material-icons">assignment_ind </span> Manage Users</button>
-			</div>
-			<div class="row">
-				<button type="button" class="btn" id="customizeBlog" onClick="blogSettings()"><span class="material-icons">settings </span> Customize blog</button>
-			</div>
-			<div class="row">
-				<button type="button" class="btn" id="flagReports" onClick="showFlagReports()"><span class="material-icons">feedback</span>Flag reports</button>
-			</div>
-			<br/>
-			<!-- <div class="row">
-				<button type="button" class="btn"><span class="material-icons">desktop_windows </span> Preview blog</button>
-			</div> -->
+			<ul id="adminList">
+				<li class="adminLiItem">
+					<a href="#" class="adminLiItemA" id="manageUser" onClick="loadDoc()"><span class="material-icons">assignment_ind </span> Manage Users</a>
+				</li>
+				<li class="adminLiItem">
+					<a href="#" class="adminLiItemA" id="customizeBlog" onClick="blogSettings()"><span class="material-icons">settings </span> Customize blog</a>
+				</li>
+				<li class="adminLiItem">
+					<a href="#" class="adminLiItemA" id="flagReports" onClick="showFlagReports()"><span class="material-icons">feedback</span>Flag reports</a>
+				</li>
+				<br/>
+				<li class="adminLiItem">
+					<a href="#" class="adminLiItemA" onClick="window.location.href='../CreateBlogg/Blogg/<?PHP echo $_SESSION["userID"];?>/index.php?bloggID=<?PHP echo $_SESSION["userID"];?>'"><span class="material-icons">desktop_windows </span> Go to blog</button>
+				</li>
+			</ul>
 		</div>
 		<div id="main">
 			<nav class="navbar navbar-default">

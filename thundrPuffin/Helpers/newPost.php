@@ -13,7 +13,7 @@ if ($choice == "post") {
   echo $sql;
   $stmt= $dbh->prepare($sql);
   $stmt->execute();
-  header("location:../Index.php?ID=$bloggID");
+  header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
 }
 if ($choice == "comment") {
   $postID = $_POST['postID'];
@@ -22,7 +22,7 @@ if ($choice == "comment") {
   echo $sql;
   $stmt= $dbh->prepare($sql);
   $stmt->execute();
-  header("location:../Index.php?ID=$bloggID");
+  header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
 }
 
  ?>

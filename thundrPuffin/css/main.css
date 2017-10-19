@@ -100,9 +100,13 @@ p {
 } */
 .material-icons {
     float: left;
-    margin-right: 12%;
+    margin-right: 6%;
 }
 .menuIcons {
     margin-right: 0 !important;
     padding-right: 2%;
 }
+
+
+/* *** STANDARD BLOG THEME *** */
+

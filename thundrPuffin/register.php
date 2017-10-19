@@ -98,6 +98,15 @@ session_start();
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
+								Accept Eula To Sign Up<input type="checkbox" name="EULA" value="Agreed" required="required">
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
 								<button type="submit" class="btn btn-default" value="Sign Up">Register</button>
 								<a class="btn btn-default" href="login.php">Already registered?</a>
 							</div>

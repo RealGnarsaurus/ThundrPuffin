@@ -10,13 +10,14 @@ body
 	width: 100%;
 	/* /* overflow-y: hidden; */
 	overflow-x: hidden;
-	background-color: #535353;
+	background-color: #dddddd;
 }
 
 .container {
-	background-color: #535353;
+	/* background-color: #535353; */
 	color: #dddddd;
 	width:84vw;
+	height: 94.7vh;
 }
 .sidenav {
 	position: fixed;
@@ -26,40 +27,54 @@ body
 	margin-top:5%;
 }
 #main {
-	margin-left: 16vw;
+	margin-left: 9vw;
 }
 #adminSideNav
 {
 	float: left;
-	width: 16vw;
+	width: 9vw;
 	height: 100vh;
     /* max-height: 897px; */
-	min-height: 560px;
+	/* min-height: 560px; */
 	display: fixed;
-	background-color: #eee;
+	background-color: #232323;
 	overflow-y: hidden;
 	overflow-x: hidden;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);	
 }
 
-#adminSideNav h2
+/* #adminSideNav h2
 {
 	color: #535353;
-	/* margin-left: 5%; */
+	margin-left: 5%;
 	width: 100%;
 	text-align: center;
-}
+} */
 
 #adminSideNav .row
 {
 	margin-top: 5%;
 	margin-left: 5%;
 }
-#adminSideNav .btn {
-	width: 88%;
-	background-color: #eb2424;
+#adminList {
+	height: 50%;
+}
+#adminList .adminLiItem {
+	width: 100%;
+	/* background-color: #eb2424; */
 	color: #ddd;
 	font-family: 'HeeboLight';
 	font-size: 17px;
 	text-align: left;
+	height: 10%;
+}
+#adminList .adminLiItem:hover {
+	background-color: #ddd;
+	color: #535353;
+}
+.adminLiItem .adminLiItemA {
+	color: #ddd;
+}
+.adminLiItem:hover .adminLiItemA {
+	color: #535353;
 }

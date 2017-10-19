@@ -17,7 +17,7 @@ function blogSettings() {
             this.responseText;
         }
     };
-    xhttp.open("GET", "../CreateBlogg/ManageBlogg.php", true);
+    xhttp.open("GET", "../ManageBlogg.php", true);
     xhttp.send();
     document.getElementById("content").style.height = "auto";
 }

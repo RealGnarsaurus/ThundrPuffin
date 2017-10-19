@@ -36,16 +36,17 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <?PHP
-                        $userID = $_SESSION['userID'];
-                        $sql = "SELECT Username from userinfo WHERE ID = $userID";
-                        $getName = $dbh->prepare($sql);
-                        $getName->execute();
-                        $getNameResult = $getName->fetchAll();
-                        if(empty($_SESSION['userID'])) {
-                            echo '<li><a href="login.php">Login</a></li>';
-                        } else {
+                        if(!empty($_SESSION['userID'])) {
+                            $userID = $_SESSION['userID'];
+                            $sql = "SELECT Username from userinfo WHERE ID = $userID";
+                            $getName = $dbh->prepare($sql);
+                            $getName->execute();
+                            $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                            echo '<li><a href="welcome.php">Logout</a></li>';
+                            echo '<li><a href="Helpers/logOut.php">Logout</a></li>';
+                        }
+                        else{
+                            echo '<li><a href="login.php">Login</a></li>';
                         }
                     ?>
                     
