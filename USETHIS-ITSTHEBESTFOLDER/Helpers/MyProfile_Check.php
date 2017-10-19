@@ -2,12 +2,13 @@
 require('db.php');
 session_start();
 if (!empty($_POST['CurrentPassword'])) {
-  $userID = $_POST['userID'];
-  $password = $_POST['CurrentPassword'];
+  $userID = filter_input(INPUT_POST, 'userID', FILTER_SANITIZE_STRING);
+  $password = filter_input(INPUT_POST, 'CurrentPassword', FILTER_SANITIZE_STRING);
   echo $userID;
-  $sql = "SELECT * FROM userinfo where ID = '$userID'";
+  $sql = "SELECT * FROM userinfo where ID = :userID";
   echo $sql;
   $stmt = $dbh->prepare($sql);
+  $stmt->bindParam(':userID', $userID, PDO::PARAM_INT); //mby works
   $stmt->execute();
   $result = $stmt->fetchAll();
   if (!empty($result)) { //IF Database Contains Username -> check password
@@ -22,9 +23,11 @@ if (!empty($_POST['CurrentPassword'])) {
         if ($Password == $Password2) {
           $newPassword = $Password;
           $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-          $sql2 = "UPDATE `userinfo` SET `Password`= '$newPassword' WHERE ID = '$userID'";
+          $sql2 = "UPDATE `userinfo` SET `Password`= :newPassword WHERE ID = :userID";
           echo $sql2;
           $stmt2 = $dbh->prepare($sql2);
+          $stmt2->bindParam(':userID', $userID, PDO::PARAM_INT); //mby works
+          $stmt2->bindParam(':newPassword', $newPassword); //mby works
           $stmt2->execute();
           $_SESSION['errorMsg'] = "Account Updated";
             //header("location:../MyProfile.php");
@@ -36,9 +39,11 @@ if (!empty($_POST['CurrentPassword'])) {
       }
       if (!empty($_POST['Email'])) {
         $Email = $_POST['Email'];
-        $sql2 = "UPDATE `userinfo` SET `Email`= '$Email' WHERE ID = '$userID'";
+        $sql2 = "UPDATE `userinfo` SET `Email`= :Email WHERE ID = :userID";
         echo $sql2;
         $stmt2 = $dbh->prepare($sql2);
+        $stmt2->bindParam(':userID', $userID, PDO::PARAM_INT); //mby works
+        $stmt2->bindParam(':Email', $Email); //mby works
         $stmt2->execute();
         $_SESSION['errorMsg'] = "Account Updated";
           //header("location:../MyProfile.php");
@@ -88,10 +93,6 @@ if (!empty($_POST['CurrentPassword'])) {
             if (move_uploaded_file($_FILES["Avatar"]["tmp_name"], $newfilename)) {
                 echo "The file ". basename( $_FILES["Avatar"]["name"]). " has been uploaded.";
                 $_SESSION['errorMsg'] = "Account Updated";
-                $sql2 = "UPDATE `userinfo` SET `Avatar`= '' ";
-                echo $sql2;
-                $stmt2 = $dbh->prepare($sql2);
-                $stmt2->execute();
 
             } else {
                 echo "Sorry, there was an error uploading your file.";

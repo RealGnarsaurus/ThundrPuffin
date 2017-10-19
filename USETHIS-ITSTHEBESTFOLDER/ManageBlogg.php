@@ -61,7 +61,6 @@ if (!empty($_SESSION['userID'])) { //IF logged in
   if (!empty($result)) {
     $bloggID = $result[0]->ID;
   }
-
 }
 else if(empty($_SESSION['userID'])){
   header("Location:Login.php");
@@ -97,10 +96,10 @@ else if(empty($_SESSION['userID'])){
       echo "can create";
       ?>
       <form action="Helpers/Blogg_Check.php" method="post">
-        <input type="text" value="" name="bloggName">
+        <input type="text" value="" pattern="[a-zA-Z0-9]+" name="bloggName">
         <br>
-        <input type="text" name="userID" value="<?php echo $userID;?>"hidden>
-        <input type="text" name="choice" value="addBlogg"hidden>
+        <input type="text" name="userID" pattern="[0-9]+" value="<?php echo $userID;?>"hidden>
+        <input type="text" name="choice" pattern="[a-zA-Z]+" value="addBlogg"hidden>
         <input type="submit" value="Skapa" name="">
       </form>
       <?php
@@ -112,17 +111,17 @@ else if(empty($_SESSION['userID'])){
       ?>
       <div id="AdminMenu">
           <form action="Blogg/sf/Index.php?bloggID" method="GET">
-            <input type="text" name="userID" value="<?php echo $userID;?>" placeholder="<?php echo $result[0]->ID;?>"hidden>
-            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+            <input type="text" name="userID" pattern="[0-9]+" value="<?php echo $userID;?>" placeholder="<?php echo $result[0]->ID;?>"hidden>
+            <input type="text" name="bloggID"  pattern="[0-9]+" value="<?php echo $bloggID;?>" hidden>
             <input type="submit" name="" value="Goto Blogg">
           </form>
           <form action="Helpers/Blogg_Check.php" method="post" enctype="multipart/form-data">
-            <input type="text" name="userID" value="<?php echo $userID;?>" placeholder="<?php echo $result[0]->ID;?>"hidden>
-            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+            <input type="text" name="userID"  pattern="[0-9]+" value="<?php echo $userID;?>" placeholder="<?php echo $result[0]->ID;?>"hidden>
+            <input type="text" name="bloggID" pattern="[0-9]+" value="<?php echo $bloggID;?>" hidden>
             <br>
             Name Of Blogg:
             <br>
-            <input type="text" name="bloggName" value="<?php echo $result[0]->Name;?>" onchange="preview(event,'previewName');" placeholder="">
+            <input type="text" name="bloggName" pattern="[a-zA-Z0-9]+" value="<?php echo $result[0]->Name;?>" onchange="preview(event,'previewName');" placeholder="">
             <h2>Images</h2>
             BackGround Image: <input type="file" name="BG" onchange="preview(event,'previewImg');" id="BG">
             <br>
@@ -136,7 +135,7 @@ else if(empty($_SESSION['userID'])){
             Righter Image: <input type="file" name="RighterImage" onchange="preview(event,'previewRighter');" id="RighterImage">
             <br>
             <br>
-            <input type="text" name="choice" value="updateBlogg"hidden>
+            <input type="text" name="choice" pattern="[a-zA-Z0-9]+" value="updateBlogg"hidden>
             <br>
             <br>
             <input type="submit" value="Update" name="submit">

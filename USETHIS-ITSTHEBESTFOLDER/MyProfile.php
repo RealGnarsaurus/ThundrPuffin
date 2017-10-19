@@ -38,15 +38,15 @@ foreach ($result as $res) {
      }
      ?>
      <br>
-     Email:<input type="text" name="Email" placeholder="<?php echo $res->Email;?>">
+     Email:<input type="email" name="Email" placeholder="<?php echo $res->Email;?>">
      <br>
-     Password:<input type="password" name="Password" placeholder="">
+     Password:<input type="password" pattern="[a-zA-Z0-9]+"  name="Password" placeholder="">
      <br>
-     Repeat Password:<input type="password" name="Password2" placeholder="">
+     Repeat Password:<input type="password" pattern="[a-zA-Z0-9]+" name="Password2" placeholder="">
      <br>
-     Confirme With Current Password<input type="password" name="CurrentPassword" placeholder="">
+     Confirme With Current Password<input type="password" pattern="[a-zA-Z0-9]+" name="CurrentPassword" placeholder="">
      <br>
-     <input type="password" name="userID" value="<?php echo $userID;?>" placeholder="" hidden>
+     <input type="password" name="userID" pattern="[0-9]+" value="<?php echo $userID;?>" placeholder="" hidden>
      <button onclick="myFunction()">Update</button>
     <script>
     function myFunction() {
