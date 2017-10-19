@@ -1,25 +1,27 @@
 <?php
 require('db.php');
 session_start();
-$username = $_POST['username'];
-$password = $_POST['password'];
-$password2 = $_POST['password2'];
-$email = $_POST['email'];
+$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+$password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_STRING);
+$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 echo $password . "||" . $password2;
 //$password = password_hash($password, PASSWORD_DEFAULT);
-$localIP = $_POST['localIP'];
-$publicIP = $_POST['publicIP'];
+$localIP = filter_input(INPUT_POST, 'localIP', FILTER_VALIDATE_IP);
+$publicIP = filter_input(INPUT_POST, 'publicIP', FILTER_VALIDATE_IP);
 echo "Local:" . $localIP . " || publicIP:" . $publicIP;
 
 
-$sql = "SELECT * FROM userinfo where Username = '$username'";
+$sql = "SELECT * FROM userinfo where Username = ':username'";
 $stmt = $dbh->prepare($sql);
+$stmt->bindParam(':username', $username, PDO::PARAM_INT|PDO::PARAM_STR); //mby works
 $stmt->execute();
 $result = $stmt->fetchAll();
 
 if (empty($result)) { //IF Database Contains Username/Email -> check password
-  $sql2 = "SELECT * FROM userinfo where Email = '$email'";
+  $sql2 = "SELECT * FROM userinfo where Email = ':email'";
   $stmt2 = $dbh->prepare($sql2);
+  $stmt2->bindParam(':email', $email); //mby works
   $stmt2->execute();
   $result2 = $stmt2->fetchAll();
   if (empty($result2)) {

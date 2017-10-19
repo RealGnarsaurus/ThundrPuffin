@@ -16,14 +16,14 @@ session_start();
   ?>
 
  <body>
-  <form action="Helpers/Login_Check.php" method="post">
+  <form action="Helpers/Login_Check.php" autocomplete="off" method="post">
     Username:
     <br>
-    <input type="text" name="loginCred" value="">
+    <input type="text" name="loginCred"  value="">
     <br>
     Password:
     <br>
-    <input type="text" name="password" value="">
+    <input type="password" name="password" autocomplete="off" value="">
     <br>
     <input type="submit" value="Login">
   </form>

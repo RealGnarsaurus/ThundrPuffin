@@ -20,24 +20,23 @@ session_start();
   <form action="Helpers/Reg_Check.php" method="post">
     Username:
     <br>
-    <input type="text" name="username" value="">
+    <input type="text" name="username"  minlength="5" value="" required>
     <br>
     Password:
     <br>
-    <input type="text" name="password" value="">
+    <input type="password" name="password" minlength="8" value="" required>
     <br>
     Repeat Password:
     <br>
-    <input type="text" name="password2" value="">
+    <input type="password" name="password2" minlength="8" value="" required>
     <br>
     Email:
     <br>
-    <input type="text" name="email" value="">
+    <input type="email" name="email" value="" required>
     <br>
-    <input id="Public" type="text" name="localIP" value="" hidden>
+    <input id="Public" type="text" name="localIP" value="" >
     <br>
-    <input id="Local" type="text" name="publicIP" value="" hidden >
-
+    <input id="Local" type="text" name="publicIP" value="" >
     <script type="application/javascript">
       function getIP(json) {
         document.getElementById("Public").value=json.ip; //
