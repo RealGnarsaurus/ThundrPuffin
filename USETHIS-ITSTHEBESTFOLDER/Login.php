@@ -17,7 +17,7 @@ session_start();
 
  <body>
   <form action="Helpers/Login_Check.php" method="post">
-    Username/Email:
+    Username:
     <br>
     <input type="text" name="loginCred" value="">
     <br>
