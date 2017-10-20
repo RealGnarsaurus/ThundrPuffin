@@ -1,3 +1,8 @@
+<?PHP 
+    session_start();
+    require('Helpers/db.php'); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,7 +10,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -19,7 +24,8 @@
         </div>
         <nav class="navbar navbar-default">
             <div class="container-fluid" id="navbarBg">
-                <div class="navbar-header">
+                <div class="navbar-header">  
+                    <img src="img/tPLogonav-logga.png"/>
                     <a class="navbar-brand" id="brand" href="#">thundrPuffin</a>
                 </div>
                 <ul class="nav navbar-nav">
@@ -29,7 +35,21 @@
                     <li><a href="#">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.php">Login</a></li>
+                    <?PHP
+                        if(!empty($_SESSION['userID'])) {
+                            $userID = $_SESSION['userID'];
+                            $sql = "SELECT Username from userinfo WHERE ID = $userID";
+                            $getName = $dbh->prepare($sql);
+                            $getName->execute();
+                            $getNameResult = $getName->fetchAll();
+                            echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
+                            echo '<li><a href="Helpers/logOut.php">Logout</a></li>';
+                        }
+                        else{
+                            echo '<li><a href="login.php">Login</a></li>';
+                        }
+                    ?>
+                    
                 </ul>
             </div>
         </nav>

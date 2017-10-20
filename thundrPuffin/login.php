@@ -1,7 +1,6 @@
 <?php
-session_start();
-
-  require('Helpers/db.php');
+	session_start();
+  	require('Helpers/db.php');
   //$password = password_hash($password, PASSWORD_DEFAULT);
  ?>
 
@@ -9,6 +8,7 @@ session_start();
 <html>
 	<?php
 		if (!empty($_SESSION['errorMsg'])) {
+			
 			?>
 			<h2><?php echo $_SESSION['errorMsg'];?></h2>
 			<?php
@@ -23,19 +23,19 @@ session_start();
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/loginStyle.css">
+		<link rel="stylesheet" type="text/css" href="css/registerStyle.css">
 	</head>
 	<body>	
 		<nav class="navbar navbar-default">
-			<div class="container-fluid">
+			<div class="container-fluid" id="navbarBg">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">ThundrPuffin</a>
+					<a class="navbar-brand" id="brand" href="#">ThundrPuffin</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">Page 1</a></li>
-					<li><a href="#">Page 2</a></li>
-					<li><a href="#">Page 3</a></li>
+					<li><a href="welcome.php">Home</a></li>
+					<li><a href="#">Browse blogs</a></li>
+					<li><a href="#">Features</a></li>
+					<li><a href="#">About</a></li>
 				</ul>
 			</div>
 		</nav>		
@@ -69,27 +69,14 @@ session_start();
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
 								<button type="submit" class="btn btn-default" value="Login">Login</button>
+								<a class="btn btn-default" href="register.php">No account?</a>	
+								<a class="btn btn-default" href="forgottenPsw.php">Forgot password?</a>	
 							</div>
 							<div class="col-md-4"></div>
 						</div>
-					</div>
-													
-				</form>			
-				<div id="register">					
-					<div id="dontHaveAccount">					
-						<a href="register.php">Dont have an account yet?</a>						
-					</div>				
-				</div>				
-				<div id="forgotPsw">					
-					<div id="forgottenPsw">					
-						<a href="forgottenPsw.php">Forgot password?</a>						
-					</div>				
-				</div>				
+					</div>							
+				</form>							
 			</div>		
-		</div>
-
-		<div class="footer">		
-			<div class="panel-footer panel-danger">Footer</div>			
 		</div>
 	</body>
 </html>

@@ -18,24 +18,26 @@ session_start();
 	?>
 	<head>	
 		<title>thundrPuffin</title>	
-		<link rel="stylesheet" type="text/css" href="registerStyle.css">	
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/registerStyle.css">	
 	</head>
 	<body onload="GetLocalIp(); ">	
 		<nav class="navbar navbar-default">
-			<div class="container-fluid">
+			<div class="container-fluid" id="navbarBg">
 				<div class="navbar-header">
-				<a class="navbar-brand" href="#">ThundrPuffin</a>
+					<img src="img/tPLogonav-logga.png"/>
+					<a class="navbar-brand" id="brand" href="#">ThundrPuffin</a>
 				</div>
 				<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Page 1</a></li>
-				<li><a href="#">Page 2</a></li>
-				<li><a href="#">Page 3</a></li>
+					<li><a href="welcome.php">Home</a></li>
+					<li><a href="#">Browse blogs</a></li>
+					<li><a href="#">Features</a></li>
+					<li><a href="#">About</a></li>
 				</ul>
 			</div>
 		</nav>		
@@ -96,21 +98,23 @@ session_start();
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
+								Accept Eula To Sign Up<input type="checkbox" name="EULA" value="Agreed" required="required">
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
 								<button type="submit" class="btn btn-default" value="Sign Up">Register</button>
+								<a class="btn btn-default" href="login.php">Already registered?</a>
 							</div>
 							<div class="col-md-4"></div>
 						</div>
 					</div>										
-				</form>			
-				<div id="backLogin">					
-					<div id="haveAccount">					
-						<a href="../login/login.php">Already have an account?</a>						
-					</div>				
-				</div>				
+				</form>							
 			</div>				
 		</div>		
-		<div class="footer">		
-			<div class="panel-footer panel-danger">Footer</div>			
-		</div>
 	</body>
 </html>

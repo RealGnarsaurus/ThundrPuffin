@@ -4,11 +4,6 @@
 	Padding:0;
 }
 
-#haveAccount
-{
-	margin: auto;
-	max-width:180px;
-}
 .container {
 	background-color: #535353;
     height: 100vh;
@@ -17,7 +12,17 @@
 	color: #dddddd;
 }
 
+.container textarea{
+	color: black;
+}
+
 #content
 {
-	margin-top:20%;
+	margin-top:5%;
+}
+
+#content img
+{
+	max-width: 100px;
+	max-height: 100px;
 }
