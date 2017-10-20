@@ -10,38 +10,45 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
 
+if (!empty($_SESSION['errorMsg'])) {
+    echo '<h2>'.$_SESSION['errorMsg'].'</h2>';
+    $_SESSION['errorMsg'] = "";
+}
+
 foreach ($result as $res) {
   ?>
-  <h2>Username</h2><?php
-  echo $res->Username;
-  ?>
-  <h2>Email</h2><?php
-  echo $res->Email;
-  ?>
-  <h2>Avatar</h2><?php
-  if ($res->Avatar == NULL) {
-      ?>
-      <img src="Blogg/Images/Stock.png" style="background-color:#ddd;width:100px;height:auto;">
-      <?php
-  }
-  ?>
-
   <!DOCTYPE html>
+  <script src="Helpers/preview.js"></script>
   <html>
  <body>
+   <div id="MyInfo">
    <h2>New Information</h2>
    <form id="MyForm" action="" method="post"enctype="multipart/form-data">
      Avatar:<input type="file" name="Avatar" onchange="preview(event,'previewImg');" id="BG">
+     <!--Prints Avatar-->
+     <?php
+     if (!file_exists("Blogg/Images/Avatar$userID.png")) {
+       ?>
+       <img id="previewImg" src="Blogg/Images/Stock.png" style="width:90px;">
+       <?php
+     }
+     else{
+       ?>
+       <img id="previewImg" src="Blogg/Images/Avatar<?php echo $userID;?>.png" style="width:90px;">
+       <?php
+     }
+     ?>
      <br>
-     Email:<input type="text" name="Email" placeholder="<?php echo $res->Email;?>">
+     Email:<input type="email" name="Email" placeholder="<?php echo $res->Email;?>">
      <br>
-     Password:<input type="password" name="Password" placeholder="">
+     Password:<input type="password" pattern="[a-zA-Z0-9]+"  name="Password" placeholder="">
      <br>
-     Repeat Password:<input type="password" name="Password2" placeholder="">
+     Repeat Password:<input type="password" pattern="[a-zA-Z0-9]+" name="Password2" placeholder="">
      <br>
-     Confirme With Current Password<input type="password" name="CurrentPassword" placeholder="">
+     Confirme With Current Password<input type="password" pattern="[a-zA-Z0-9]+" name="CurrentPassword" placeholder="">
      <br>
-     <input type="password" name="userID" value="<?php echo $userID;?>" placeholder="" hidden>
+     <input type="password" name="userID" pattern="[0-9]+" value="<?php echo $userID;?>" placeholder="" hidden>
+
      <button onclick="myFunction()">Update</button>
     <script>
     function myFunction() {
@@ -57,7 +64,7 @@ foreach ($result as $res) {
     </script>
 
    </form>
-
+ </div>
  </body>
   </html>
 <?php
