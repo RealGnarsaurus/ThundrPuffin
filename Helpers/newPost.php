@@ -16,7 +16,7 @@ if ($choice == "post") {
   $stmt->bindParam(':post', $post, PDO::PARAM_INT); //mby works
   $stmt->bindParam(':dates', $dates, PDO::PARAM_INT); //mby works
   $stmt->execute();
-  header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
+  //header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
 }
 if ($choice == "comment") {
   $postID = $_POST['postID'];
@@ -29,7 +29,7 @@ if ($choice == "comment") {
   $stmt->bindParam(':comment', $comment, PDO::PARAM_INT); //mby works
   $stmt->bindParam(':dates', $dates, PDO::PARAM_INT); //mby works
   $stmt->execute();
-  header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
+  //header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
 }
 
  ?>

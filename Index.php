@@ -9,11 +9,19 @@ $result = $stmt->fetchAll();
 ?>
  <!DOCTYPE html>
  <html>
+ <body style="background-image: url('Helpers/gif.gif');background-size: cover;background-repeat: no-repeat;">
+   <a href="Register.php">reg</a>
+   <a href="Login.php">login</a>
+   <a href="ManageBlogg.php">manageblogg</a>
+   <a href="ReportHistory.php">report</a>
+   <a href="MyProfile.php">myprofile</a>
+   <a href="Helpers/Logout.php">Logout</a>
+   <a href="Permission.php">permission</a>
+
  <body>
+
    <div id="">
-     <a href="Registrera.php">reg</a>
-     <a href="Login.php">login</a>
-     <a href="ManageBlogg.php">manage</a>
+
      <tr>
        <th>Name</th>
        <th>ID</th>
@@ -21,19 +29,23 @@ $result = $stmt->fetchAll();
      <br>
      <?php
         foreach ($result as $res) {?>
-          <form action="Blogg/Blogg/<?php echo $res->UserID;?>" method="post">
-            <input type="number" name="bloggID" value="" hidden>
+          <form action="Blogg/sf/index.php" method="get">
+            <input type="number" name="bloggID" value="<?php echo $res->ID;?>" hidden>
             <input type="submit" name="" value="<?php echo $res->Name;?>">
-           <tr>
-             <?php echo $res->Name;?>
-           </tr>
-           <tr>
-             <?php echo $res->UserID;?>
-           </tr>
          </form>
      <br>
      <?php
      }
+     /*
+     <a href="Blogg/<?php echo $res->ID;?>/?bloggID=<?php echo $res->ID;?>">
+      <tr>
+        <?php echo $res->Name;?>
+      </tr>
+      <tr>
+        <?php echo $res->ID;?>
+      </tr>
+    </a>
+    */
      ?>
 
    </div>
