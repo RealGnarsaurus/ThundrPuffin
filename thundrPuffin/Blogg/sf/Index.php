@@ -35,9 +35,9 @@ $sql = "SELECT * FROM blogg where ID='$bloggID'";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
-if (empty($result)) {
-  header("Location:../../Index.php");
-}
+// if (empty($result)) {
+//   header("Location:../../Index.php");
+// }
 $resTemp = $result[0]->ID;
 //echo $resTemp;
 $sql2 = "SELECT * FROM post where BloggID='$resTemp'";

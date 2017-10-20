@@ -5,7 +5,7 @@ $sql = "SELECT * FROM blogg";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
-
+header("Location: welcome.php");
 ?>
  <!DOCTYPE html>
  <html>

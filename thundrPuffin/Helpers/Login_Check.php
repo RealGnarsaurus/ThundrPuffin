@@ -27,4 +27,8 @@ else{
   $_SESSION['errorMsg'] = "Wrong Password/User";
   header("Location:../Login.php");
 }
+$sql2 = "SELECT Username FROM userinfo WHERE Username = '$loginCred' OR Email ='$loginCred'";
+$stmt2 = $dbh->prepare($sql2);
+$result2 = $stmt2->fetchAll();
+$username = $result2;
  ?>

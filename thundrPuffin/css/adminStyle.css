@@ -11,12 +11,13 @@ body
 	/* /* overflow-y: hidden; */
 	overflow-x: hidden;
 	background-color: #dddddd;
+	
 }
 
 .container {
 	/* background-color: #535353; */
-	color: #dddddd;
-	width:84vw;
+	/* color: #dddddd; */
+	width:65vw;
 	height: 94.7vh;
 }
 .sidenav {
@@ -34,6 +35,8 @@ body
 	float: left;
 	width: 9vw;
 	height: 100vh;
+    padding-top: 50px;
+    min-width: 172px;
     /* max-height: 897px; */
 	/* min-height: 560px; */
 	display: fixed;
@@ -42,7 +45,11 @@ body
 	overflow-x: hidden;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);	
 }
-
+.avatar {
+    margin-left: auto;
+    margin-right: auto;
+    
+}
 /* #adminSideNav h2
 {
 	color: #535353;
@@ -59,22 +66,43 @@ body
 #adminList {
 	height: 50%;
 }
-#adminList .adminLiItem {
-	width: 100%;
-	/* background-color: #eb2424; */
+#adminList .adminLiButton, .btn {
+	width: 100% !important;
+	background-color: #232323;
 	color: #ddd;
 	font-family: 'HeeboLight';
 	font-size: 17px;
 	text-align: left;
-	height: 10%;
+	height: 5%;
+	border-radius: 0;
 }
-#adminList .adminLiItem:hover {
+#adminList .adminLiButton:hover, .btn:hover {
 	background-color: #ddd;
-	color: #535353;
+
 }
-.adminLiItem .adminLiItemA {
-	color: #ddd;
+
+/* ******************************** */
+/* *** "manageBlogg.php"-styles *** */
+/* ******************************** */
+.formDiv {
+    font-size: 16px;
+    color: #ddd;
+    background-color: #232323;
+	/* border: 2px solid #232323; */
+	padding: 2%;
+	border-radius: 4px;
 }
-.adminLiItem:hover .adminLiItemA {
-	color: #535353;
+.formDiv h2 {
+    margin-top: 0;
+}
+.formDiv .btn {
+    background-color: #ddd;
+    color: #232323;
+	width: auto;
+    text-align: center;
+    border-radius: 4px;
+}
+.formDiv .btn:hover {
+    background-color: #eb2424;
+    color: #ddd;
 }
