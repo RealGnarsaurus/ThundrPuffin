@@ -1,6 +1,7 @@
 <?php
 require('db.php');
 
+
 $choice = filter_input(INPUT_POST, 'choice', FILTER_SANITIZE_STRING);
 $dates = Date("Y/m-d H:G:s");
 $localIP = filter_input(INPUT_POST, 'localIP', FILTER_SANITIZE_IP);
@@ -16,11 +17,13 @@ if ($choice == "post") {
   $stmt->bindParam(':post', $post, PDO::PARAM_INT); //mby works
   $stmt->bindParam(':dates', $dates, PDO::PARAM_INT); //mby works
   $stmt->execute();
-  //header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
+  header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
+
 }
 if ($choice == "comment") {
   $postID = $_POST['postID'];
   $comment = $_POST['comment'];
+
   $sql = "INSERT INTO comment(ID,PostID,IP,Message,Dates) VALUES (null,:postID,:publicIP,:comment,:dates)";
   echo $sql;
   $stmt= $dbh->prepare($sql);
@@ -29,7 +32,8 @@ if ($choice == "comment") {
   $stmt->bindParam(':comment', $comment, PDO::PARAM_INT); //mby works
   $stmt->bindParam(':dates', $dates, PDO::PARAM_INT); //mby works
   $stmt->execute();
-  //header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
+  header("location:../Blogg/sf/Index.php?bloggID=$bloggID");
+
 }
 
  ?>

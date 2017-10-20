@@ -6,6 +6,8 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
 
+header("Location: welcome.php");
+
 ?>
  <!DOCTYPE html>
  <html>
@@ -16,7 +18,9 @@ $result = $stmt->fetchAll();
    <a href="ReportHistory.php">report</a>
    <a href="MyProfile.php">myprofile</a>
    <a href="Helpers/Logout.php">Logout</a>
+
    <a href="Permission.php">permission</a>
+
 
  <body>
 

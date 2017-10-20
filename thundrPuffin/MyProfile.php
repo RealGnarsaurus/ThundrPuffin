@@ -9,6 +9,7 @@ echo $sql;
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
+
 if (!empty($_SESSION['errorMsg'])) {
     echo '<h2>'.$_SESSION['errorMsg'].'</h2>';
     $_SESSION['errorMsg'] = "";
@@ -47,6 +48,7 @@ foreach ($result as $res) {
      Confirme With Current Password<input type="password" pattern="[a-zA-Z0-9]+" name="CurrentPassword" placeholder="">
      <br>
      <input type="password" name="userID" pattern="[0-9]+" value="<?php echo $userID;?>" placeholder="" hidden>
+
      <button onclick="myFunction()">Update</button>
     <script>
     function myFunction() {
@@ -60,6 +62,7 @@ foreach ($result as $res) {
         }
     }
     </script>
+
    </form>
  </div>
  </body>

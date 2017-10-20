@@ -12,6 +12,7 @@ function getLineWithString($fileName, $str,$endPoint) {
         if (strpos($lines[$i], $str) !== false) { //Finds startpos for Words
             //echo $lines[$i];
 
+
               //echo $i . $lines[$i];
               $startRow = $i;
         }
@@ -23,12 +24,14 @@ function getLineWithString($fileName, $str,$endPoint) {
             //echo $j;
             $endRow = $j;
             $canFind = "false";
+
               //echo $j . $lines[$j];
         }
     }
     echo  " StartRow:".$startRow;
     echo  " EndRow:".$endRow;
     ?>
+
     <br>
     <br>
     <?php
@@ -42,11 +45,13 @@ function getLineWithString($fileName, $str,$endPoint) {
     }
     if (!empty($Row)) {
           $line_i_am_looking_for = $Row;
+
     }
 
     $lines = file( $fileName , FILE_IGNORE_NEW_LINES );
     //$lines[$line_i_am_looking_for] = 'background-color:Yellow;';
     //file_put_contents( $fileName , implode( "\n", $lines ) );
+
   }
 session_start();
 require('Helpers/db.php');
@@ -178,3 +183,4 @@ else if(empty($_SESSION['userID'])){
     </div>
  </body>
  </html>
+

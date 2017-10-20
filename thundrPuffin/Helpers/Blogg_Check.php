@@ -10,8 +10,10 @@ function getLineWithString($fileName,$Row,$AlteredValue,$alterText) {
 require('db.php');
 $userID = $_SESSION['userID'];
 if (!empty($_POST['bloggID'])) {
+
   echo $_POST['bloggID'];
   $bloggID = filter_input(INPUT_POST, 'bloggID', FILTER_SANITIZE_INT);
+
 }
 echo $bloggID;
 if ($_POST['choice'] == "updateBlogg") {
@@ -276,14 +278,17 @@ if ($_POST['choice'] == "addBlogg") {
     $bloggName = $_POST['bloggName'];
     $userID = $_POST['userID'];
 
+
     $sql = "SELECT * FROM blogg where UserID=:userID"; //Check if user has blogg
     echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT); //mby works
+
     $stmt->execute();
     $result = $stmt->fetchAll();
 
     if (empty($result)) {
+
       $sql2 = "INSERT INTO `blogg`(`ID`, `Name`, `UserID`) VALUES (null,:bloggName,:userID)"; //Check if user has blogg
       //echo $sql2;
       $stmt2 = $dbh->prepare($sql2);
@@ -295,6 +300,8 @@ if ($_POST['choice'] == "addBlogg") {
       echo $sql3;
       $stmt3 = $dbh->prepare($sql3);
       $stmt3->bindParam(':userID', $userID, PDO::PARAM_INT|PDO::PARAM_STR); //mby works
+
+   
       $stmt3->execute();
       $result3 = $stmt3->fetchAll();
       $bloggID = $result3[0]->ID;
@@ -321,11 +328,13 @@ if ($_POST['choice'] == "addBlogg") {
 
 
 
+
       $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Post`, `Comment`, `Edit`, `Del`) VALUES (:bloggID,:userID,'1','1','1','1')";
       echo $sql8;
       $stmt8 = $dbh->prepare($sql8);
       $stmt8->bindParam(':bloggID', $bloggID, PDO::PARAM_INT); //mby works
       $stmt8->bindParam(':userID', $userID, PDO::PARAM_INT|PDO::PARAM_STR); //mby works
+
       $stmt8->execute();
     }
   }

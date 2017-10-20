@@ -12,12 +12,14 @@ if (!empty($_POST['CurrentPassword'])) {
   $stmt->execute();
   $result = $stmt->fetchAll();
   if (!empty($result)) { //IF Database Contains Username -> check password
+
     echo  " || " . $result[0]->Password;
     if (password_verify($password, $result[0]->Password)) { //Entered pw - database pw
       $newPassword = "";
       if (!empty($_POST['Password']) && !empty($_POST['Password2'])) {
         $Password = $_POST['Password'];
         $Password2 = $_POST['Password2'];
+
         echo $Password;
         echo $Password2;
         if ($Password == $Password2) {
@@ -35,10 +37,12 @@ if (!empty($_POST['CurrentPassword'])) {
         else{
           $_SESSION['errorMsg'] = "Password Doesnt Match";
           //header("location:../MyProfile.php");
+
         }
       }
       if (!empty($_POST['Email'])) {
         $Email = $_POST['Email'];
+
         $sql2 = "UPDATE `userinfo` SET `Email`= :Email WHERE ID = :userID";
         echo $sql2;
         $stmt2 = $dbh->prepare($sql2);
@@ -104,4 +108,4 @@ if (!empty($_POST['CurrentPassword'])) {
     }
     $_SESSION['errorMsg'] = "Wrong Password";
     //header("location:../MyProfile.php");
-}
+

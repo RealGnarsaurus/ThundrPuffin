@@ -17,16 +17,18 @@ else{
 if (!empty($_SESSION['userID'])) {
   $userID = $_SESSION['userID'];
   $sql7 = "SELECT * FROM permission where UserID='$userID'";
-  //echo $sql7;
+
   $stmt7 = $dbh->prepare($sql7);
   $stmt7->execute();
   $result7 = $stmt7->fetchAll();
   if (!empty($result7)) {
+
     $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Message`, `Comment`, `Edit`, `Del`) VALUES (:bloggID,:userID,'0','1','0','0')";
     //echo $sql;
     $stmt8 = $dbh->prepare($sql8);
     $stmt8->bindParam(':bloggID', $bloggID, PDO::PARAM_INT); //mby works
     $stmt8->bindParam(':userID', $bloggID, PDO::PARAM_INT); //mby works
+
     $stmt8->execute();
     $result8 = $stmt8->fetchAll();
   }
@@ -37,6 +39,7 @@ $sql = "SELECT * FROM blogg where ID='$bloggID'";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
+
 if (empty($result)) {
   header("Location:../../Index.php");
 }
@@ -63,6 +66,7 @@ $result2 = $stmt2->fetchAll();
      <div id="header">
        <h1><?php echo $result[0]->Name;?></h1>
    </div>
+
    <?php
    if (!empty($userID) && $result7[0]->Post == 1) {
     ?>
@@ -79,6 +83,7 @@ $result2 = $stmt2->fetchAll();
         <input type="submit" name="" value="Send">
     </form>
  </div>
+
   <?php
   }
   ?>
@@ -91,6 +96,7 @@ $result2 = $stmt2->fetchAll();
          <?php
          if ($res2->ID == $reportedPostID){
            ?>
+
            <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
              <?php
              if (!empty($userID) && $result7[0]->Comment == 1) {
@@ -113,6 +119,10 @@ $result2 = $stmt2->fetchAll();
             <?php
             if (!empty($userID) && $result7[0]->Edit == 1) {
              ?>
+
+       
+            <!--Edit Post-->
+
            <form action="../../Helpers/Edit_Message.php" method="post">
              <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
              <input type="text" name="editPostID" value="<?php echo $res2Temp;?>" hidden>
@@ -123,6 +133,7 @@ $result2 = $stmt2->fetchAll();
              <input type="submit"name="" value="Edit">
 
            </form>
+
            <?php
            }
             ?>
@@ -139,6 +150,7 @@ $result2 = $stmt2->fetchAll();
 
          <!--This is for report system-->
           <!--Report Post-->
+
           <?php
           if (!empty($userID) && $result7[0]->Comment == 1) {
            ?>
@@ -165,7 +177,9 @@ $result2 = $stmt2->fetchAll();
          </form>
          <?php
        }
+
        }
+
           ?>
        </h2>
        <?php
@@ -175,10 +189,14 @@ $result2 = $stmt2->fetchAll();
          $stmt3->execute();
          $result3 = $stmt3->fetchAll();?>
 
+
            <!--make a Comment-->
            <?php
            if (!empty($userID) && $result7[0]->Edit == 1) {
             ?>
+
+           <!--Edit Post-->
+
          <form class="SB<?php echo $res2Temp?>" action="../../Helpers/newPost.php" method="post" hidden>
            <textarea class="SB<?php echo $res2Temp?>" name="comment" hidden></textarea>
            <br>
@@ -196,9 +214,11 @@ $result2 = $stmt2->fetchAll();
              <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
              <input class="SB<?php echo $res2Temp?>" type="submit" name="" value="Send" hidden>
          </form>
+
          <?php
        }
           ?>
+
       </div>
 
       <?php

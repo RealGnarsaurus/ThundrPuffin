@@ -31,6 +31,7 @@ function update(ObjectName,bloggID) {
         };
       //alert("Helpers/Blogg_Check.php?choice=updateBlogg&bloggID="+bloggID+"&"+ObjectName.name+"="+ObjectName.value);
 
+
       xmlhttp.open("POST", "Blogg_Check.php", true);
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xmlhttp.send("choice=updateBlogg&bloggID="+bloggID+"&"+ObjectName.name + "=" +ObjectName.value);
