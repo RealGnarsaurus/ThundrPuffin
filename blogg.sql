@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 05 okt 2017 kl 09:49
+-- Tid vid skapande: 20 okt 2017 kl 09:05
 -- Serverversion: 10.1.19-MariaDB
 -- PHP-version: 7.0.13
 
@@ -40,24 +40,43 @@ CREATE TABLE `blogg` (
 
 CREATE TABLE `comment` (
   `ID` int(11) NOT NULL,
+  `BloggID` int(100) NOT NULL,
   `PostID` int(11) NOT NULL,
   `IP` int(11) NOT NULL,
   `Message` varchar(256) NOT NULL,
-  `Date` date NOT NULL
+  `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Tabellstruktur `licomment`
+-- Tabellstruktur `editcomment`
 --
 
-CREATE TABLE `licomment` (
+CREATE TABLE `editcomment` (
   `ID` int(11) NOT NULL,
-  `PostID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `Message` varchar(256) NOT NULL,
-  `Date` date NOT NULL
+  `CommentID` int(11) NOT NULL,
+  `BloggID` int(11) NOT NULL,
+  `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `TextBefore` varchar(256) NOT NULL,
+  `TextNew` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur `editpost`
+--
+
+CREATE TABLE `editpost` (
+  `ID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `PostID` int(11) NOT NULL,
+  `BloggID` int(11) NOT NULL,
+  `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `TextBefore` varchar(256) NOT NULL,
+  `TextAfter` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -69,7 +88,7 @@ CREATE TABLE `licomment` (
 CREATE TABLE `permission` (
   `BloggID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `Message` int(11) NOT NULL,
+  `Post` int(11) NOT NULL,
   `Comment` int(11) NOT NULL,
   `Edit` int(11) NOT NULL,
   `Del` int(11) NOT NULL
@@ -85,7 +104,8 @@ CREATE TABLE `post` (
   `ID` int(11) NOT NULL,
   `BloggID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
-  `Post` varchar(256) NOT NULL
+  `Post` varchar(256) NOT NULL,
+  `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -101,7 +121,8 @@ CREATE TABLE `report` (
   `CommentID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `Prio` int(11) NOT NULL,
-  `Url` varchar(256) NOT NULL
+  `Url` varchar(256) NOT NULL,
+  `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -113,6 +134,7 @@ CREATE TABLE `report` (
 CREATE TABLE `userinfo` (
   `ID` int(11) NOT NULL,
   `IP` varchar(256) NOT NULL,
+  `PublicIP` varchar(256) NOT NULL,
   `Email` varchar(256) NOT NULL,
   `Password` varchar(256) NOT NULL,
   `Username` varchar(256) NOT NULL
@@ -135,10 +157,22 @@ ALTER TABLE `comment`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Index för tabell `licomment`
+-- Index för tabell `editcomment`
 --
-ALTER TABLE `licomment`
+ALTER TABLE `editcomment`
   ADD PRIMARY KEY (`ID`);
+
+--
+-- Index för tabell `editpost`
+--
+ALTER TABLE `editpost`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Index för tabell `permission`
+--
+ALTER TABLE `permission`
+  ADD PRIMARY KEY (`BloggID`);
 
 --
 -- Index för tabell `post`
@@ -173,9 +207,14 @@ ALTER TABLE `blogg`
 ALTER TABLE `comment`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT för tabell `licomment`
+-- AUTO_INCREMENT för tabell `editcomment`
 --
-ALTER TABLE `licomment`
+ALTER TABLE `editcomment`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT för tabell `editpost`
+--
+ALTER TABLE `editpost`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT för tabell `post`
