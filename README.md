@@ -1,2 +1,0 @@
-﻿# ThundrPuffin
-superblogg, bästa bloggen
