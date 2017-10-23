@@ -32,8 +32,8 @@ div#header{
   margin-top: -40px;
   background-size: 1920px 200px;
   background-repeat: no-repeat;
-  color:;
-  font-size: 25px;
+  color:#00ff00;
+  font-size:25;
 }
 div#postFeed{
   width: 80%;

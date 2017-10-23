@@ -1,9 +1,9 @@
 
 function update(ObjectName,bloggID) {
-  //alert(ObjectName.name+ObjectName.value + bloggID);
+  alert(ObjectName.name+ObjectName.value + bloggID);
   //alert(ObjectName.value);
 
-  alert(ObjectName.name);
+  //alert(ObjectName.name);
 
   insertdb(ObjectName,bloggID);
 
@@ -31,25 +31,18 @@ function update(ObjectName,bloggID) {
         };
       //alert("Helpers/Blogg_Check.php?choice=updateBlogg&bloggID="+bloggID+"&"+ObjectName.name+"="+ObjectName.value);
 
-      xmlhttp.open("POST", "Helpers/Blogg_Check.php", true);
+      xmlhttp.open("POST", "../Helpers/Blogg_Check.php", true);
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-      xmlhttp.send("choice=updateBlogg&bloggID="+7+"&"+ObjectName.name + "=" +ObjectName.value);
+      xmlhttp.send("choice=updateBlogg&bloggID="+bloggID+"&"+ObjectName.name + "=" +ObjectName.value);
 };
 }
 
-function searchUser(cred,bloggID) {
-  //alert(ObjectName.name+ObjectName.value + bloggID);
-  //alert(ObjectName.value);
-
-  //alert(ObjectName.name);
-
-  searchdb(cred,bloggID);
-
-
-  function searchdb(cred,bloggID)
+function update2(CheckBox,UserID) {
+  //alert(CheckBox.name+UserID);
+  insertdb(CheckBox.name,UserID);
+  function insertdb(CheckBox,UserID)
   {
-
     //alert(UserID);
         if (window.XMLHttpRequest)
         {
@@ -65,14 +58,15 @@ function searchUser(cred,bloggID) {
         {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
             {
-                alert(xmlhttp.responseText);
+                //alert(this.responseText);
             }
         };
-      //alert("Helpers/Blogg_Check.php?choice=updateBlogg&bloggID="+bloggID+"&"+ObjectName.name+"="+ObjectName.value);
-
-      xmlhttp.open("POST", "Helpers/search.php", true);
+        //Opens Highscore page on index
+        var param = "UserID="+UserID+"&CheckBox="+CheckBox;
+        alert(param);
+      xmlhttp.open("POST","../Helpers/permission_Check.php",true);
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmlhttp.send(param);
+  };
 
-      xmlhttp.send("bloggID="+bloggID+"&"+"cred=" + cred);
-};
 }

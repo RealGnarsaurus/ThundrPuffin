@@ -1,7 +1,6 @@
 <?php
-session_start();
-
-  require('Helpers/db.php');
+	session_start();
+  	require('Helpers/db.php');
   //$password = password_hash($password, PASSWORD_DEFAULT);
  ?>
 
@@ -9,6 +8,7 @@ session_start();
 <html>
 	<?php
 		if (!empty($_SESSION['errorMsg'])) {
+			
 			?>
 			<h2><?php echo $_SESSION['errorMsg'];?></h2>
 			<?php

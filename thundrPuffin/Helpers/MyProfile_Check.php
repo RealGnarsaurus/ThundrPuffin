@@ -22,7 +22,7 @@ if (!empty($_POST['CurrentPassword'])) {
           $sql2 = "UPDATE `userinfo` SET `Password`= '$newPassword'";
           $stmt2 = $dbh->prepare($sql2);
           $stmt2->execute();
-            header("location:../MyProfile.php");
+            header("location:../admin.php");
         }
       }
       if (!empty($_POST['Email'])) {
@@ -30,15 +30,16 @@ if (!empty($_POST['CurrentPassword'])) {
         $sql2 = "UPDATE `userinfo` SET `Email`= '$Email'";
         $stmt2 = $dbh->prepare($sql2);
         $stmt2->execute();
-          header("location:../MyProfile.php");
+          header("location:../admin.php");
       }
     }
 }
 if (!empty(basename($_FILES["Avatar"]["name"]))) {
   $target_dir = "../Blogg/Images/";
+  $extension = ".png";
   $target_file = $target_dir . basename($_FILES["Avatar"]["name"]);
   $filename=$_FILES["Avatar"]["name"];
-  $newfilename=$target_dir ."Avatar." . $extension;
+  $newfilename=$target_dir ."Avatar" . $userID . $extension;
   $uploadOk = 1;
   $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
   // Check if image file is a actual image or fake image
@@ -57,7 +58,7 @@ if (!empty(basename($_FILES["Avatar"]["name"]))) {
       $uploadOk = 1;
   }
   // Check file size
-  if ($_FILES["BG"]["size"] > 5000000) { //5gb limit
+  if ($_FILES["Avatar"]["size"] > 5000000) { //5gb limit
       echo "Sorry, your file is too large.";
       $uploadOk = 0;
   }
@@ -74,11 +75,12 @@ if (!empty(basename($_FILES["Avatar"]["name"]))) {
   }
   else{
 
-      if (move_uploaded_file($_FILES["BG"]["tmp_name"], $newfilename)) {
-          echo "The file ". basename( $_FILES["BG"]["name"]). " has been uploaded.";
+      if (move_uploaded_file($_FILES["Avatar"]["tmp_name"], $newfilename)) {
+          echo "The file ". basename( $_FILES["Avatar"]["name"]). " has been uploaded.";
       } else {
           echo "Sorry, there was an error uploading your file.";
       }
   }
 }
 }
+header("Location:../admin.php");

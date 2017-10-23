@@ -6,8 +6,8 @@
 
 .container {
 	background-color: #535353;
-    height: 120vh;
-    max-height: 950px;
+    height: 100vh;
+    max-height: 897px;
 	min-height: 560px;
 	color: #dddddd;
 }
@@ -16,7 +16,10 @@
 	color: black;
 }
 
-
+#content
+{
+	margin-top:5%;
+}
 
 #content img
 {

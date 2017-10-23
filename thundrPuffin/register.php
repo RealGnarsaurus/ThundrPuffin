@@ -16,35 +16,49 @@ session_start();
 		<?php
 	}
 	?>
-	<head>	
-		<title>thundrPuffin</title>	
+
+	<head>
+		<title>thundrPuffin</title>
+		<link rel="stylesheet" type="text/css" href="registerStyle.css">
+
+	<head>
+		<title>thundrPuffin</title>
+
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="Helpers/IP.js"></script>
+  </head>
+	<body onload="GetLocalIp(); ">
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<link rel="stylesheet" type="text/css" href="css/registerStyle.css">	
+		<link rel="stylesheet" type="text/css" href="css/registerStyle.css">
 	</head>
-	<body onload="GetLocalIp(); ">	
+	<body onload="GetLocalIp(); ">
+
 		<nav class="navbar navbar-default">
 			<div class="container-fluid" id="navbarBg">
 				<div class="navbar-header">
-				<a class="navbar-brand" id="brand" href="#">ThundrPuffin</a>
+					<img src="img/tPLogonav-logga.png"/>
+					<a class="navbar-brand" id="brand" href="#">ThundrPuffin</a>
 				</div>
 				<ul class="nav navbar-nav">
-				<li><a href="welcome.php">Home</a></li>
-				<li><a href="#">Browse blogs</a></li>
-				<li><a href="#">Features</a></li>
-				<li><a href="#">About</a></li>
+					<li><a href="welcome.php">Home</a></li>
+					<li><a href="#">Browse blogs</a></li>
+					<li><a href="#">Features</a></li>
+					<li><a href="#">About</a></li>
 				</ul>
 			</div>
-		</nav>		
-		<div class="container">		
-			<div id="content">		
-				<form action="Helpers/Reg_Check.php" method="post">				
+		</nav>
+		<div class="container">
+			<div id="content">
+				<form action="Helpers/Reg_Check.php" method="post">
 					<div class="form-group">
-						<div class="row">							
+						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-sm-4 col-md-4">
 								<label class="control-label" for="usr">Username:</label>
@@ -52,9 +66,9 @@ session_start();
 							</div>
 							<div class="col-md-4"></div>
 						</div>
-					</div>					
+					</div>
 					<div class="form-group">
-						<div class="row">							
+						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="pwd">Password:</label>
@@ -62,10 +76,10 @@ session_start();
 							</div>
 							<div class="col-md-4"></div>
 						</div>
-					</div>					
+					</div>
 					<div class="form-group">
 						<div class="row">
-							
+
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="pwd">Repeat Password:</label>
@@ -73,15 +87,15 @@ session_start();
 							</div>
 							<div class="col-md-4"></div>
 						</div>
-					</div>					
+					</div>
 					<div class="form-group">
-						<div class="row">							
+						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="email">Email address:</label>
 								<input type="email" class="form-control" id="email" name="email" value="">
-								<input id="Public" type="text" name="localIP" value="" hidden >
-								<input id="Local" type="text" name="publicIP" value="" hidden >
+								<input id="Public" type="text" name="localIP" value="" hidden>
+								<input id="Local" type="text" name="publicIP" value="" hidden>
 							</div>
 							<div class="col-md-4"></div>
 						</div>
@@ -97,14 +111,38 @@ session_start();
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
+								Accept Eula To Sign Up<input type="checkbox" name="EULA" value="Agreed" required="required">
+							</div>
+							<div class="col-md-4"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
 								<button type="submit" class="btn btn-default" value="Sign Up">Register</button>
 								<a class="btn btn-default" href="login.php">Already registered?</a>
 							</div>
 							<div class="col-md-4"></div>
 						</div>
-					</div>										
-				</form>							
-			</div>				
-		</div>		
+
+					</div>
+				</form>
+				<div id="backLogin">
+					<div id="haveAccount">
+						<a href="../login/login.php">Already have an account?</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="panel-footer panel-danger">Footer</div>
+		</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+
 	</body>
 </html>

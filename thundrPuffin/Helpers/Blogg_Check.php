@@ -324,6 +324,6 @@ if ($_POST['choice'] == "addBlogg") {
   }
 }
 $_SESSION['errorBlogMsg']  = "Blogg Added";
-//header("Location:../ManageBlogg.php");
+header("Location:../ManageBlogg.php");
 
 ?>
