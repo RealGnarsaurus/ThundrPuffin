@@ -1,11 +1,11 @@
 <?php
 session_start();
-require("../Helpers/db.php");
+require("Helpers/db.php");
 if (!empty($_SESSION['userID'])) {
   $userID = $_SESSION['userID'];
 }
 $sql = "SELECT * from userinfo WHERE ID ='$userID'";
-echo $sql;
+//echo $sql;
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
@@ -19,43 +19,38 @@ foreach ($result as $res) {
   echo $res->Email;
   ?>
   <h2>Avatar</h2><?php
-  if ($res->Avatar == NULL) {
+  //echo "../Blogg/Images/Avatar$userID.png";
+  if (!file_exists("../Blogg/Images/Avatar$userID.png")) {
+    //echo "files Exist";
       ?>
-      <img src="Blogg/Images/Stock.png" style="background-color:#ddd;width:100px;height:auto;">
+      <img id="previewImg" src="../Blogg/Images/Avatar<?php echo $userID;?>.png" style="background-color:black;width:100px;height:auto;">
       <?php
+  }
+  else{
+    ?>
+    <img id="previewImg" src="../Blogg/Images/Stock.png" style="background-color:black;width:100px;height:auto;">
+    <?php
   }
   ?>
 
   <!DOCTYPE html>
+  <script src="../Helpers/preview.js"></script>
   <html>
  <body>
    <h2>New Information</h2>
-   <form id="MyForm" action="" method="post"enctype="multipart/form-data">
+   <form id="MyForm" action="../Helpers/MyProfile_Check.php" method="post"enctype="multipart/form-data">
      Avatar:<input type="file" name="Avatar" onchange="preview(event,'previewImg');" id="BG">
      <br>
-     Email:<input type="text" name="Email" placeholder="<?php echo $res->Email;?>">
+     Email:<input type="email" name="Email" placeholder="<?php echo $res->Email;?>">
      <br>
      Password:<input type="password" name="Password" placeholder="">
      <br>
      Repeat Password:<input type="password" name="Password2" placeholder="">
      <br>
-     Confirme With Current Password<input type="password" name="CurrentPassword" placeholder="">
+     Confirme With Current Password<input type="password" name="CurrentPassword" placeholder="" required>
      <br>
      <input type="password" name="userID" value="<?php echo $userID;?>" placeholder="" hidden>
-     <button onclick="myFunction()">Update</button>
-    <script>
-    function myFunction() {
-        var choice = confirm("Update Information?");
-        if (choice == true) {
-            document.getElementById("MyForm").action="Helpers/MyProfile_Check.php";
-            document.getElementById("MyForm").submit();
-        }
-        else{
-          alert("Update Canceled");
-        }
-    }
-    </script>
-
+     <input type="submit" name="" value="Update">
    </form>
 
  </body>

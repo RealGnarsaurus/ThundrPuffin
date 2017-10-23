@@ -1,6 +1,23 @@
 <?PHP
     session_start();
     require('Helpers/db.php');
+
+    if (!empty($_SESSION['userID'])) {
+      $userID = $_SESSION['userID'];
+    }
+    
+    //Gets Blogg ID
+    $sql = "SELECT * from blogg where UserID = $userID";
+    //echo $sql;
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->FetchAll();
+		//Gets User Info
+		$sql2 = "SELECT * from blogg";
+		//echo $sql2;
+		$stmt2 = $dbh->prepare($sql2);
+		$stmt2->execute();
+		$result2 = $stmt2->FetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -29,8 +46,8 @@
                     <a class="navbar-brand" id="brand" href="#">thundrPuffin</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="BrowsBloggs.php">Browse blogs</a></li>
+                    <li><a href="welcome.php">Home</a></li>
+                    <li class="active"><a href="BrowsBloggs.php">Browse blogs</a></li>
                     <li><a href="#">Features(W)</a></li>
                     <li><a href="#">About(W)</a></li>
                 </ul>
@@ -43,7 +60,7 @@
                             $getName->execute();
                             $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                            echo '<li><a href="Helpers/Logout.php">Logout</a></li>';
+                            echo '<li><a href="../Helpers/Logout.php">Logout</a></li>';
                         }
                         else{
                             echo '<li><a href="Login.php">Login/Register</a></li>';
@@ -54,33 +71,24 @@
             </div>
         </nav>
         <div class="container" id="content">
-            <div class="row">
-                <div class="welcomeHeader">
-                    <h1>Welcome to the simple blog platform</h1>
-                    <h3>Create your blog and get started</h3>
-                </div>
-            </div>
-            <div class="row feature">
-                <div class="col-md-5 featureImg">
-                    <img src="img/featureImg1.png"/>
-                </div>
-                <div class="col-md-7 featureText">
-                    <h4>Lightweight</h4>
-                    <p>thundrPuffin offers one of the most lightweight blog platforms
-                        on the internet. Simple to use, simple to share - all the important stuff!
-                    </p>
-                </div>
-            </div>
             <div class="row feature">
                 <div class="col-md-7 featureText">
-                    <h4>Simplicity</h4>
-                    <p>As mentioned, thundrPuffin is a really simple blog platform! There
-                        is no confusing or overly complicated functions that is too hard to use
-                        or which you'll never use! Keeping it simple is king!
-                    </p>
-                </div>
-                <div class="col-md-5 featureImg">
-
+                    <?php
+                    if (!empty($result[0]->ID)) {
+                      ?>
+                      <a href="blogg/sf/Index.php?bloggID=<?php echo $result[0]->ID;?>" style="color:white;"><h4><?php echo $result[0]->Name;?> - My Profile</h4></a>
+                      <?php
+                      }
+                     ?>
+                    <br>
+                    <?php
+                      foreach ($result2 as $res2) {
+                          ?>
+                            <a href="blogg/sf/Index.php?bloggID=<?php echo $res2->ID;?>"><h4><?php echo $res2->Name;?></h4></a>
+                            <br>
+                          <?php
+                      }
+                    ?>
                 </div>
             </div>
         </div>

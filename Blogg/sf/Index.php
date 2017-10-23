@@ -2,31 +2,44 @@
 session_start();
 require('../../Helpers/db.php');
 $bloggID = $_GET['bloggID'];
-if (!empty($_POST['reportedPostID'])) {
-    $reportedPostID = $_POST['reportedPostID'];
+if (!empty($recentlyInserted)) {
+
 }
-else{
-  $reportedPostID = "*";
-}
-if (!empty($_POST['reportedCommentID'])) {
-  $reportedCommentID = $_POST['reportedCommentID'];
-}
-else{
-  $reportedCommentID = "*";
-}
-if (!empty($_SESSION['userID'])) {
-  $userID = $_SESSION['userID'];
-  $sql7 = "SELECT * FROM permission where UserID='$userID'";
-  //echo $sql;
-  $stmt7 = $dbh->prepare($sql7);
-  $stmt7->execute();
-  $result7 = $stmt7->fetchAll();
-  if (!empty($result7)) {
-    $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Message`, `Comment`, `Edit`, `Del`) VALUES ('$bloggID','$userID','0','1','0','0')";
-    //echo $sql;
-    $stmt8 = $dbh->prepare($sql8);
-    $stmt8->execute();
-    $result8 = $stmt8->fetchAll();
+  else{
+  if (!empty($_POST['reportedPostID'])) {
+      $reportedPostID = $_POST['reportedPostID'];
+  }
+  else{
+    $reportedPostID = "*";
+  }
+  if (!empty($_POST['reportedCommentID'])) {
+    $reportedCommentID = $_POST['reportedCommentID'];
+  }
+  else{
+    $reportedCommentID = "*";
+  }
+  if (empty($_GET['bloggID'])) {
+    header("Location:../../Index.php");
+  }
+  if (!empty($_SESSION['userID'])) {
+    $userID = $_SESSION['userID'];
+    $sql7 = "SELECT * FROM permission where BloggID='$bloggID' AND UserID = '$userID'";
+    //echo $sql7;
+    $stmt7 = $dbh->prepare($sql7);
+    $stmt7->execute();
+    $result7 = $stmt7->fetchAll();
+
+    if (empty($result7)) {
+      $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Post`, `Comment`, `Edit`, `Del`) VALUES (:bloggID,:userID,'0','1','0','0')";
+      echo $sql8;
+      $stmt8 = $dbh->prepare($sql8);
+      $stmt8->bindParam(':bloggID', $bloggID, PDO::PARAM_INT); //mby works
+      $stmt8->bindParam(':userID', $userID, PDO::PARAM_INT); //mby works
+      $stmt8->execute();
+      $recentlyInserted = "true";
+      header("Refresh:0");
+
+    }
   }
 }
 
@@ -35,9 +48,9 @@ $sql = "SELECT * FROM blogg where ID='$bloggID'";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
-// if (empty($result)) {
-//   header("Location:../../Index.php");
-// }
+if (empty($result)) {
+  header("Location:../../Index.php");
+}
 $resTemp = $result[0]->ID;
 //echo $resTemp;
 $sql2 = "SELECT * FROM post where BloggID='$resTemp'";
@@ -56,15 +69,19 @@ $result2 = $stmt2->fetchAll();
  <body onload="GetLocalIp();">
    <br>
    <a href="../../Index.php">Gotta Go Back</a>
+   <a href="../../admin/admin.php">AdminPanel</a>
    <br>
    <div id="container">
      <div id="header">
        <h1><?php echo $result[0]->Name;?></h1>
    </div>
+   <?php
+   if (!empty($userID) && $result7[0]->Post == 1) {
+    ?>
    <div id="newPost">
     <!--New Post-->
     <form action="../../Helpers/newPost.php" method="post">
-      <textarea name="post"></textarea>
+      <textarea minlength="1" name="post"></textarea>
       <br>
         <input id="Local" type="text" name="localIP" value="" hidden>
         <input id="public" type="text" name="publicIP" value="" hidden>
@@ -74,6 +91,9 @@ $result2 = $stmt2->fetchAll();
         <input type="submit" name="" value="Send">
     </form>
  </div>
+  <?php
+  }
+  ?>
    <div id="postFeed">
      <?php
      foreach ($result2 as $res2) {
@@ -83,15 +103,28 @@ $result2 = $stmt2->fetchAll();
          <?php
          if ($res2->ID == $reportedPostID){
            ?>
-           <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?><button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
+           <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+             <?php
+             if (!empty($userID) && $result7[0]->Comment == 1) {
+              ?>
+             <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
             <?php
+            }
           }
             else{?>
-              <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?><button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
+              <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+                <?php
+                if (!empty($userID) && $result7[0]->Comment == 1) {
+                 ?>
+                <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
               <?php
+              }
             }
             ?>
             <!--Edit Post-->
+            <?php
+            if (!empty($userID) && $result7[0]->Edit == 1) {
+             ?>
            <form action="../../Helpers/Edit_Message.php" method="post">
              <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
              <input type="text" name="editPostID" value="<?php echo $res2Temp;?>" hidden>
@@ -102,6 +135,9 @@ $result2 = $stmt2->fetchAll();
              <input type="submit"name="" value="Edit">
 
            </form>
+           <?php
+           }
+            ?>
          </h2>
          <?php
          $sql5 = "SELECT * FROM report where UserID='$userID' AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
@@ -115,6 +151,9 @@ $result2 = $stmt2->fetchAll();
 
          <!--This is for report system-->
           <!--Report Post-->
+          <?php
+          if (!empty($userID) && $result7[0]->Comment == 1) {
+           ?>
          <form action="../../Helpers/Edit_Message.php" method="post">
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
            <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>">
@@ -138,6 +177,7 @@ $result2 = $stmt2->fetchAll();
          </form>
          <?php
        }
+       }
           ?>
        </h2>
        <?php
@@ -147,7 +187,10 @@ $result2 = $stmt2->fetchAll();
          $stmt3->execute();
          $result3 = $stmt3->fetchAll();?>
 
-           <!--Edit Post-->
+           <!--make a Comment-->
+           <?php
+           if (!empty($userID) && $result7[0]->Edit == 1) {
+            ?>
          <form class="SB<?php echo $res2Temp?>" action="../../Helpers/newPost.php" method="post" hidden>
            <textarea class="SB<?php echo $res2Temp?>" name="comment" hidden></textarea>
            <br>
@@ -165,6 +208,9 @@ $result2 = $stmt2->fetchAll();
              <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
              <input class="SB<?php echo $res2Temp?>" type="submit" name="" value="Send" hidden>
          </form>
+         <?php
+       }
+          ?>
       </div>
 
       <?php
@@ -192,9 +238,9 @@ $result2 = $stmt2->fetchAll();
            <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
            <input type="text" name="editCommentID" value="<?php echo $res2Temp;?>" hidden>
            <input type="text" name="editTextBefore" value="<?php echo $res3->Message;?>" hidden>
-           <input type="text" name="editTextAfter" value="<?php echo $res3->Message;?>" hidden>
+           <input type="text" name="editTextAfter" value="">
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
-           <input type="text" name="choice" value="Comment">
+           <input type="text" name="choice" value="Comment" hidden>
            <input type="submit"name="" value="Edit">
          </form>
          <?php

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 20 okt 2017 kl 09:05
+-- Tid vid skapande: 23 okt 2017 kl 12:34
 -- Serverversion: 10.1.19-MariaDB
 -- PHP-version: 7.0.13
 
@@ -86,6 +86,7 @@ CREATE TABLE `editpost` (
 --
 
 CREATE TABLE `permission` (
+  `ID` int(11) NOT NULL,
   `BloggID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `Post` int(11) NOT NULL,
@@ -93,6 +94,13 @@ CREATE TABLE `permission` (
   `Edit` int(11) NOT NULL,
   `Del` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumpning av Data i tabell `permission`
+--
+
+INSERT INTO `permission` (`ID`, `BloggID`, `UserID`, `Post`, `Comment`, `Edit`, `Del`) VALUES
+(1, 6, 6, 0, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -172,7 +180,7 @@ ALTER TABLE `editpost`
 -- Index för tabell `permission`
 --
 ALTER TABLE `permission`
-  ADD PRIMARY KEY (`BloggID`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Index för tabell `post`
@@ -216,6 +224,11 @@ ALTER TABLE `editcomment`
 --
 ALTER TABLE `editpost`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT för tabell `permission`
+--
+ALTER TABLE `permission`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT för tabell `post`
 --

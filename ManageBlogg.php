@@ -78,9 +78,7 @@ $result = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html>
-    <script src="Helpers/preview.js"></script>
-    <script src="Helpers/EditStyle.js"></script>
-    <script src="Helpers/UpdateInstant.js"></script>
+
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -118,7 +116,7 @@ $result = $stmt->fetchAll();
             </form>
             </div>
             <div class="col-md-3"></div>
-        </div>      
+        </div>
         <?php
         }
         else{
@@ -133,12 +131,13 @@ $result = $stmt->fetchAll();
                 <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
                 <input type="submit" name="" value="Goto Blogg">
             </form> -->
-            <form action="Helpers/Blogg_Check.php" method="post" enctype="multipart/form-data">
+            <form action="../Helpers/Blogg_Check.php" method="post" enctype="multipart/form-data">
                 <input type="text" name="userID" value="<?php echo $userID;?>" placeholder="<?php echo $result[0]->ID;?>"hidden>
                 <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+                <input type="text" name="choice" value="updateBlogg" hidden>
                 </br>
                 <div class="formDiv">
-                    
+
                     Name Of Blogg:
                     <br>
                     <input type="text" name="bloggName" value="<?php echo $result[0]->Name;?>" onchange="preview(event,'previewName');" placeholder="">
@@ -178,6 +177,7 @@ $result = $stmt->fetchAll();
                         </div>
                     </div>
                     <br>
+                    <!--
                     <div class="row formDivRow">
                         <div class="col-md-3">
                             Lefter image:
@@ -194,7 +194,7 @@ $result = $stmt->fetchAll();
                         <div class="col-md-6">
                             <input type="file" name="RighterImage" onchange="preview(event,'previewRighter');" id="RighterImage">
                         </div>
-                    </div>
+                    </div>-->
                     </br>
                     <input class="btn" type="submit" value="Update" name="submit">
                 </div>
@@ -231,7 +231,7 @@ $result = $stmt->fetchAll();
             <div>
         </form>
         </div>
-        
+
         <?php
 
         }
