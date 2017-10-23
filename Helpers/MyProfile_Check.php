@@ -35,11 +35,11 @@ if (!empty($_POST['CurrentPassword'])) {
     }
 }
 if (!empty(basename($_FILES["Avatar"]["name"]))) {
-  $target_dir = "../Blogg/Images/";
+  $target_dir = "../blogg/images/";
   $extension = ".png";
   $target_file = $target_dir . basename($_FILES["Avatar"]["name"]);
   $filename=$_FILES["Avatar"]["name"];
-  $newfilename=$target_dir ."Avatar" . $userID . $extension;
+  $newfilename=$target_dir ."avatar" . $userID . $extension;
   $uploadOk = 1;
   $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
   // Check if image file is a actual image or fake image

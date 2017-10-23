@@ -8,7 +8,7 @@
 <html>
 	<?php
 		if (!empty($_SESSION['errorMsg'])) {
-			
+
 			?>
 			<h2><?php echo $_SESSION['errorMsg'];?></h2>
 			<?php
@@ -16,7 +16,7 @@
 		}
 		?>
 	<head>
-		<title>thundrPuffin</title>	
+		<title>thundrPuffin</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -25,7 +25,7 @@
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/registerStyle.css">
 	</head>
-	<body>	
+	<body>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid" id="navbarBg">
 				<div class="navbar-header">
@@ -38,12 +38,12 @@
 					<li><a href="#">About</a></li>
 				</ul>
 			</div>
-		</nav>		
-		<div class="container">		
-			<div id="content">			
-				<form action="Helpers/Login_Check.php" method="post">				
+		</nav>
+		<div class="container">
+			<div id="content">
+				<form action="Helpers/Login_Check.php" method="post">
 					<div class="form-group">
-						<div class="row">							
+						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-sm-4 col-md-4">
 								<label class="control-label" for="usr">Username:</label>
@@ -51,10 +51,10 @@
 							</div>
 							<div class="col-md-4"></div>
 						</div>
-					</div>		
+					</div>
 
 					<div class="form-group">
-						<div class="row">							
+						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="pwd">Password:</label>
@@ -70,13 +70,12 @@
 							<div class="col-md-4">
 								<button type="submit" class="btn btn-default" value="Login">Login</button>
 								<a class="btn btn-default" href="register.php">No account?</a>	
-								<a class="btn btn-default" href="forgottenPsw.php">Forgot password?</a>	
 							</div>
 							<div class="col-md-4"></div>
 						</div>
-					</div>							
-				</form>							
-			</div>		
+					</div>
+				</form>
+			</div>
 		</div>
 	</body>
 </html>

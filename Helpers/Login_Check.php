@@ -20,12 +20,12 @@ if (!empty($result)) { //IF Database Contains Username/Email -> check password
   }
   else{
     $_SESSION['errorMsg'] = "Wrong Password";
-    header("Location:../Login.php");
+    header("Location:../login.php");
   }
 }
 else{
   $_SESSION['errorMsg'] = "Wrong Password/User";
-  header("Location:../Login.php");
+  header("Location:../login.php");
 }
 $sql2 = "SELECT Username FROM userinfo WHERE Username = '$loginCred' OR Email ='$loginCred'";
 $stmt2 = $dbh->prepare($sql2);

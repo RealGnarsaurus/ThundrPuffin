@@ -1,6 +1,7 @@
 <?PHP
     session_start();
-    require('Helpers/db.php');
+    require('helpers/db.php');
+    //session_destroy();
 ?>
 
 <!DOCTYPE html>
@@ -29,8 +30,8 @@
                     <a class="navbar-brand" id="brand" href="#">thundrPuffin</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="BrowsBloggs.php">Browse blogs</a></li>
+                    <li class="active"><a href="welcome.php">Home</a></li>
+                    <li><a href="browsbloggs.php">Browse blogs</a></li>
                     <li><a href="#">Features(W)</a></li>
                     <li><a href="#">About(W)</a></li>
                 </ul>
@@ -43,10 +44,10 @@
                             $getName->execute();
                             $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                            echo '<li><a href="Helpers/Logout.php">Logout</a></li>';
+                            echo '<li><a href=helpers/logout.php">Logout</a></li>';
                         }
                         else{
-                            echo '<li><a href="Login.php">Login/Register</a></li>';
+                            echo '<li><a href="login.php">Login/Register</a></li>';
                         }
                     ?>
 

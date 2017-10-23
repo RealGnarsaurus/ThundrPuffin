@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../../Helpers/db.php');
+require('../../helpers/db.php');
 $bloggID = $_GET['bloggID'];
 if (!empty($recentlyInserted)) {
 
@@ -19,7 +19,7 @@ if (!empty($recentlyInserted)) {
     $reportedCommentID = "*";
   }
   if (empty($_GET['bloggID'])) {
-    header("Location:../../Index.php");
+    header("Location:../../index.php");
   }
   if (!empty($_SESSION['userID'])) {
     $userID = $_SESSION['userID'];
@@ -49,7 +49,7 @@ $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $result = $stmt->fetchAll();
 if (empty($result)) {
-  header("Location:../../Index.php");
+  header("Location:../../index.php");
 }
 $resTemp = $result[0]->ID;
 //echo $resTemp;
@@ -62,13 +62,13 @@ $result2 = $stmt2->fetchAll();
  <!DOCTYPE html>
  <html>
  <link rel="stylesheet" href="../<?php echo $bloggID;?>/style.css">
- <script src="../../Helpers/Edit.Js"></script> <!--Edit Forms Script-->
- <script src="../../Helpers/IP.js"></script><!--LocalIp-->
+ <script src="../../helpers/edit.Js"></script> <!--Edit Forms Script-->
+ <script src="../../helpers/ip.js"></script><!--LocalIp-->
 
  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
  <body onload="GetLocalIp();">
    <br>
-   <a href="../../Index.php">Gotta Go Back</a>
+   <a href="../../index.php">Gotta Go Back</a>
    <a href="../../admin/admin.php">AdminPanel</a>
    <br>
    <div id="container">
@@ -80,8 +80,8 @@ $result2 = $stmt2->fetchAll();
     ?>
    <div id="newPost">
     <!--New Post-->
-    <form action="../../Helpers/newPost.php" method="post">
-      <textarea minlength="1" name="post"></textarea>
+    <form action="../../helpers/newpost.php" method="post">
+      <textarea minlength="5" name="post"></textarea>
       <br>
         <input id="Local" type="text" name="localIP" value="" hidden>
         <input id="public" type="text" name="publicIP" value="" hidden>
@@ -125,7 +125,7 @@ $result2 = $stmt2->fetchAll();
             <?php
             if (!empty($userID) && $result7[0]->Edit == 1) {
              ?>
-           <form action="../../Helpers/Edit_Message.php" method="post">
+           <form action="../../helpers/edit_message.php" method="post">
              <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
              <input type="text" name="editPostID" value="<?php echo $res2Temp;?>" hidden>
              <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>" hidden>
@@ -154,7 +154,7 @@ $result2 = $stmt2->fetchAll();
           <?php
           if (!empty($userID) && $result7[0]->Comment == 1) {
            ?>
-         <form action="../../Helpers/Edit_Message.php" method="post">
+         <form action="../../helpers/edit_message.php" method="post">
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
            <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>">
            <input type="text" name="reportUserID" value="<?php echo $userID;?>">
@@ -191,7 +191,7 @@ $result2 = $stmt2->fetchAll();
            <?php
            if (!empty($userID) && $result7[0]->Edit == 1) {
             ?>
-         <form class="SB<?php echo $res2Temp?>" action="../../Helpers/newPost.php" method="post" hidden>
+         <form class="SB<?php echo $res2Temp?>" action="../../helpers/newpost.php" method="post" hidden>
            <textarea class="SB<?php echo $res2Temp?>" name="comment" hidden></textarea>
            <br>
              <input  type="text" name="postID" value="<?php echo $res2Temp;?>" hidden>
@@ -234,7 +234,7 @@ $result2 = $stmt2->fetchAll();
          </div>
 
          <!--Edit Comment-->
-         <form action="../../Helpers/Edit_Message.php" method="post">
+         <form action="../../helpers/edit_message.php" method="post">
            <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
            <input type="text" name="editCommentID" value="<?php echo $res2Temp;?>" hidden>
            <input type="text" name="editTextBefore" value="<?php echo $res3->Message;?>" hidden>
@@ -253,7 +253,7 @@ $result2 = $stmt2->fetchAll();
 
          ?>
          <!--Report Comment-->
-         <form action="../../Helpers/Edit_Message.php" method="post">
+         <form action="../../helpers/edit_message.php" method="post">
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
            <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
            <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>

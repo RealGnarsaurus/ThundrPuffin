@@ -1,17 +1,17 @@
 <?PHP
     session_start();
-    require('Helpers/db.php');
+    require('helpers/db.php');
 
     if (!empty($_SESSION['userID'])) {
       $userID = $_SESSION['userID'];
+      //Gets Blogg ID
+      $sql = "SELECT * from blogg where UserID = $userID";
+      //echo $sql;
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute();
+      $result = $stmt->FetchAll();
     }
-    
-    //Gets Blogg ID
-    $sql = "SELECT * from blogg where UserID = $userID";
-    //echo $sql;
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->FetchAll();
+
 		//Gets User Info
 		$sql2 = "SELECT * from blogg";
 		//echo $sql2;
@@ -33,7 +33,7 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link href="css/welcomeStyle.css" rel="stylesheet">
+        <link href="css/welcomestyle.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
     </head>
     <body>
@@ -42,12 +42,12 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid" id="navbarBg">
                 <div class="navbar-header">
-                    <img src="img/tPLogonav-logga.png"/>
+                    <img src="img/tplogonav-logga.png"/>
                     <a class="navbar-brand" id="brand" href="#">thundrPuffin</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="welcome.php">Home</a></li>
-                    <li class="active"><a href="BrowsBloggs.php">Browse blogs</a></li>
+                    <li class="active"><a href="browsbloggs.php">Browse blogs</a></li>
                     <li><a href="#">Features(W)</a></li>
                     <li><a href="#">About(W)</a></li>
                 </ul>
@@ -60,10 +60,10 @@
                             $getName->execute();
                             $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                            echo '<li><a href="../Helpers/Logout.php">Logout</a></li>';
+                            echo '<li><a href="../helpers/logout.php">Logout</a></li>';
                         }
                         else{
-                            echo '<li><a href="Login.php">Login/Register</a></li>';
+                            echo '<li><a href="login.php">Login/Register</a></li>';
                         }
                     ?>
 
@@ -76,7 +76,7 @@
                     <?php
                     if (!empty($result[0]->ID)) {
                       ?>
-                      <a href="blogg/sf/Index.php?bloggID=<?php echo $result[0]->ID;?>" style="color:white;"><h4><?php echo $result[0]->Name;?> - My Profile</h4></a>
+                      <a href="blogg/sf/index.php?bloggID=<?php echo $result[0]->ID;?>" style="color:white;"><h4><?php echo $result[0]->Name;?> - My Profile</h4></a>
                       <?php
                       }
                      ?>
@@ -84,7 +84,7 @@
                     <?php
                       foreach ($result2 as $res2) {
                           ?>
-                            <a href="blogg/sf/Index.php?bloggID=<?php echo $res2->ID;?>"><h4><?php echo $res2->Name;?></h4></a>
+                            <a href="blogg/sf/index.php?bloggID=<?php echo $res2->ID;?>"><h4><?php echo $res2->Name;?></h4></a>
                             <br>
                           <?php
                       }

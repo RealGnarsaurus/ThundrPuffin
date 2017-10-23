@@ -49,7 +49,7 @@ function getLineWithString($fileName, $str,$endPoint) {
     //file_put_contents( $fileName , implode( "\n", $lines ) );
 }
 session_start();
-require('Helpers/db.php');
+require('helpers/db.php');
 if (!empty($_SESSION['userID'])) { //IF logged in
 //Header("Location:Login.php")
 $userID = $_SESSION['userID'];
@@ -64,7 +64,7 @@ if (!empty($result)) {
 
 }
 else if(empty($_SESSION['userID'])){
-header("Location:Login.php");
+header("Location:login.php");
 /*
 $userID = '3';
 $sql = "SELECT * FROM blogg where UserID='$userID'"; //Check if user has blogg
@@ -105,7 +105,7 @@ $result = $stmt->fetchAll();
             <div class="col-md-3"></div>
             <div class="col-md-6">
             <h1>Create new blog</h1>
-            <form id="createBlogForm" action="../Helpers/Blogg_Check.php" method="post">
+            <form id="createBlogForm" action="../helpers/blogg_check.php" method="post">
                 <div class="form-group">
                 <input type="text" value="" name="bloggName">
                 <br>
@@ -131,7 +131,7 @@ $result = $stmt->fetchAll();
                 <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
                 <input type="submit" name="" value="Goto Blogg">
             </form> -->
-            <form action="../Helpers/Blogg_Check.php" method="post" enctype="multipart/form-data">
+            <form action="../helpers/blogg_check.php" method="post" enctype="multipart/form-data">
                 <input type="text" name="userID" value="<?php echo $userID;?>" placeholder="<?php echo $result[0]->ID;?>"hidden>
                 <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
                 <input type="text" name="choice" value="updateBlogg" hidden>
@@ -220,10 +220,10 @@ $result = $stmt->fetchAll();
         <div id="preview">
         <h2>Preview</h2>
         <form id="previewBloggSite" runat="server">
-            <img id="previewImg" src="Blogg/<?php echo $userID;?>/Texture/Background.jpg"> <!--Background Image-->
-            <img id="previewLefter" src="Blogg/<?php echo $userID;?>/Texture/LefterImage.jpg"><!--Left Image-->
-            <img id="previewRighter" src="Blogg/<?php echo $userID;?>/Texture/RighterImage.jpg"><!--Right Image-->
-            <img id="previewHeader" src="Blogg/<?php echo $userID;?>/Texture/HeaderImage.jpg"><!--Header Image-->
+            <img id="previewImg" src="Blogg/<?php echo $userID;?>/texture/background.jpg"> <!--Background Image-->
+            <img id="previewLefter" src="Blogg/<?php echo $userID;?>/texture/lefterImage.jpg"><!--Left Image-->
+            <img id="previewRighter" src="Blogg/<?php echo $userID;?>/texture/righterImage.jpg"><!--Right Image-->
+            <img id="previewHeader" src="Blogg/<?php echo $userID;?>/texture/headerImage.jpg"><!--Header Image-->
             <p id="previewName">Preview Name</p><!--Blogg Name-->
 
         <div id="fakePost">

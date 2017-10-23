@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("Helpers/db.php");
+require("helpers/db.php");
 if (!empty($_SESSION['userID'])) {
   $userID = $_SESSION['userID'];
 }
@@ -20,25 +20,25 @@ foreach ($result as $res) {
   ?>
   <h2>Avatar</h2><?php
   //echo "../Blogg/Images/Avatar$userID.png";
-  if (!file_exists("../Blogg/Images/Avatar$userID.png")) {
+  if (!file_exists("../blogg/images/avatar$userID.png")) {
     //echo "files Exist";
       ?>
-      <img id="previewImg" src="../Blogg/Images/Avatar<?php echo $userID;?>.png" style="background-color:black;width:100px;height:auto;">
+      <img id="previewImg" src="../blogg/images/avatar<?php echo $userID;?>.png" style="background-color:black;width:100px;height:auto;">
       <?php
   }
   else{
     ?>
-    <img id="previewImg" src="../Blogg/Images/Stock.png" style="background-color:black;width:100px;height:auto;">
+    <img id="previewImg" src="../blogg/images/stock.png" style="background-color:black;width:100px;height:auto;">
     <?php
   }
   ?>
 
   <!DOCTYPE html>
-  <script src="../Helpers/preview.js"></script>
+  <script src="../helpers/preview.js"></script>
   <html>
  <body>
    <h2>New Information</h2>
-   <form id="MyForm" action="../Helpers/MyProfile_Check.php" method="post"enctype="multipart/form-data">
+   <form id="MyForm" action="../helpers/myprofile_check.php" method="post"enctype="multipart/form-data">
      Avatar:<input type="file" name="Avatar" onchange="preview(event,'previewImg');" id="BG">
      <br>
      Email:<input type="email" name="Email" placeholder="<?php echo $res->Email;?>">
