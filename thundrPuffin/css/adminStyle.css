@@ -33,7 +33,7 @@ body
 #adminSideNav
 {
 	float: left;
-	width: 15vw;
+	width: 9vw;
 	height: 100vh;
     padding-top: 50px;
     min-width: 172px;
@@ -85,27 +85,15 @@ body
 
 }
 
-#adminSideNav img
-{
-	width: 96% !important;
-	height: auto !important;
-}
-
 /* ******************************** */
 /* *** "manageBlogg.php"-styles *** */
 /* ******************************** */
-.row
-{
-	float: left;
-	width: 100%;
-	margin-left: -5% !important;
-}
-
 .formDiv {
     font-size: 16px;
     color: #ddd;
     background-color: #232323;
 	/* border: 2px solid #232323; */
+	padding: 2%;
 	border-radius: 4px;
 }
 .formDiv h2 {
@@ -121,73 +109,4 @@ body
 .formDiv .btn:hover {
     background-color: #eb2424;
     color: #ddd;
-}
-
-/* ****************************** */
-/* *** "MyProfile.php"-styles *** */
-/* ****************************** */
-
-#profileInformation
-{
-	float: left;
-	margin-left: 20%;
-}
-
-#profileInformation img
-{
-	border-radius: 50%;
-}
-
-#profileChanges
-{
-	float: right;
-	margin-right: 20%;
-}
-
-h2
-{
-	font-family: 'HeeboLight';
-	font-weight: normal;
-}
-
-/* ******************************** */
-/* *** "manageblogg.php"-styles *** */
-/* ******************************** */
-
-#AdminMenu
-{
-margin-left: 20%;
-}
-#AdminMenu #bloggName
-{
-	color: #232323 !important;
-	width: 100%;
-}
-.formDiv
-{
-	float: left;
-	width: 100%;
-}
-
-#changeImages
-{
-	padding-left: 50px;
-	min-width: 171px;
-}
-#preview
-{
-	float: left;
-	margin-left: 20%;
-}
-#previewImg
-{
-	max-width: 1000px;
-}
-#previewHeader
-{
-	max-width: 1000px;
-}
-#fontColorBox
-{
-	margin-top: 5%;
 }

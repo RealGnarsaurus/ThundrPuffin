@@ -140,7 +140,7 @@ $result = $stmt->fetchAll();
 
                     Name Of Blogg:
                     <br>
-                    <input type="text" name="bloggName" value="<?php echo $result[0]->Name;?>" onchange="preview(event,'previewName');" placeholder="" id="bloggName">
+                    <input type="text" name="bloggName" value="<?php echo $result[0]->Name;?>" onchange="preview(event,'previewName');" placeholder="">
                     <!-- <h2>Images</h2>
                     <input type="file" name="BG" onchange="preview(event,'previewImg');" id="BG">
                     <br>
@@ -160,7 +160,7 @@ $result = $stmt->fetchAll();
                     <input class="btn" type="submit" value="Update" name="submit"> -->
                     <h2>Background images</h2>
                     <div class="row formDivRow">
-                        <div class="col-md-3" id="changeImages">
+                        <div class="col-md-3">
                             Background Image:
                         </div>
                         <div class="col-md-6">
@@ -169,7 +169,7 @@ $result = $stmt->fetchAll();
                     </div>
                     <br>
                     <div class="row formDivRow">
-                        <div class="col-md-3" id="changeImages">
+                        <div class="col-md-3">
                             Header image:
                         </div>
                         <div class="col-md-6">
@@ -207,18 +207,12 @@ $result = $stmt->fetchAll();
                 Comment BackGround Color: <input type="color" onchange="update(this,<?php //echo $bloggID;?>)" name="CBC"><br> -->
 
                 <h2>Text</h2>
-                <div id="fontSizeBox">
-                    Text Size  [Header]: <div id="fontSizeInput"> <input type="number" name="TFHS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 25px" id="fontSize"></div>
-                    </br>
-                    Text Size    [Post]: <div id="fontSizeInput"> <input type="number" name="TFPS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 10px" id="fontSize"></div>
-                    </br>
-                    Text Size [Comment]: <div id="fontSizeInput"> <input type="number" name="TFCS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 9px" id="fontSize"></div>
-                </div>
-                <div id="fontColorBox">
-                    Text Color [Header]: <input type="color" name="TCH" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
-                    Text Color   [Comment]: <input type="color" name="TCP" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
-                    Text Color [Post]: <input type="color" name="TCC" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
-                </div>
+                Text Size  [Header]:  <input type="number" name="TFHS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 25px"><br>
+                Text Size    [Post]: <input type="number" name="TFPS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 10px"><br>
+                Text Size [Comment]:  <input type="number" name="TFCS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 9px"><br><br>
+                Text Color [Header]: <input type="color" name="TCH" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
+                Text Color   [Comment]: <input type="color" name="TCP" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
+                Text Color [Post]: <input type="color" name="TCC" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
                 <br>
                 Text Font:
         </div>
