@@ -7,7 +7,7 @@ function loadDoc() {
         this.responseText;
       }
     };
-    xhttp.open("GET", "../Permission.php", true);
+    xhttp.open("GET", "../permission.php", true);
     xhttp.send();
   }
   //Opens My Profile
@@ -19,7 +19,7 @@ function loadDoc() {
           this.responseText;
         }
       };
-      xhttp.open("GET", "../MyProfile.php", true);
+      xhttp.open("GET", "../myprofile.php", true);
       xhttp.send();
     }
   //opens Custommize Blogg
@@ -31,7 +31,7 @@ function blogSettings() {
             this.responseText;
         }
     };
-    xhttp.open("GET", "../ManageBlogg.php", true);
+    xhttp.open("GET", "../manageblogg.php", true);
     xhttp.send();
     document.getElementById("content").style.height = "auto";
 }
@@ -44,6 +44,6 @@ function showFlagReports() {
             this.responseText;
         }
     };
-    xhttp.open("GET", "../ReportHistory.php", true);
+    xhttp.open("GET", "../reporthistory.php", true);
     xhttp.send();
 }

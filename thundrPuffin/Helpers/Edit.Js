@@ -6,7 +6,7 @@ function edit(Class,n){
 
         //alert(rad);
         p[rad].style.display = "inline";
-      
+
 
     }
 

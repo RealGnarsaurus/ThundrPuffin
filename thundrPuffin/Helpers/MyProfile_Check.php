@@ -22,7 +22,7 @@ if (!empty($_POST['CurrentPassword'])) {
           $sql2 = "UPDATE `userinfo` SET `Password`= '$newPassword'";
           $stmt2 = $dbh->prepare($sql2);
           $stmt2->execute();
-            header("location:../admin.php");
+            header("location:../admin/admin.php");
         }
       }
       if (!empty($_POST['Email'])) {
@@ -30,16 +30,16 @@ if (!empty($_POST['CurrentPassword'])) {
         $sql2 = "UPDATE `userinfo` SET `Email`= '$Email'";
         $stmt2 = $dbh->prepare($sql2);
         $stmt2->execute();
-          header("location:../admin.php");
+          header("location:../admin/admin.php");
       }
     }
 }
 if (!empty(basename($_FILES["Avatar"]["name"]))) {
-  $target_dir = "../Blogg/Images/";
+  $target_dir = "../blogg/images/";
   $extension = ".png";
   $target_file = $target_dir . basename($_FILES["Avatar"]["name"]);
   $filename=$_FILES["Avatar"]["name"];
-  $newfilename=$target_dir ."Avatar" . $userID . $extension;
+  $newfilename=$target_dir ."avatar" . $userID . $extension;
   $uploadOk = 1;
   $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
   // Check if image file is a actual image or fake image
@@ -83,4 +83,4 @@ if (!empty(basename($_FILES["Avatar"]["name"]))) {
   }
 }
 }
-header("Location:../admin.php");
+header("Location:../admin/admin.php");

@@ -1,6 +1,6 @@
 
 function update(ObjectName,bloggID) {
-  alert(ObjectName.name+ObjectName.value + bloggID);
+  //alert(ObjectName.name+ObjectName.value + bloggID);
   //alert(ObjectName.value);
 
   //alert(ObjectName.name);
@@ -31,17 +31,17 @@ function update(ObjectName,bloggID) {
         };
       //alert("Helpers/Blogg_Check.php?choice=updateBlogg&bloggID="+bloggID+"&"+ObjectName.name+"="+ObjectName.value);
 
-      xmlhttp.open("POST", "../Helpers/Blogg_Check.php", true);
+      xmlhttp.open("POST", "../helpers/blogg_check.php", true);
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
       xmlhttp.send("choice=updateBlogg&bloggID="+bloggID+"&"+ObjectName.name + "=" +ObjectName.value);
 };
 }
 
-function update2(CheckBox,UserID) {
+function update2(CheckBox,UserID,bloggID) {
   //alert(CheckBox.name+UserID);
-  insertdb(CheckBox.name,UserID);
-  function insertdb(CheckBox,UserID)
+  insertdb(CheckBox.name,UserID,bloggID);
+  function insertdb(CheckBox,UserID,bloggID)
   {
     //alert(UserID);
         if (window.XMLHttpRequest)
@@ -62,9 +62,9 @@ function update2(CheckBox,UserID) {
             }
         };
         //Opens Highscore page on index
-        var param = "UserID="+UserID+"&CheckBox="+CheckBox;
-        alert(param);
-      xmlhttp.open("POST","../Helpers/permission_Check.php",true);
+        var param = "UserID="+UserID+"&CheckBox="+CheckBox+"&bloggID="+bloggID;
+        //alert(param);
+      xmlhttp.open("POST","../helpers/permission_check.php",true);
       xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xmlhttp.send(param);
   };

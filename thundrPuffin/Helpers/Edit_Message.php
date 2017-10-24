@@ -2,6 +2,7 @@
   require('db.php');
   echo $_POST['choice'];
   //echo $_POST['choice'];
+
   if ($_POST['choice'] == "Post") {
     //echo "inside post";
     echo $_POST['editUserID'].$_POST['bloggID'].$_POST['editPostID'] . $_POST['editTextBefore'] . $_POST['editTextAfter'];
@@ -24,7 +25,7 @@
       $stmt2->execute();
     }
 
-    //$stmt->execute();
+
     }
   else{
 
@@ -33,6 +34,7 @@
 if ($_POST['choice'] == "Comment") {
 
   if (!empty($_POST['editUserID']) && !empty($_POST['bloggID']) && !empty($_POST['editCommentID']) && !empty($_POST['editTextBefore']) && !empty($_POST['editTextAfter'])) {
+    echo "hello";
     $editUserID = $_POST['editUserID'];
     $editBloggID = $_POST['bloggID'];
     $editCommentID = $_POST['editCommentID'];

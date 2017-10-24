@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-  require('Helpers/db.php');
+  require('helpers/db.php');
 
  ?>
 
 <!DOCTYPE html>
 <html>
-	<script src="Helpers/IP.js"></script><!--LocalIp-->
+	<script src="helpers/ip.js"></script><!--LocalIp-->
 	<?php
 	$IP;
 	if (!empty($_SESSION['errorMsg'])) {
@@ -30,16 +30,14 @@ session_start();
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="Helpers/IP.js"></script>
+    <script src="helpers/ip.js"></script>
   </head>
-	<body onload="GetLocalIp(); ">
-
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/registerStyle.css">
 	</head>
-	<body onload="GetLocalIp(); ">
 
+  <body onload="GetLocalIp(); ">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid" id="navbarBg">
 				<div class="navbar-header">
@@ -48,21 +46,21 @@ session_start();
 				</div>
 				<ul class="nav navbar-nav">
 					<li><a href="welcome.php">Home</a></li>
-					<li><a href="#">Browse blogs</a></li>
-					<li><a href="#">Features</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="browsbloggs.php">Browse blogs</a></li>
+					<li><a href="#">Features(W)</a></li>
+					<li><a href="#">About(W)</a></li>
 				</ul>
 			</div>
 		</nav>
 		<div class="container">
 			<div id="content">
-				<form action="Helpers/Reg_Check.php" method="post">
+				<form action="helpers/reg_check.php" method="post">
 					<div class="form-group">
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-sm-4 col-md-4">
 								<label class="control-label" for="usr">Username:</label>
-								<input type="text" class="form-control" id="usr" name="username" value="">
+								<input type="text" class="form-control" id="usr" name="username" pattern="[A-Za-z0-9]+" value="">
 							</div>
 							<div class="col-md-4"></div>
 						</div>
@@ -72,7 +70,7 @@ session_start();
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="pwd">Password:</label>
-								<input type="password" class="form-control" id="pwd" name="password" value="">
+								<input type="password" class="form-control" id="pwd" name="password" pattern="[A-Za-z0-9]+" value="">
 							</div>
 							<div class="col-md-4"></div>
 						</div>
@@ -83,7 +81,7 @@ session_start();
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="pwd">Repeat Password:</label>
-								<input type="rePassword" class="form-control" id="repeatPwd" name="password2" value="">
+								<input type="password" class="form-control" id="repeatPwd" name="password2" pattern="[A-Za-z0-9]+" value="">
 							</div>
 							<div class="col-md-4"></div>
 						</div>
@@ -128,11 +126,6 @@ session_start();
 
 					</div>
 				</form>
-				<div id="backLogin">
-					<div id="haveAccount">
-						<a href="../login/login.php">Already have an account?</a>
-					</div>
-				</div>
 			</div>
 		</div>
 		<div class="footer">

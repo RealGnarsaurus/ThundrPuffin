@@ -11,6 +11,7 @@ $stmt->execute();
 $result = $stmt->fetchAll();
 $bloggID = $result[0]->ID; //your bloggid
 //echo $bloggID;
+
 //Get all permissions on Your Site
 $sql2 = "SELECT * from permission where BloggID = '$bloggID'";
 //echo $sql2;
@@ -28,86 +29,83 @@ else{
   foreach ($result2 as $res2) {
     $userInfo = $res2->UserID; //permission userid
     //echo $userInfo;
-    $sql3 = "SELECT * from userinfo where ID = '$userInfo'";
+    $sql3 = "SELECT DISTINCT userinfo.Username as UN,userinfo.ID as ID, permission.Post as Post, permission.Comment as Comment, permission.Edit as Edit, permission.Del as Del from userinfo,permission where userinfo.ID = :userinfo AND permission.UserID = :userinfo AND permission.BloggID=:bloggID";
     //echo $sql3;
+    //echo $userInfo ."||".$bloggID;
+
     $stmt3 = $dbh->prepare($sql3);
+    $stmt3->bindParam(':userinfo', $userInfo, PDO::PARAM_INT); //mby works
+    $stmt3->bindParam(':bloggID', $bloggID, PDO::PARAM_INT); //mby works
     $stmt3->execute();
     $result3 = $stmt3->fetchAll();
 
-    $sql4 = "SELECT * from permission where UserID = '$userInfo'";
-    //echo $sql4;
-    $stmt4 = $dbh->prepare($sql4);
-    $stmt4->execute();
-    $result4 = $stmt4->fetchAll();
     foreach ($result3 as $res3) {
-      foreach ($result4 as $res4) {
     ?>
     <br>
     <form action="" method="post">
 
-      <h2><?php echo $res3->Username;?></h2>
+      <h2><?php echo $res3->UN . " - ID:" . $res3->ID;?></h2>
       <?php
-      if ($res4->Post == 1) {
+      if ($res3->Post == 1) {
         ?>
-          Message<input type="checkbox" checked name="Post" onclick="update2(this,<?php echo $res3->ID;?>);">
+          Post<input type="checkbox" checked name="Post" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
       <?php
       }
       else{
         ?>
-          Message<input type="checkbox" name="Post" onclick="update2(this,<?php echo $res3->ID;?>);">
+          Post<input type="checkbox" name="Post" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
       <?php
       }
       ?>
 
       <?php
-      if ($res4->Comment == 1) {
+      if ($res3->Comment == 1) {
         ?>
-        Comment<input type="checkbox" checked name="Comment" onclick="update2(this,<?php echo $res3->ID;?>);">
+        Comment<input type="checkbox" checked name="Comment" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
 
       <?php
       }
       else{
         ?>
-        Comment<input type="checkbox" name="Comment" onclick="update2(this,<?php echo $res3->ID;?>);">
+        Comment<input type="checkbox" name="Comment" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
       <?php
       }
       ?>
 
       <?php
-      if ($res4->Edit == 1) {
+      if ($res3->Edit == 1) {
         ?>
-        Edit<input type="checkbox" checked name="Edit" onclick="update2(this,<?php echo $res3->ID;?>);">
+        Edit<input type="checkbox" checked name="Edit" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
       <?php
       }
       else{
         ?>
-        Edit<input type="checkbox" name="Edit" onclick="update2(this,<?php echo $res3->ID;?>);">
+        Edit<input type="checkbox" name="Edit" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
 
         <?php
       }
       ?>
 
       <?php
-      if ($res4->Del == 1) {
+      if ($res3->Del == 1) {
         ?>
-        Delete<input type="checkbox" checked name="Delete" onclick="update2(this,<?php echo $res3->ID;?>);">
+        Delete<input type="checkbox" checked name="Delete" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
 
         <?php
       }
       else{
         ?>
-        Delete<input type="checkbox"name="Delete" onclick="update2(this,<?php echo $res3->ID;?>);">
+        Delete<input type="checkbox"name="Delete" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
         <?php
       }
       ?>
 
       <input type="text" value="<?php echo $userInfo;?>" hidden>
 
-        
+
     </script>
     </form>
     <?php
-  }
   }
   }
 }
