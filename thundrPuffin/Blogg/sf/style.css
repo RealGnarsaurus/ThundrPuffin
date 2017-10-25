@@ -28,7 +28,6 @@ div#newPost input{
   width: 115px;
   height: 50px;
   font-size: 20px;
-background-color:;
 }
 div#header{
   width: 100%;
@@ -38,7 +37,6 @@ div#header{
   margin-top: -40px;
   background-size: 1920px 200px;
   background-repeat: no-repeat;
-  color:;
   font-size: 25px;
 }
 div#postFeed{
@@ -50,9 +48,7 @@ div#post{
   border-style: solid;
   border-width: 2px;
   border-color: black;
-  background-color:;
   font-size: 10px;
-  color:;
 }
 div#comment{
   width: 65%;
