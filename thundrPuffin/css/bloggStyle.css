@@ -1,129 +1,112 @@
-*
-{
-	margin:0;
-	Padding:0;
+* {
+    margin: 0;
+    Padding: 0;
 }
 
-body
-{
-	height: 100%;
+body {
+    height: 100%;
     width: 100%;
 }
 
 .container {
-	background-color: #535353;
-	color: #dddddd;
-    width:68vw;
-    min-height:100vh;
+    background-color: #535353;
+    color: #dddddd;
+    width: 68vw;
+    min-height: 100vh;
 }
 
-#leftSideNav
-{
-	float: left;
-	width: 16vw;
-	height: 100vh;
-	display: block;
-	background-color: #333333;
-	overflow-y: hidden;
-    overflow-x: hidden;
-    box-shadow: 4px 4px 10px rgba(0,0,0,0.3)
-}
-
-#leftSideNav h1
-{
-	color: #dddddd;
-	margin-left: 5%;
-}
-
-#leftSideNav .row
-{
-	margin-top: 5%;
-	margin-left: 5%;
-}
-
-#rightSideNav
-{
-	float: right;
-	width: 16vw;
+#leftSideNav {
+    float: left;
+    width: 16vw;
     height: 100vh;
-	display: block;
-	background-color: #333333;
-	overflow-y: hidden;
+    display: block;
+    background-color: #333333;
+    overflow-y: hidden;
     overflow-x: hidden;
-    box-shadow: -4px 4px 10px rgba(0,0,0,0.3)
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3)
 }
 
-#rightSideNav h1
-{
-	color: #dddddd;
-	margin-left: 5%;
+#leftSideNav h1 {
+    color: #dddddd;
+    margin-left: 5%;
 }
 
-#rightSideNav .row
-{
-	margin-top: 5%;
-	margin-left: 5%;
+#leftSideNav .row {
+    margin-top: 5%;
+    margin-left: 5%;
 }
 
-.container #content #post
-{
-    margin-top:2%;
-    margin-right:auto;
-    margin-left:auto;
-    width:45vw;
+#rightSideNav {
+    float: right;
+    width: 16vw;
+    height: 100vh;
+    display: block;
+    background-color: #333333;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.3)
 }
 
-.container #content #post #postImg img
-{
+#rightSideNav h1 {
+    color: #dddddd;
+    margin-left: 5%;
+}
+
+#rightSideNav .row {
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.container #content #post {
+    margin-top: 2%;
+    margin-right: auto;
+    margin-left: auto;
+    width: 45vw;
+}
+
+.container #content #post #postImg img {
     max-width: 400px;
     max-height: 400px;
     float: left;
 }
-.container #content #post #postText
-{
-    margin-top:5%;
+
+.container #content #post #postText {
+    margin-top: 5%;
 }
 
-#comments img
-{
-    float:left;
-    max-width:50px;
-    max-height:50px;
+#comments img {
+    float: left;
+    max-width: 50px;
+    max-height: 50px;
 }
 
-#comments
-{
-    float:left;
-    width:20vw;
-    color:black;
+#comments {
+    float: left;
+    width: 20vw;
+    color: black;
     height: auto;
-    min-width:200px;
+    min-width: 200px;
 }
 
-#comments h6
-{
+#comments h6 {
     color: #dddddd;
 }
 
-#comments #postComment 
-{
-    margin-top:5%;
-    height:75px;
+#comments #postComment {
+    margin-top: 5%;
+    height: 75px;
 }
 
-#comments #commentReply
-{
-    margin-top:15%;
-    margin-left:15%;
-    height:75px;
+#comments #commentReply {
+    margin-top: 15%;
+    margin-left: 15%;
+    height: 75px;
 }
 
-#comments #commentReply .row
-{
-    margin-top:10%;
+#comments #commentReply .row {
+    margin-top: 10%;
 }
 
-#comments #commentRow
-{
-    margin-top:10%;
+#comments #commentRow {
+    margin-top: 10%;
 }

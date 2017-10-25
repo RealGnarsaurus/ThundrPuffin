@@ -28,6 +28,7 @@
 		<div id="adminSideNav" class="sidenav">
             <br/>
             <img class="avatar img-circle" src="../Blogg/Images/avatar1.jpg" style="height: 8vw; width: auto; display: block;">		
+            <br/>
             <p>mister_rivernik</p>
             <br/>			
 			<button href="#" class="adminLiButton btn" id="manageUser" onClick="loadDoc()"><span class="material-icons">assignment_ind </span> Manage Users</button>		

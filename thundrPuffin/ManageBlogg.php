@@ -133,7 +133,7 @@ $result = $stmt->fetchAll();
                 <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
                 <input type="submit" name="" value="Goto Blogg">
             </form> -->
-            <form action="Helpers/Blogg_Check.php" method="post" enctype="multipart/form-data">
+            <form action="../Helpers/Blogg_Check.php" method="post" enctype="multipart/form-data">
                 <input type="text" name="userID" value="<?php echo $userID;?>" placeholder="<?php echo $result[0]->ID;?>"hidden>
                 <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
                 </br>
