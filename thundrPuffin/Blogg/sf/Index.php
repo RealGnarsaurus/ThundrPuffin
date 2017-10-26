@@ -110,11 +110,6 @@ $result2 = $stmt2->fetchAll();
         </ul>
       </div>
     </nav>
-
-    <br>
-    <a href="../../index.php">Gotta Go Back</a>
-    <a href="../../admin/admin.php">AdminPanel</a>
-    <br>
     <div id="container">
       <div id="header">
         <h1><?php echo $result[0]->Name;?></h1>

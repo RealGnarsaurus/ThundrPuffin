@@ -15,6 +15,9 @@
 		$stmt2 = $dbh->prepare($sql2);
 		$stmt2->execute();
 		$result2 = $stmt2->FetchAll();
+		if($userID==null){
+			header("Location:../welcome.php");
+		}
 ?>
 <!DOCTYPE html>
 <html>
