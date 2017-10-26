@@ -19,7 +19,11 @@ if ($choice == "post") {
 if ($choice == "comment") {
   $postID = $_POST['postID'];
   $comment = $_POST['comment'];
+<<<<<<< HEAD
   $sql = "INSERT INTO comment(ID,PostID,IP,Message) VALUES (null,:postID,:publicIP,:comment)";
+=======
+  $sql = "INSERT INTO comment(ID,BloggID,PostID,IP,Message) VALUES (null,'$bloggID','$postID','$publicIP','$comment')";
+>>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
   echo $sql;
   $stmt= $dbh->prepare($sql);
   $stmt->bindParam(':postID', $postID, PDO::PARAM_INT);

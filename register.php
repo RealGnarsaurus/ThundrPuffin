@@ -39,7 +39,7 @@ session_start();
 			<div class="container-fluid" id="navbarBg">
 				<div class="navbar-header">
 					<img src="img/tPLogonav-logga.png"/>
-					<a class="navbar-brand" id="brand" href="#">ThundrPuffin</a>
+					<a class="navbar-brand" id="brand" href="welcome.php">ThundrPuffin</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li><a href="welcome.php">Home</a></li>
