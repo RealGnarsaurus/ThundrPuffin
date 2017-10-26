@@ -16,11 +16,6 @@ session_start();
 		<?php
 	}
 	?>
-
-	<head>
-		<title>thundrPuffin</title>
-		<link rel="stylesheet" type="text/css" href="registerStyle.css">
-
 	<head>
 		<title>thundrPuffin</title>
 
@@ -31,6 +26,8 @@ session_start();
 
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="helpers/ip.js"></script>
+    <script src="helpers/popup.js"></script>
+    <script src="helpers/getcontent.js"></script>
   </head>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
@@ -59,7 +56,10 @@ session_start();
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-sm-4 col-md-4">
-								<label class="control-label" for="usr">Username:</label>
+								<label class="control-label" id="popup" onclick="popup('popupid1',this);" for="usr">Username:</label>
+                <div class="popup" onclick="popup('popupid1');">Click me to show Format!
+                  <span class="popuptext" id="popupid1">Numbers And letters: exempel123</span>
+                </div>
 								<input type="text" class="form-control" id="usr" name="username" pattern="[A-Za-z0-9]+" value="">
 							</div>
 							<div class="col-md-4"></div>
@@ -70,6 +70,9 @@ session_start();
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="pwd">Password:</label>
+                <div class="popup" onclick="popup('popupid2');">Click me to show Format!
+                  <span class="popuptext" id="popupid2">Numbers And letters: password123</span>
+                </div>
 								<input type="password" class="form-control" id="pwd" name="password" pattern="[A-Za-z0-9]+" value="">
 							</div>
 							<div class="col-md-4"></div>
@@ -81,6 +84,9 @@ session_start();
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="pwd">Repeat Password:</label>
+                <div class="popup" onclick="popup('popupid3');">Click me to show Format!
+                  <span class="popuptext" id="popupid3">Numbers And letters: password123</span>
+                </div>
 								<input type="password" class="form-control" id="repeatPwd" name="password2" pattern="[A-Za-z0-9]+" value="">
 							</div>
 							<div class="col-md-4"></div>
@@ -91,6 +97,9 @@ session_start();
 							<div class="col-md-4"></div>
 							<div class="col-sm-4">
 								<label class="control-label" for="email">Email address:</label>
+                <div class="popup" onclick="popup('popupid4');">Click me to show Format!
+                  <span class="popuptext" id="popupid4">Numbers And letters: exempel123@gmail.se</span>
+                </div>
 								<input type="email" class="form-control" id="email" name="email" value="">
 								<input id="Public" type="text" name="localIP" value="" hidden>
 								<input id="Local" type="text" name="publicIP" value="" hidden>
@@ -109,7 +118,11 @@ session_start();
 						<div class="row">
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
-								Accept Eula To Sign Up<input type="checkbox" name="EULA" value="Agreed" required="required">
+							 <p onclick="eula();"> Accept <b id="b">Eula</b> To Sign Up <input type="checkbox" name="EULA" value="Agreed" required="required"></p>
+               <div class="popup">
+                 <span class="popuptext" id="popupid5">Eula Or Igree In Blindness</span>
+               </div>
+
 							</div>
 							<div class="col-md-4"></div>
 						</div>
@@ -128,7 +141,7 @@ session_start();
 				</form>
 			</div>
 		</div>
-		<div class="footer">
+		<div class="footer" id="footer">
 			<div class="panel-footer panel-danger">Footer</div>
 		</div>
 

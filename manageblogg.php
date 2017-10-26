@@ -107,7 +107,7 @@ $result = $stmt->fetchAll();
             <h1>Create new blog</h1>
             <form id="createBlogForm" action="../helpers/blogg_check.php" method="post">
                 <div class="form-group">
-                <input type="text" value="" name="bloggName">
+                <input type="text" value="" pattern="[A-Za-z0-9]+" name="bloggName">
                 <br>
                 <input type="text" name="userID" value="<?php echo $userID;?>"hidden>
                 <input type="text" name="choice" value="addBlogg"hidden>
@@ -140,7 +140,7 @@ $result = $stmt->fetchAll();
 
                     Name Of Blogg:
                     <br>
-                    <input type="text" name="bloggName" value="<?php echo $result[0]->Name;?>" onchange="preview(event,'previewName');" placeholder="">
+                    <input type="text" name="bloggName" pattern="[A-Za-z0-9]+" value="<?php echo $result[0]->Name;?>" onchange="preview(event,'previewName');" placeholder="">
                     <!-- <h2>Images</h2>
                     <input type="file" name="BG" onchange="preview(event,'previewImg');" id="BG">
                     <br>

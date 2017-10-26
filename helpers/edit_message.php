@@ -1,7 +1,6 @@
 <?php
   require('db.php');
   echo $_POST['choice'];
-  //echo $_POST['choice'];
 
   if ($_POST['choice'] == "Post") {
     //echo "inside post";
@@ -24,8 +23,6 @@
       $stmt2 = $dbh->prepare($sql2);
       $stmt2->execute();
     }
-
-
     }
   else{
 
@@ -40,7 +37,9 @@ if ($_POST['choice'] == "Comment") {
     $editCommentID = $_POST['editCommentID'];
     $editTextBefore = $_POST['editTextBefore'];
     $editTextAfter = $_POST['editTextAfter'];
-
+    if ($editCommentID == null) {
+      $editCommentID = 0;
+    }
     $sql = "INSERT INTO editcomment (`ID`, `UserID`, `CommentID`, `BloggID`, `TextBefore`, `TextNew`) VALUES (null,'$editUserID','$editCommentID','$editBloggID','$editTextBefore','$editTextAfter')";
     echo $sql;
     $stmt = $dbh->prepare($sql);
@@ -65,12 +64,14 @@ if ($_POST['choice'] == "Report") {
     $reportUserID = $_POST['reportUserID'];
     $reportPrio = $_POST['reportPrio'];
     $reportUrl = $_POST['reportUrl'];
-
+    if (empty($reportCommentID)) {
+      $reportCommentID = 0;
+    }
     $sql = "INSERT INTO report (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`,`Url`) VALUES (null,'$bloggID','$reportPostID','$reportCommentID','$reportUserID','$reportPrio','$reportUrl')";
     echo $sql;
     $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    header("Location:".$reportUrl);
+    //$stmt->execute();
+    //header("Location:".$reportUrl);
   }
   else{
 

@@ -26,26 +26,27 @@ if (empty($result)) { //IF Database Contains Username/Email -> check password
     if ($password == $password2) {
         //ADD NEW USER
         $password = password_hash($password, PASSWORD_DEFAULT);
+        echo $password;
         $sql2 = "INSERT INTO userinfo(`ID`, `IP`, `PublicIP`, `Email`, `Password`, `Username`) VALUES (null,'$localIP','$publicIP','$email','$password','$username')";
         // echo $sql2;
         $stmt2 = $dbh->prepare($sql2);
         $stmt2->execute();
         $_SESSION['errorMsg'] = "Account Registered";
-        header("Location:../login.php");
+        //header("Location:../login.php");
     }
     else{
 
       $_SESSION['errorMsg'] = "Password Doesnt Match";
-      header("Location:../register.php");
+      //header("Location:../register.php");
     }
   }
   else{
     $_SESSION['errorMsg'] = "Email Already Exists";
-    header("Location:../register.php");
+    //header("Location:../register.php");
   }
 }
 else{
   $_SESSION['errorMsg'] = "Username Already Exists";
-  header("Location:../register.php");
+  //header("Location:../register.php");
 }
  ?>

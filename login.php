@@ -1,6 +1,6 @@
 <?php
 	session_start();
-  	require('Helpers/db.php');
+  	require('helpers/db.php');
   //$password = password_hash($password, PASSWORD_DEFAULT);
  ?>
 
@@ -69,7 +69,7 @@
 							<div class="col-md-4"></div>
 							<div class="col-md-4">
 								<button type="submit" class="btn btn-default" value="Login">Login</button>
-								<a class="btn btn-default" href="register.php">No account?</a>	
+								<a class="btn btn-default" href="register.php">No account?</a>
 							</div>
 							<div class="col-md-4"></div>
 						</div>

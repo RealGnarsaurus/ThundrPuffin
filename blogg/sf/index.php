@@ -2,6 +2,7 @@
 session_start();
 require('../../helpers/db.php');
 $bloggID = $_GET['bloggID'];
+
 if (!empty($recentlyInserted)) {
 
 }
@@ -31,7 +32,7 @@ if (!empty($recentlyInserted)) {
 
     if (empty($result7)) {
       $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Post`, `Comment`, `Edit`, `Del`) VALUES (:bloggID,:userID,'0','1','0','0')";
-      echo $sql8;
+      //echo $sql8;
       $stmt8 = $dbh->prepare($sql8);
       $stmt8->bindParam(':bloggID', $bloggID, PDO::PARAM_INT); //mby works
       $stmt8->bindParam(':userID', $userID, PDO::PARAM_INT); //mby works
@@ -41,7 +42,11 @@ if (!empty($recentlyInserted)) {
 
     }
   }
+  if(empty($_SESSION['userID'])){
+    $userID = 0;
+  }
 }
+
 
 $sql = "SELECT * FROM blogg where ID='$bloggID'";
 //echo $sql;
@@ -64,36 +69,86 @@ $result2 = $stmt2->fetchAll();
  <link rel="stylesheet" href="../<?php echo $bloggID;?>/style.css">
  <script src="../../helpers/edit.Js"></script> <!--Edit Forms Script-->
  <script src="../../helpers/ip.js"></script><!--LocalIp-->
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ <!-- jQuery library -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+ <!-- Latest compiled JavaScript -->
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <link href="../../css/welcomeStyle.css" rel="stylesheet">
+ <link href="../../css/main.css" rel="stylesheet">
  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
  <body onload="GetLocalIp();">
+   <nav class="navbar navbar-default">
+       <div class="container-fluid" id="navbarBg">
+           <div class="navbar-header">
+               <img src="img/tPLogonav-logga.png"/>
+               <a class="navbar-brand" id="brand" href="#">thundrPuffin</a>
+           </div>
+           <ul class="nav navbar-nav">
+               <li><a href="../../welcome.php">Home</a></li>
+               <li><a href="../../browsbloggs.php">Gotta Go Back</a></li>
+               <li><a href="#">Features(W)</a></li>
+               <li><a href="#">About(W)</a></li>
+               <li><a href="../../admin/admin.php"></a></li>
+               <?php
+               if (!empty($userID)) {
+                 if ($result[0]->UserID == $userID) {
+                  ?>
+                  <li><a href="../../admin/admin.php">AdminPanel</a></li>
+                  <?php
+                 }
+               }
+                ?>
+           </ul>
+           <ul class="nav navbar-nav navbar-right">
+               <?PHP
+                   if(!empty($_SESSION['userID'])) {
+                       $userID = $_SESSION['userID'];
+                       $sql = "SELECT Username from userinfo WHERE ID = $userID";
+                       $getName = $dbh->prepare($sql);
+                       $getName->execute();
+                       $getNameResult = $getName->fetchAll();
+                       echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
+                       echo '<li><a href=helpers/logout.php">Logout</a></li>';
+                   }
+                   else{
+                       echo '<li><a href="login.php">Login/Register</a></li>';
+                   }
+               ?>
+           </ul>
+       </div>
+   </nav>
+
    <br>
-   <a href="../../index.php">Gotta Go Back</a>
-   <a href="../../admin/admin.php">AdminPanel</a>
+
    <br>
    <div id="container">
      <div id="header">
        <h1><?php echo $result[0]->Name;?></h1>
    </div>
-   <?php
-   if (!empty($userID) && $result7[0]->Post == 1) {
+     <?php
+       if (!empty($userID) && $result7[0]->Post == 1) {
+        ?>
+         <div id="newPost">
+          <!--New Post-->
+          <form action="../../helpers/newpost.php" method="post">
+            <textarea minlength="5" name="post"></textarea>
+            <br>
+              <input id="Local" type="text" name="localIP" value="" hidden>
+              <input id="public" type="text" name="publicIP" value="" hidden>
+              <input type="text" name="userID" value="<?php echo $bloggID;?>"hidden>
+              <input type="text" name="bloggID" value="<?php echo $resTemp;?>"hidden>
+              <input type="text" name="choice" value="post" hidden>
+              <input type="submit" name="" value="Send">
+          </form>
+        </div>
+      <?php
+      }
     ?>
-   <div id="newPost">
-    <!--New Post-->
-    <form action="../../helpers/newpost.php" method="post">
-      <textarea minlength="5" name="post"></textarea>
-      <br>
-        <input id="Local" type="text" name="localIP" value="" hidden>
-        <input id="public" type="text" name="publicIP" value="" hidden>
-        <input type="text" name="userID" value="<?php echo $bloggID;?>"hidden>
-        <input type="text" name="bloggID" value="<?php echo $resTemp;?>"hidden>
-        <input type="text" name="choice" value="post" hidden>
-        <input type="submit" name="" value="Send">
-    </form>
- </div>
-  <?php
-  }
-  ?>
    <div id="postFeed">
      <?php
      foreach ($result2 as $res2) {
@@ -101,22 +156,34 @@ $result2 = $stmt2->fetchAll();
        ?>
        <div id="post">
          <?php
+         //If reported linl has been pressed;
          if ($res2->ID == $reportedPostID){
            ?>
            <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
              <?php
              if (!empty($userID) && $result7[0]->Comment == 1) {
               ?>
-             <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
+             <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">Comment</button>
+            <?php
+            }
+            if (empty($userID)){
+              ?>
+             <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">Comment</button>
             <?php
             }
           }
+          //shown normal
             else{?>
               <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
                 <?php
                 if (!empty($userID) && $result7[0]->Comment == 1) {
                  ?>
-                <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">+</button>
+                <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">Comment</button>
+              <?php
+              }
+                if (empty($userID)){
+                ?>
+               <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">Comment</button>
               <?php
               }
             }
@@ -133,7 +200,6 @@ $result2 = $stmt2->fetchAll();
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
              <input type="text" name="editTextAfter" value="">
              <input type="submit"name="" value="Edit">
-
            </form>
            <?php
            }
@@ -150,28 +216,29 @@ $result2 = $stmt2->fetchAll();
          ?>
 
          <!--This is for report system-->
-          <!--Report Post-->
+
           <?php
           if (!empty($userID) && $result7[0]->Comment == 1) {
            ?>
+           <!--Report Post-->
          <form action="../../helpers/edit_message.php" method="post">
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
-           <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>">
-           <input type="text" name="reportUserID" value="<?php echo $userID;?>">
+           <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
+           <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
            <?php
            $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
            if (empty($userID)){?>
-             <input type="text" name="reportPrio" value="5">
+             <input type="text" name="reportPrio" value="5" hidden>
 
              <?php
            }
            else{?>
-             <input type="text" name="reportPrio" value="1">
+             <input type="text" name="reportPrio" value="1" hidden>
              <?php
 
            }?>
-           <input type="text" name="reportUrl" value="<?php echo $link;?>">
-           <input type="text" name="choice" value="Report">
+           <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
+           <input type="text" name="choice" value="Report" hidden>
            <input type="submit"name="" value="Report">
 
          </form>
@@ -189,7 +256,7 @@ $result2 = $stmt2->fetchAll();
 
            <!--make a Comment-->
            <?php
-           if (!empty($userID) && $result7[0]->Edit == 1) {
+           if (!empty($userID) && $result7[0]->Comment == 1 || $userID == 0) {
             ?>
          <form class="SB<?php echo $res2Temp?>" action="../../helpers/newpost.php" method="post" hidden>
            <textarea class="SB<?php echo $res2Temp?>" name="comment" hidden></textarea>
@@ -229,9 +296,11 @@ $result2 = $stmt2->fetchAll();
               <h3><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
               <?php
             }
-            ?>
 
-         </div>
+?>
+         <?php
+         if (!empty($userID) && $result7[0]->Edit == 1) {
+           ?>
 
          <!--Edit Comment-->
          <form action="../../helpers/edit_message.php" method="post">
@@ -244,6 +313,7 @@ $result2 = $stmt2->fetchAll();
            <input type="submit"name="" value="Edit">
          </form>
          <?php
+
          $sql4 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res2Temp'";
          //cho $sql4;
          $stmt4 = $dbh->prepare($sql4);
@@ -253,28 +323,31 @@ $result2 = $stmt2->fetchAll();
 
          ?>
          <!--Report Comment-->
-         <form action="../../helpers/edit_message.php" method="post">
-           <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
-           <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
-           <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
-           <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
+           <form action="../../helpers/edit_message.php" method="post">
+             <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+             <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
+             <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
+             <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
+             <?php
+             $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+             if (empty($userID)){?>
+               <input type="text" name="reportPrio" value="5" hidden>
+
+               <?php
+             }
+             else{?>
+               <input type="text" name="reportPrio" value="1" hidden>
+               <?php
+
+             }?>
+             <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
+             <input type="text" name="choice" value="Report" hidden>
+             <input type="submit"name="" value="Report">
+           </form>
            <?php
-           $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-           if (empty($userID)){?>
-             <input type="text" name="reportPrio" value="5" hidden>
-
-             <?php
-           }
-           else{?>
-             <input type="text" name="reportPrio" value="1" hidden>
-             <?php
-
-           }?>
-           <input type="text" name="reportUrl" value="<?php echo $link;?>">
-           <input type="text" name="choice" value="Report">
-           <input type="submit"name="" value="Report">
-
-         </form>
+         }
+            ?>
+         </div>
          <?php
         }
           ?>
