@@ -2,7 +2,7 @@ body{
 background-color:#dddddd;
   background-image: url("Texture/BackGround.jpg");
   background-repeat: no-repeat;
-  width: 100%;
+  width: 99%;
   height: auto;
   color:black;
 }
@@ -10,49 +10,47 @@ div#container{
   width: 100%;
   height: 100%;
 }
-
-div#newPost
-{
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
 div#newPost textarea,form{
   width: 100%;
+  height: 200px;
   margin: auto;
   font-size: 25px;
+  background-color:#dddddd;
 }
 div#newPost input{
   margin: auto;
   width: 115px;
   height: 50px;
   font-size: 20px;
+background-color:;
 }
 div#header{
   width: 100%;
   height: 200px;
   text-align: center;
   background-image: url("Texture/HeaderImage.jpg");
+  margin-top: -40px;
   background-size: 1920px 200px;
   background-repeat: no-repeat;
+  color:;
   font-size: 25px;
 }
 div#postFeed{
-  width: 100%;
+  width: 80%;
   margin-top: 5%;
 }
 div#post{
-  margin-right:auto;
-  margin-left:auto;
-  width:65%;
+  width: 65%;
   border-style: solid;
   border-width: 2px;
   border-color: black;
+  background-color:;
   font-size: 10px;
+  color:;
 }
 div#comment{
   width: 65%;
-  margin-left:20% !important;
+  margin-left: 50px;
   border-style: solid;
   border-width: 2px;
   border-color: black;
@@ -68,4 +66,90 @@ div#comment:nth-child(even){
   border-color: black;
   background-color: gray;
   color: black;
+}
+
+  /* Custom css */
+
+body{
+  background-image: url("Texture/BackGround.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: auto;
+}
+div#container{
+  width: 100%;
+  height: 100%;
+}
+div#newPost textarea,form{
+  height: auto !important;
+  border: none !important;
+}
+div#newPost
+{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+div#newPost textarea{
+  width: 100%;
+  margin: auto;
+  font-size: 25px;
+  height: 50px !important;
+  padding-top: 8px;
+  padding-left: 6px;
+  background-color: white !important;
+}
+div#newPost input{
+  margin: auto;
+  width: 115px;
+  height: 50px;
+  font-size: 20px;
+}
+div#header{
+  width: 100% !important;
+  height: 200px;
+  text-align: center;
+  background-image: url("Texture/HeaderImage.jpg");
+  background-size: 1920px 200px;
+  background-repeat: no-repeat;
+  font-size: 25px;
+  margin-top: 0;
+}
+div#postFeed{
+  width: 100%;
+  margin-top: 5%;
+}
+div#post{
+  margin-right:auto;
+  margin-left:auto;
+  width:65%;
+  border-style: solid;
+  border-width: 2px;
+  font-size: 10px;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+}
+div#post h2{
+  margin-left:10px !important;
+}
+div#post textarea{
+  border: none !important;
+  margin-left:10px !important;
+}
+div#comment{
+  width: 65%;
+  margin-left:20% !important;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  font-size: 8px;
+}
+div#post .openComment input{
+  margin-left:10px !important;
+}
+div#comment:nth-child(even){
+  width: 65%;
+  margin-left: 50px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
 }
