@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 17 okt 2017 kl 15:59
+-- Tid vid skapande: 26 okt 2017 kl 09:50
 -- Serverversion: 10.1.19-MariaDB
 -- PHP-version: 7.0.13
 
@@ -37,7 +37,7 @@ CREATE TABLE `blogg` (
 --
 
 INSERT INTO `blogg` (`ID`, `Name`, `UserID`) VALUES
-(1, 'maikarma', 2);
+(1, 'deded', 9);
 
 -- --------------------------------------------------------
 
@@ -49,7 +49,7 @@ CREATE TABLE `comment` (
   `ID` int(11) NOT NULL,
   `BloggID` int(100) NOT NULL,
   `PostID` int(11) NOT NULL,
-  `IP` int(11) NOT NULL,
+  `IP` varchar(256) NOT NULL,
   `Message` varchar(256) NOT NULL,
   `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -59,7 +59,9 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`ID`, `BloggID`, `PostID`, `IP`, `Message`, `Dates`) VALUES
-(1, 0, 1, 6220, 'banana', '2017-10-13 09:10:21');
+(1, 0, 1, '62.20.62.219', 'hej', '2017-10-24 14:14:39'),
+(2, 0, 1, '62.20.62.219', 'bylaet', '2017-10-26 09:09:37'),
+(3, 0, 2, '', 'tjaena', '2017-10-26 09:09:01');
 
 -- --------------------------------------------------------
 
@@ -77,13 +79,6 @@ CREATE TABLE `editcomment` (
   `TextNew` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `editcomment`
---
-
-INSERT INTO `editcomment` (`ID`, `UserID`, `CommentID`, `BloggID`, `Dates`, `TextBefore`, `TextNew`) VALUES
-(1, 2, 1, 1, '2017-10-13 12:11:35', 'test', 'banana');
-
 -- --------------------------------------------------------
 
 --
@@ -100,22 +95,6 @@ CREATE TABLE `editpost` (
   `TextAfter` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `editpost`
---
-
-INSERT INTO `editpost` (`ID`, `UserID`, `PostID`, `BloggID`, `Dates`, `TextBefore`, `TextAfter`) VALUES
-(1, 2, 1, 1, '2017-10-13 10:54:34', 'test', 'herror'),
-(2, 2, 1, 1, '2017-10-13 10:56:17', 'herror', 'test'),
-(3, 2, 1, 1, '2017-10-13 13:16:01', 'banan', 'test'),
-(4, 2, 1, 1, '2017-10-13 13:16:55', '123', 'test'),
-(5, 2, 1, 1, '2017-10-13 13:17:12', '123', 'test'),
-(6, 2, 1, 1, '2017-10-13 13:19:01', 'testing', 'test'),
-(7, 2, 1, 1, '2017-10-13 13:19:26', 'testing', 'test'),
-(8, 2, 1, 1, '2017-10-13 13:19:48', 'testing', 'test'),
-(9, 2, 1, 1, '2017-10-13 13:19:51', 'testing', 'test'),
-(10, 2, 1, 1, '2017-10-13 13:21:08', 'test', 'testing');
-
 -- --------------------------------------------------------
 
 --
@@ -123,6 +102,7 @@ INSERT INTO `editpost` (`ID`, `UserID`, `PostID`, `BloggID`, `Dates`, `TextBefor
 --
 
 CREATE TABLE `permission` (
+  `ID` int(11) NOT NULL,
   `BloggID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `Post` int(11) NOT NULL,
@@ -135,8 +115,12 @@ CREATE TABLE `permission` (
 -- Dumpning av Data i tabell `permission`
 --
 
-INSERT INTO `permission` (`BloggID`, `UserID`, `Post`, `Comment`, `Edit`, `Del`) VALUES
-(1, 2, 1, 1, 1, 1);
+INSERT INTO `permission` (`ID`, `BloggID`, `UserID`, `Post`, `Comment`, `Edit`, `Del`) VALUES
+(1, 1, 1, 0, 1, 0, 0),
+(2, 1, 1, 0, 1, 0, 0),
+(3, 1, 9, 1, 1, 1, 1),
+(4, 4, 9, 0, 1, 0, 0),
+(5, 1, 10, 0, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -157,7 +141,8 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`ID`, `BloggID`, `UserID`, `Post`, `Dates`) VALUES
-(1, 1, 2, 'testing', '2017-10-13 09:10:15');
+(1, 1, 0, 'blyat', '2017-10-24 08:08:58'),
+(2, 1, 2, 'blyaet', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -181,8 +166,7 @@ CREATE TABLE `report` (
 --
 
 INSERT INTO `report` (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`, `Url`, `Dates`) VALUES
-(5, 1, 1, 0, 2, 1, 'http://localhost/blogg/blogg/CreateBlogg/Blogg/2/Index.php?bloggID=1', '2017-10-13 13:15:42'),
-(6, 1, 1, 1, 2, 1, 'http://localhost/blogg/blogg/CreateBlogg/Blogg/2/Index.php?bloggID=1', '2017-10-13 13:15:55');
+(1, 1, 1, 0, 1, 1, 'http://localhost/wills/blogg/sf/index.php?bloggID=1', '2017-10-24 09:47:24');
 
 -- --------------------------------------------------------
 
@@ -196,17 +180,16 @@ CREATE TABLE `userinfo` (
   `PublicIP` varchar(256) NOT NULL,
   `Email` varchar(256) NOT NULL,
   `Password` varchar(256) NOT NULL,
-  `Username` varchar(256) NOT NULL,
-  `Avatar` varchar(256) NOT NULL
+  `Username` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumpning av Data i tabell `userinfo`
 --
 
-INSERT INTO `userinfo` (`ID`, `IP`, `PublicIP`, `Email`, `Password`, `Username`, `Avatar`) VALUES
-(2, '62.20.62.211', '192.168.216.99', 'test@gmail.com', '$2y$10$UkjaiY103KCst/fQzC2HW.yk9.mYCF7ZpXyUVm6wyuByutPtvmcMu', 'fredan', ''),
-(3, '123.456', '654.321', 'hello@gmail.se', 'test', 'test', '');
+INSERT INTO `userinfo` (`ID`, `IP`, `PublicIP`, `Email`, `Password`, `Username`) VALUES
+(9, '62.20.62.210', '192.168.216.146', 'test@gmail.com', '$2y$10$SczeJ35L/vYGrHItssv2rOV5pPhrgtC6GCNg3YDDa5.v0eX.fYbrq', 'fredan'),
+(10, '62.20.62.219', '192.168.217.107', 'hej@gmail.com', '$2y$10$Yb8PITloFr8ef6l/e1zpUOm46OAi8Vhe/tLmHimmuHSrUl/94Iod.', 'RealGnarsaurus');
 
 --
 -- Index för dumpade tabeller
@@ -234,6 +217,12 @@ ALTER TABLE `editcomment`
 -- Index för tabell `editpost`
 --
 ALTER TABLE `editpost`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Index för tabell `permission`
+--
+ALTER TABLE `permission`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -267,32 +256,37 @@ ALTER TABLE `blogg`
 -- AUTO_INCREMENT för tabell `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT för tabell `editcomment`
 --
 ALTER TABLE `editcomment`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT för tabell `editpost`
 --
 ALTER TABLE `editpost`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT för tabell `permission`
+--
+ALTER TABLE `permission`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT för tabell `post`
 --
 ALTER TABLE `post`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT för tabell `report`
 --
 ALTER TABLE `report`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT för tabell `userinfo`
 --
 ALTER TABLE `userinfo`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
