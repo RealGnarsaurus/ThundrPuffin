@@ -21,8 +21,6 @@
         <link href="css/main.css" rel="stylesheet">
     </head>
     <body>
-        <div class="container-fluid" id="welcome_well">
-        </div>
         <nav class="navbar navbar-default">
             <div class="container-fluid" id="navbarBg">
                 <div class="navbar-header">

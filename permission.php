@@ -4,18 +4,20 @@ session_start();
 $userID = $_SESSION['userID'];
 //echo $userID;
 //Gets it all from your blogg table
-$sql = "SELECT * from Blogg where UserID = '$userID'";
+$sql = "SELECT * from Blogg where UserID = :userID";
 //echo $sql;
 $stmt = $dbh->prepare($sql);
+$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();
 $result = $stmt->fetchAll();
 $bloggID = $result[0]->ID; //your bloggid
 //echo $bloggID;
 
 //Get all permissions on Your Site
-$sql2 = "SELECT * from permission where BloggID = '$bloggID'";
+$sql2 = "SELECT * from permission where BloggID = :bloggID";
 //echo $sql2;
 $stmt2 = $dbh->prepare($sql2);
+$stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
 $stmt2->execute();
 $result2 = $stmt2->fetchAll();
 
