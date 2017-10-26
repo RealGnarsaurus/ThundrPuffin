@@ -15,7 +15,7 @@ div#newPost textarea,form{
   height: 200px;
   margin: auto;
   font-size: 25px;
-  background-color:#dddddd;
+  /* background-color:#dddddd; */
 }
 div#newPost input{
   margin: auto;
@@ -67,9 +67,9 @@ div#comment:nth-child(even){
   background-color: gray;
   color: black;
 }
-
-  /* Custom css */
-
+/** ******************** ****/
+/** *****Custom css***** ****/
+/** ******************** ****/
 body{
   background-image: url("Texture/BackGround.jpg");
   background-repeat: no-repeat;
