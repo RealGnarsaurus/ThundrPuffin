@@ -64,13 +64,14 @@ if ($_POST['choice'] == "Report") {
     $reportUserID = $_POST['reportUserID'];
     $reportPrio = $_POST['reportPrio'];
     $reportUrl = $_POST['reportUrl'];
+    $reason = $_POST['reason'];
     if (empty($reportCommentID)) {
       $reportCommentID = 0;
     }
-    $sql = "INSERT INTO report (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`,`Url`) VALUES (null,'$bloggID','$reportPostID','$reportCommentID','$reportUserID','$reportPrio','$reportUrl')";
+    $sql = "INSERT INTO report (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`,`Url`,`Reason`) VALUES (null,'$bloggID','$reportPostID','$reportCommentID','$reportUserID','$reportPrio','$reportUrl','$reason')";
     echo $sql;
     $stmt = $dbh->prepare($sql);
-    //$stmt->execute();
+    $stmt->execute();
     //header("Location:".$reportUrl);
   }
   else{

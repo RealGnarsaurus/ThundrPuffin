@@ -29,13 +29,13 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid" id="navbarBg">
 				<div class="navbar-header">
-					<a class="navbar-brand" id="brand" href="#">ThundrPuffin</a>
+					<a class="navbar-brand" id="brand" href="welcome.php">ThundrPuffin</a>
 				</div>
 				<ul class="nav navbar-nav">
 					<li><a href="welcome.php">Home</a></li>
-					<li><a href="#">Browse blogs</a></li>
-					<li><a href="#">Features</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="browsbloggs.php">Browse blogs</a></li>
+					<li><a href="#">Features(W)</a></li>
+					<li><a href="#">About(W)</a></li>
 				</ul>
 			</div>
 		</nav>

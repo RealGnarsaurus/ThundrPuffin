@@ -43,7 +43,7 @@
             <div class="container-fluid" id="navbarBg">
                 <div class="navbar-header">
                     <img src="img/tplogonav-logga.png"/>
-                    <a class="navbar-brand" id="brand" href="#">thundrPuffin</a>
+                    <a class="navbar-brand" id="brand" href="welcome.php">thundrPuffin</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="welcome.php">Home</a></li>
@@ -60,7 +60,7 @@
                             $getName->execute();
                             $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                            echo '<li><a href="../helpers/logout.php">Logout</a></li>';
+                            echo '<li><a href="helpers/logout.php">Logout</a></li>';
                         }
                         else{
                             echo '<li><a href="login.php">Login/Register</a></li>';

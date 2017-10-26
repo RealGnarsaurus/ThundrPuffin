@@ -30,13 +30,16 @@ else{
     ?>
     <form action="<?php echo $res2->Url;?>" method="post">
       <?php
-      if   ($res2->CommentID == 0) {
+      //A Reported Post
+      if($res2->CommentID == 0) {
         echo "User:" . $res3->Username . " || Reported With PostID:". $res2->PostID;
        ?>
       <input type="text" name="reportedPostID" value="<?php echo $res2->PostID;?>" hidden>
       <input type="submit" value="Quick Link">
+
       <?php
       }
+    //A reported Comment
     else{
         echo "User:" . $res3->Username . " || Reported With CommentID:". $res2->PostID;
      ?>
@@ -46,6 +49,7 @@ else{
   }
     ?>
     </form>
+    <input type="submit" name="" value="Remove <?php echo "Report ID:". $res2->PostID;?>" onclick="Remove(<?php echo $res2->PostID;?>);">
     <?php
   }
   }

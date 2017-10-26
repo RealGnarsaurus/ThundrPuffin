@@ -18,7 +18,7 @@ if ($choice == "post") {
 if ($choice == "comment") {
   $postID = $_POST['postID'];
   $comment = $_POST['comment'];
-  $sql = "INSERT INTO comment(ID,PostID,IP,Message,Dates) VALUES (null,'$postID','$publicIP','$comment','$dates')";
+  $sql = "INSERT INTO comment(ID,BloggID,PostID,IP,Message) VALUES (null,'$bloggID','$postID','$publicIP','$comment')";
   echo $sql;
   $stmt= $dbh->prepare($sql);
   $stmt->execute();
