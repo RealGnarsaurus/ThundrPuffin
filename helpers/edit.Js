@@ -1,5 +1,5 @@
 
-function edit(Class,n){
+function show(Class,n){
     var p = document.getElementById(Class+n);
 
 
@@ -7,16 +7,15 @@ function edit(Class,n){
 
         //alert(rad);
         p.style.display = "inline";
-
-
-
-
 }
-function edithide(Class,n,Class2,n2){
-  var p = document.getElementById(Class2+n2);
-
+function hide(Class,n){
+    var p = document.getElementById(Class+n);
     p.style.display = "none";
+    //alert(p);
+}
+function edithide(Class,n){
+  var p = document.getElementById(Class+n);
+  p.style.display = "inline";
 
-
-  edit(Class,n);
+  //edit(Class,n);
 }

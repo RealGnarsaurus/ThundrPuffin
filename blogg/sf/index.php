@@ -184,31 +184,31 @@ $result2 = $stmt2->fetchAll();
                 $result10 = $stmt10->fetchAll();
                 if (empty($result10)) {
                     ?>
-                    <button id="" class="openComment" onclick="edit('Report',<?php echo $res2Temp?>);">Report</button><!--Comment Button-->
+                    <button id="" class="openComment" onclick="edithide('Report',<?php echo $res2Temp?>);">Report</button><!--Comment Button-->
                     <?php
                 }
               }
               if (!empty($userID) && $result7[0]->Edit == 1) {
                ?>
-              <button id="" class="openComment" onclick="edithide('Edit',<?php echo $res2Temp?>,'Comment',<?php echo $res2Temp?>,'Delete',<?php echo $res2Temp?>);">Edit</button><!--Comment Button-->
+              <button id="" class="openComment" onclick="edithide('Edit',<?php echo $res2Temp?>);">Edit</button><!--Comment Button-->
              <?php
              }
              if (!empty($userID) && $result7[0]->Del == 1) {
               ?>
-              <button id="" class="openComment" onclick="edit('Delete',<?php echo $res2Temp?>)">Delete</button><!--Comment Button-->
+              <button id="" class="openComment" onclick="edithide('Delete',<?php echo $res2Temp?>)">Delete</button><!--Comment Button-->
 
             <?php
             }
             //Comment for anonymous
               if (empty($userID)){
               ?>
-             <button id="" class="openComment" onclick="edit('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
+             <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
             <?php
             }
               //delete button for admin
               if (!empty($userID) && $result7[0]->Del == 1) {
                 ?>
-                <form class="Delete<?php echo $res2Temp?>" action="../../helpers/delete_msg.php" method="post" hidden>
+                <form id="Delete<?php echo $res2Temp?>" class="Delete<?php echo $res2Temp?>" action="../../helpers/delete_msg.php" method="post" hidden>
                   <input type="text" name="delUserID" value="<?php echo $userID;?>" hidden>
                   <input type="text" name="delPostID" value="<?php echo $res2Temp;?>" hidden>
                   <input type="text" name="delTextBefore" value="<?php echo $res2->Post;?>"hidden>
@@ -253,7 +253,7 @@ $result2 = $stmt2->fetchAll();
           if (!empty($userID) && $result7[0]->Comment == 1) {
            ?>
            <!--Report Post-->
-         <form class="Report<?php echo $res2Temp?>" action="../../helpers/edit_message.php" method="post" hidden>
+         <form id="Report<?php echo $res2Temp?>" class="Report<?php echo $res2Temp?>" action="../../helpers/edit_message.php" method="post" hidden>
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
            <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
            <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
@@ -335,18 +335,18 @@ $result2 = $stmt2->fetchAll();
               $result9 = $stmt9->fetchAll();
               if (empty($result9)) {
                ?>
-              <button id="" class="openComment" onclick="edit('Report2',<?php echo $res3->ID?>)">Report</button><!--Comment Button-->
+              <button id="" class="openComment" onclick="edithide('Report2',<?php echo $res3->ID?>)">Report</button><!--Comment Button-->
              <?php
            }
           }
           if (!empty($userID) && $result7[0]->Edit == 1) {
            ?>
-          <button id="" class="openComment" onclick="edit('Edit2',<?php echo $res3->ID?>)">Edit</button><!--Comment Button-->
+          <button id="" class="openComment" onclick="edithide('Edit2',<?php echo $res3->ID?>)">Edit</button><!--Comment Button-->
          <?php
          }
          if (!empty($userID) && $result7[0]->Del == 1) {
           ?>
-          <button id="" class="openComment" onclick="edit('Delete2',<?php echo $res3->ID?>)">Delete</button><!--Comment Button-->
+          <button id="" class="openComment" onclick="edithide('Delete2',<?php echo $res3->ID?>)">Delete</button><!--Comment Button-->
 
         <?php
         }
@@ -354,7 +354,7 @@ $result2 = $stmt2->fetchAll();
            ?>
 
          <!--Edit Comment tab-->
-         <form class="Edit2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
+         <form id="Edit2<?php echo $res3->ID?>" class="Edit2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
            <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
            <input type="text" name="editCommentID" value="<?php echo $res2Temp;?>" hidden>
            <input type="text" name="editTextBefore" value="<?php echo $res3->Message;?>" hidden>
@@ -368,7 +368,7 @@ $result2 = $stmt2->fetchAll();
          //Delete Button for ADMIN when reported
          if (!empty($userID) && $result7[0]->Del == 1) {
            ?>
-           <form class="Delete2<?php echo $res3->ID?>" action="../../helpers/delete_msg.php" method="post" hidden>
+           <form id="Delete2<?php echo $res3->ID?>" class="Delete2<?php echo $res3->ID?>" action="../../helpers/delete_msg.php" method="post" hidden>
              <input type="text" name="delUserID" value="<?php echo $userID;?>"hidden >
              <input type="text" name="delCommentID" value="<?php echo $res3->ID;?>"hidden >
              <input type="text" name="delTextBefore" value="<?php echo $res3->Message;?>"hidden>
@@ -391,7 +391,7 @@ $result2 = $stmt2->fetchAll();
 
          ?>
          <!--Report Comment-->
-           <form class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
+           <form id="Report2<?php echo $res3->ID?>" class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
              <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
              <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
