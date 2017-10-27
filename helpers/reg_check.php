@@ -12,14 +12,16 @@ $publicIP = $_POST['publicIP'];
 // echo "Local:" . $localIP . " || publicIP:" . $publicIP;
 
 
-$sql = "SELECT * FROM userinfo where Username = '$username'";
+$sql = "SELECT * FROM userinfo where Username = :username";
 $stmt = $dbh->prepare($sql);
+$stmt->bindParam(':username', $username, PDO::PARAM_STR);
 $stmt->execute();
 $result = $stmt->fetchAll();
 
 if (empty($result)) { //IF Database Contains Username/Email -> check password
-  $sql2 = "SELECT * FROM userinfo where Email = '$email'";
+  $sql2 = "SELECT * FROM userinfo where Email = :email";
   $stmt2 = $dbh->prepare($sql2);
+  $stmt2->bindParam(':email', $email, PDO::PARAM_STR);
   $stmt2->execute();
   $result2 = $stmt2->fetchAll();
   if (empty($result2)) {
@@ -27,9 +29,14 @@ if (empty($result)) { //IF Database Contains Username/Email -> check password
         //ADD NEW USER
         $password = password_hash($password, PASSWORD_DEFAULT);
         echo $password;
-        $sql2 = "INSERT INTO userinfo(`ID`, `IP`, `PublicIP`, `Email`, `Password`, `Username`) VALUES (null,'$localIP','$publicIP','$email','$password','$username')";
+        $sql2 = "INSERT INTO userinfo(`ID`, `IP`, `PublicIP`, `Email`, `Password`, `Username`) VALUES (null,:localIP,:publicIP,:email,:password,:username)";
         // echo $sql2;
         $stmt2 = $dbh->prepare($sql2);
+        $stmt2->bindParam(':localIP', $localIP, PDO::PARAM_STR);
+        $stmt2->bindParam(':publicIP', $publicIP, PDO::PARAM_STR);
+        $stmt2->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt2->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt2->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt2->execute();
         $_SESSION['errorMsg'] = "Account Registered";
         //header("Location:../login.php");
