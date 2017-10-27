@@ -86,53 +86,6 @@ $result2 = $stmt2->fetchAll();
  <link href="../../css/main.css" rel="stylesheet">
  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
  <body onload="GetLocalIp();">
-<<<<<<< HEAD
-   <nav class="navbar navbar-default">
-       <div class="container-fluid" id="navbarBg">
-           <div class="navbar-header">
-               <img src="img/tPLogonav-logga.png"/>
-               <a class="navbar-brand" id="brand" href="#">thundrPuffin</a>
-           </div>
-           <ul class="nav navbar-nav">
-               <li><a href="../../welcome.php">Home</a></li>
-               <li><a href="../../browsbloggs.php">Gotta Go Back</a></li>
-               <li><a href="#">Features(W)</a></li>
-               <li><a href="#">About(W)</a></li>
-               <li><a href="../../admin/admin.php"></a></li>
-               <?php
-               if (!empty($userID)) {
-                 if ($result[0]->UserID == $userID) {
-                  ?>
-                  <li><a href="../../admin/admin.php">AdminPanel</a></li>
-                  <?php
-                 }
-               }
-                ?>
-           </ul>
-           <ul class="nav navbar-nav navbar-right">
-               <?PHP
-                   if(!empty($_SESSION['userID'])) {
-                       $userID = $_SESSION['userID'];
-                       $sql = "SELECT Username from userinfo WHERE ID = :userID";
-                       $getName = $dbh->prepare($sql);
-                       $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-                       $getName->execute();
-                       $getNameResult = $getName->fetchAll();
-                       echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                       echo '<li><a href=helpers/logout.php">Logout</a></li>';
-                   }
-                   else{
-                       echo '<li><a href="login.php">Login/Register</a></li>';
-                   }
-               ?>
-           </ul>
-       </div>
-   </nav>
-
-   <br>
-
-   <br>
-=======
     <!--Menu-->
     <nav class="navbar navbar-default">
          <div class="container-fluid" id="navbarBg">
@@ -176,28 +129,19 @@ $result2 = $stmt2->fetchAll();
      </nav>
     <br>
     <br>
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
    <div id="container">
      <!--BloggName-->
      <div id="header">
        <h1><?php echo $result[0]->Name;?></h1>
-<<<<<<< HEAD
-   </div>
-=======
      </div>
      <!--TextArea For New Post-->
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
      <?php
        if (!empty($userID) && $result7[0]->Post == 1) {
         ?>
          <div id="newPost">
           <!--New Post-->
           <form action="../../helpers/newpost.php" method="post">
-<<<<<<< HEAD
-            <textarea minlength="5" name="post"></textarea>
-=======
             <textarea minlength="1" name="post"></textarea>
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
             <br>
               <input id="Local" type="text" name="localIP" value="" hidden>
               <input id="public" type="text" name="publicIP" value="" hidden>
@@ -210,10 +154,7 @@ $result2 = $stmt2->fetchAll();
       <?php
       }
     ?>
-<<<<<<< HEAD
-=======
     <!--Contains All Posts And Comments-->
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
    <div id="postFeed">
      <?php
      foreach ($result2 as $res2) {
@@ -222,30 +163,14 @@ $result2 = $stmt2->fetchAll();
        <!--Show All Posts-->
        <div id="post">
          <?php
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
          //If reported link has been pressed;
          if ($res2->ID == $reportedPostID){
            ?>
            <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
              <?php
-<<<<<<< HEAD
-             if (!empty($userID) && $result7[0]->Comment == 1) {
-              ?>
-             <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">Comment</button>
-            <?php
-            }
-            if (empty($userID)){
-              ?>
-             <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">Comment</button>
-            <?php
-            }
-=======
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
           }
           //shown normal
             else{?>
@@ -254,15 +179,6 @@ $result2 = $stmt2->fetchAll();
               }
                 if (!empty($userID) && $result7[0]->Comment == 1) {
                  ?>
-<<<<<<< HEAD
-                <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">Comment</button>
-              <?php
-              }
-                if (empty($userID)){
-                ?>
-               <button id="" class="openComment" onclick="edit('SB',<?php echo $res2Temp?>)">Comment</button>
-              <?php
-=======
                 <button id="" class="openComment" onclick="edit('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
                 <?php
                 $sql10 = "SELECT * FROM report where UserID='$userID' AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
@@ -275,7 +191,6 @@ $result2 = $stmt2->fetchAll();
                       <button id="" class="openComment" onclick="edit('Report',<?php echo $res2Temp?>)">Report</button><!--Comment Button-->
                     <?php
                 }
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
               }
               if (!empty($userID) && $result7[0]->Del == 1) {
                ?>
@@ -321,13 +236,8 @@ $result2 = $stmt2->fetchAll();
              <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>" hidden>
              <input type="text" name="choice" value="Post" hidden>
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
-<<<<<<< HEAD
-             <input type="text" name="editTextAfter" value="">
-             <input type="submit"name="" value="Edit">
-=======
              <input type="text" class="Edit<?php echo $res2Temp?>" name="editTextAfter" value="">
              <input type="submit" class="Edit<?php echo $res2Temp?>" name="" value="Edit">
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
            </form>
            <?php
            }
@@ -345,21 +255,11 @@ $result2 = $stmt2->fetchAll();
          if (empty($result5)) {
 
          ?>
-<<<<<<< HEAD
-
-         <!--This is for report system-->
-
-=======
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
           <?php
           if (!empty($userID) && $result7[0]->Comment == 1) {
            ?>
            <!--Report Post-->
-<<<<<<< HEAD
-         <form action="../../helpers/edit_message.php" method="post">
-=======
          <form class="Report<?php echo $res2Temp?>" action="../../helpers/edit_message.php" method="post" hidden>
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
            <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
            <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
@@ -367,10 +267,6 @@ $result2 = $stmt2->fetchAll();
            $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
            if (empty($userID)){?>
              <input type="text" name="reportPrio" value="5" hidden>
-<<<<<<< HEAD
-
-=======
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
              <?php
            }
            else{?>
@@ -379,10 +275,7 @@ $result2 = $stmt2->fetchAll();
            }?>
            <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
            <input type="text" name="choice" value="Report" hidden>
-<<<<<<< HEAD
-=======
            <input type="text" name="reason" value="" placeholder="Report Reason">
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
            <input type="submit"name="" value="Report">
          </form>
          <?php
@@ -441,11 +334,6 @@ $result2 = $stmt2->fetchAll();
               <h3><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
               <?php
             }
-<<<<<<< HEAD
-
-?>
-         <?php
-=======
             if (!empty($userID) && $result7[0]->Comment == 1) {
               $sql9 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res3->ID'"; //Checks if user already reported the comment/post
               //echo $sql5;
@@ -469,7 +357,6 @@ $result2 = $stmt2->fetchAll();
 
         <?php
         }
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
          if (!empty($userID) && $result7[0]->Edit == 1) {
            ?>
 
@@ -484,9 +371,6 @@ $result2 = $stmt2->fetchAll();
            <input type="submit"name="" value="Edit">
          </form>
          <?php
-<<<<<<< HEAD
-
-=======
          //Delete Button for ADMIN when reported
          if (!empty($userID) && $result7[0]->Del == 1) {
            ?>
@@ -503,7 +387,6 @@ $result2 = $stmt2->fetchAll();
            <?php
          }
          //If not reported earlier
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
          $sql4 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res2Temp'";
          //cho $sql4;
          $stmt4 = $dbh->prepare($sql4);
@@ -515,11 +398,7 @@ $result2 = $stmt2->fetchAll();
 
          ?>
          <!--Report Comment-->
-<<<<<<< HEAD
-           <form action="../../helpers/edit_message.php" method="post">
-=======
            <form class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
              <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
              <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
@@ -528,17 +407,6 @@ $result2 = $stmt2->fetchAll();
              $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
              if (empty($userID)){?>
                <input type="text" name="reportPrio" value="5" hidden>
-<<<<<<< HEAD
-
-               <?php
-             }
-             else{?>
-               <input type="text" name="reportPrio" value="1" hidden>
-               <?php
-
-             }?>
-             <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
-=======
                <?php
              }
              else{?>
@@ -548,18 +416,11 @@ $result2 = $stmt2->fetchAll();
              }?>
              <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
              <input type="text" name="reason" value="" placeholder="Report Reason">
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
              <input type="text" name="choice" value="Report" hidden>
              <input type="submit"name="" value="Report">
            </form>
            <?php
-<<<<<<< HEAD
-         }
-            ?>
-         </div>
-=======
          }?>
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
          <?php
         }
           ?>

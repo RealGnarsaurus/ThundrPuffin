@@ -47,11 +47,7 @@ if ($_POST['choice'] == "Comment") {
     if ($editCommentID == null) {
       $editCommentID = 0;
     }
-<<<<<<< HEAD
-    $sql = "INSERT INTO editcomment (`ID`, `UserID`, `CommentID`, `BloggID`, `TextBefore`, `TextNew`) VALUES (null,:editUserID,:editCommentID,:editBloggID,:editTextBefore,:editTextAfter)";
-=======
     $sql = "INSERT INTO editcomment (`ID`, `UserID`, `CommentID`, `BloggID`, `TextBefore`, `TextNew`) VALUES (null,'$editUserID','$editCommentID','$editBloggID','$editTextBefore','$editTextAfter')";
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
     echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':editUserID', $editUserID, PDO::PARAM_INT);
@@ -80,18 +76,11 @@ if ($_POST['choice'] == "Report") {
     $reportUserID = $_POST['reportUserID'];
     $reportPrio = $_POST['reportPrio'];
     $reportUrl = $_POST['reportUrl'];
-<<<<<<< HEAD
-    if (empty($reportCommentID)) {
-      $reportCommentID = 0;
-    }
-    $sql = "INSERT INTO report (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`,`Url`) VALUES (null,'$bloggID','$reportPostID','$reportCommentID','$reportUserID','$reportPrio','$reportUrl')";
-=======
     $reason = $_POST['reason'];
     if (empty($reportCommentID)) {
       $reportCommentID = 0;
     }
     $sql = "INSERT INTO report (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`,`Url`,`Reason`) VALUES (null,'$bloggID','$reportPostID','$reportCommentID','$reportUserID','$reportPrio','$reportUrl','$reason')";
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
     echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);

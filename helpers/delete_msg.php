@@ -1,25 +1,4 @@
 <?php
-<<<<<<< HEAD
-
-if (!empoty($_POST['postID'])) {
-  $PostID = $_POST['postID'];
-  $sql = "DELETE FROM post where ID=:postID"; //Check if user has blogg
-  //echo $sql;
-  $stmt = $dbh->prepare($sql);
-  $stmt->bindParam(':postID', $postID, PDO::PARAM_INT);
-  $stmt->execute();
-}
-if (!empty($_POST['commentID'])) {
-  $PostID = $_POST['postID'];
-  $sql = "DELETE FROM comment where ID=:postID"; //Check if user has blogg
-  //echo $sql;
-  $stmt = $dbh->prepare($sql);
-  $stmt->bindParam(':postID', $postID, PDO::PARAM_INT);
-  $stmt->execute();
-}
-
-
-=======
 require('db.php');
 $delBloggID = $_POST['delbloggID'];
 echo $_POST['delCommentID'] . " || " . $_POST['choice'];
@@ -98,5 +77,4 @@ if (!empty($_POST['delCommentID'])&& $_POST['choice'] == "Comment" ) {
 }
 
 header("Location:../blogg/sf/index.php?bloggID=".$delBloggID)
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
 ?>

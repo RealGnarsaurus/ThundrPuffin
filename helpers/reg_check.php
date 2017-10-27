@@ -29,11 +29,7 @@ if (empty($result)) { //IF Database Contains Username/Email -> check password
         //ADD NEW USER
         $password = password_hash($password, PASSWORD_DEFAULT);
         echo $password;
-<<<<<<< HEAD
-        $sql2 = "INSERT INTO userinfo(`ID`, `IP`, `PublicIP`, `Email`, `Password`, `Username`) VALUES (null,:localIP,:publicIP,:email,:password,:username)";
-=======
         $sql2 = "INSERT INTO userinfo(`ID`, `IP`, `PublicIP`, `Email`, `Password`, `Username`) VALUES (null,'$localIP','$publicIP','$email','$password','$username')";
->>>>>>> 0f4b1bc0fd323090762971a1535d2e2d66c1122a
         // echo $sql2;
         $stmt2 = $dbh->prepare($sql2);
         $stmt->bindParam(':localIP', $localIP, PDO::PARAM_STR);
