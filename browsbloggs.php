@@ -5,9 +5,10 @@
     if (!empty($_SESSION['userID'])) {
       $userID = $_SESSION['userID'];
       //Gets Blogg ID
-      $sql = "SELECT * from blogg where UserID = $userID";
+      $sql = "SELECT * from blogg where UserID = :userID";
       //echo $sql;
       $stmt = $dbh->prepare($sql);
+      $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
       $stmt->execute();
       $result = $stmt->FetchAll();
     }
@@ -43,7 +44,7 @@
             <div class="container-fluid" id="navbarBg">
                 <div class="navbar-header">
                     <img src="img/tplogonav-logga.png"/>
-                    <a class="navbar-brand" id="brand" href="#">thundrPuffin</a>
+                    <a class="navbar-brand" id="brand" href="welcome.php">thundrPuffin</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li><a href="welcome.php">Home</a></li>
@@ -55,12 +56,13 @@
                     <?PHP
                         if(!empty($_SESSION['userID'])) {
                             $userID = $_SESSION['userID'];
-                            $sql = "SELECT Username from userinfo WHERE ID = $userID";
+                            $sql = "SELECT Username from userinfo WHERE ID = :userID";
                             $getName = $dbh->prepare($sql);
+                            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
                             $getName->execute();
                             $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                            echo '<li><a href="../helpers/logout.php">Logout</a></li>';
+                            echo '<li><a href="helpers/logout.php">Logout</a></li>';
                         }
                         else{
                             echo '<li><a href="login.php">Login/Register</a></li>';

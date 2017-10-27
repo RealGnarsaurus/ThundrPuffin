@@ -4,9 +4,10 @@ if (!empty($_POST['CurrentPassword'])) {
   $userID = $_POST['userID'];
   $password = $_POST['CurrentPassword'];
   echo $userID;
-  $sql = "SELECT * FROM userinfo where ID = '$userID'";
+  $sql = "SELECT * FROM userinfo where ID = :userID";
   echo $sql;
   $stmt = $dbh->prepare($sql);
+  $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
   $stmt->execute();
   $result = $stmt->fetchAll();
   if (!empty($result)) { //IF Database Contains Username/Email -> check password
@@ -19,16 +20,18 @@ if (!empty($_POST['CurrentPassword'])) {
         if ($Password == $Password2) {
           $newPassword = $Password;
           $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-          $sql2 = "UPDATE `userinfo` SET `Password`= '$newPassword'";
+          $sql2 = "UPDATE `userinfo` SET `Password`= :newPassword";
           $stmt2 = $dbh->prepare($sql2);
+          $stmt->bindParam(':newPassword', $newPassword, PDO::PARAM_INT);
           $stmt2->execute();
             header("location:../admin/admin.php");
         }
       }
       if (!empty($_POST['Email'])) {
         $Email = $_POST['Email'];
-        $sql2 = "UPDATE `userinfo` SET `Email`= '$Email'";
+        $sql2 = "UPDATE `userinfo` SET `Email`= :Email";
         $stmt2 = $dbh->prepare($sql2);
+        $stmt->bindParam(':Email', $Email, PDO::PARAM_INT);
         $stmt2->execute();
           header("location:../admin/admin.php");
       }

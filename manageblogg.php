@@ -53,9 +53,10 @@ require('helpers/db.php');
 if (!empty($_SESSION['userID'])) { //IF logged in
 //Header("Location:Login.php")
 $userID = $_SESSION['userID'];
-$sql = "SELECT * FROM blogg where UserID='$userID'"; //Check if user has blogg
+$sql = "SELECT * FROM blogg where UserID=:userID"; //Check if user has blogg
 //echo $sql;
 $stmt = $dbh->prepare($sql);
+$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();
 $result = $stmt->fetchAll();
 if (!empty($result)) {

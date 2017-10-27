@@ -4,18 +4,20 @@ session_start();
 $userID = $_SESSION['userID'];
 //echo $userID;
 //Gets it all from your blogg table
-$sql = "SELECT * from Blogg where UserID = '$userID'";
+$sql = "SELECT * from Blogg where UserID = :userID";
 //echo $sql;
 $stmt = $dbh->prepare($sql);
+$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();
 $result = $stmt->fetchAll();
 $bloggID = $result[0]->ID; //your bloggid
 //echo $bloggID;
 
 //Get all permissions on Your Site
-$sql2 = "SELECT * from permission where BloggID = '$bloggID'";
+$sql2 = "SELECT * from permission where BloggID = :bloggID";
 //echo $sql2;
 $stmt2 = $dbh->prepare($sql2);
+$stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
 $stmt2->execute();
 $result2 = $stmt2->fetchAll();
 
@@ -43,7 +45,72 @@ else{
     ?>
     <br>
     <form action="" method="post">
+      <?php
+      if ($res3->ID == $userID) {
+        //OWner
+        ?>
+        <h2><?php echo $res3->UN . " - ID:" . $res3->ID;?></h2>
+        <?php
+        if ($res3->Post == 1) {
+          ?>
+            Post<input type="checkbox" disabled checked name="Post" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
+        <?php
+        }
+        else{
+          ?>
+            Post<input type="checkbox" disabled name="Post" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
+        <?php
+        }
+        ?>
 
+        <?php
+        if ($res3->Comment == 1) {
+          ?>
+          Comment<input type="checkbox" disabled checked name="Comment" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
+
+        <?php
+        }
+        else{
+          ?>
+          Comment<input type="checkbox"disabled name="Comment" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
+        <?php
+        }
+        ?>
+
+        <?php
+        if ($res3->Edit == 1) {
+          ?>
+          Edit<input type="checkbox" disabled checked name="Edit" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
+        <?php
+        }
+        else{
+          ?>
+          Edit<input type="checkbox" disabled name="Edit" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
+
+          <?php
+        }
+        ?>
+
+        <?php
+        if ($res3->Del == 1) {
+          ?>
+          Delete<input type="checkbox" disabled checked name="Delete" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
+
+          <?php
+        }
+        else{
+          ?>
+          Delete<input type="checkbox" disabled name="Delete" onclick="update2(this,<?php echo $res3->ID;?>,<?php echo $bloggID;?>);">
+          <?php
+        }
+        ?>
+
+        <input type="text" value="<?php echo $userInfo;?>" hidden>
+        <?php
+      }
+      else{
+      //If not owner of blog
+       ?>
       <h2><?php echo $res3->UN . " - ID:" . $res3->ID;?></h2>
       <?php
       if ($res3->Post == 1) {
@@ -106,6 +173,7 @@ else{
     </script>
     </form>
     <?php
+  }
   }
   }
 }

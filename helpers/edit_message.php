@@ -13,14 +13,21 @@
     $editTextBefore = $_POST['editTextBefore'];
     $editTextAfter = $_POST['editTextAfter'];
 
-    $sql = "INSERT INTO editpost (`ID`, `UserID`, `PostID`, `BloggID`, `TextBefore`, `TextAfter`) VALUES (null,'$editUserID','$editPostID','$editBloggID','$editTextBefore','$editTextAfter')";
+    $sql = "INSERT INTO editpost (`ID`, `UserID`, `PostID`, `BloggID`, `TextBefore`, `TextAfter`) VALUES (null,:editUserID,:editPostID,:editBloggID,:editTextBefore,:editTextAfter)";
     echo $sql;
     $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(':editUserID', $editUserID, PDO::PARAM_INT);
+    $stmt->bindParam(':editPostID', $editPostID, PDO::PARAM_INT);
+    $stmt->bindParam(':editBloggID', $editBloggID, PDO::PARAM_INT);
+    $stmt->bindParam(':editTextBefore', $editTextBefore, PDO::PARAM_INT);
+    $stmt->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_INT);
     $stmt->execute();
     if ($stmt) {
-      $sql2 = "UPDATE post SET Post = '$editTextAfter' where ID='$editPostID'";
+      $sql2 = "UPDATE post SET Post = :editTextAfter where ID=:editPostID";
       echo $sql2;
       $stmt2 = $dbh->prepare($sql2);
+      $stmt->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_STR);
+      $stmt->bindParam(':editPostID', $editPostID, PDO::PARAM_INT);
       $stmt2->execute();
     }
     }
@@ -43,6 +50,11 @@ if ($_POST['choice'] == "Comment") {
     $sql = "INSERT INTO editcomment (`ID`, `UserID`, `CommentID`, `BloggID`, `TextBefore`, `TextNew`) VALUES (null,'$editUserID','$editCommentID','$editBloggID','$editTextBefore','$editTextAfter')";
     echo $sql;
     $stmt = $dbh->prepare($sql);
+    $stmt->bindParam(':editUserID', $editUserID, PDO::PARAM_INT);
+    $stmt->bindParam(':editCommentID', $editCommentID, PDO::PARAM_INT);
+    $stmt->bindParam(':editBloggID', $editBloggID, PDO::PARAM_INT);
+    $stmt->bindParam(':editTextBefore', $editTextBefore, PDO::PARAM_STR);
+    $stmt->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_STR);
     $stmt->execute();
     if ($stmt) {
       $sql2 = "UPDATE comment SET Message = '$editTextAfter'";
@@ -64,13 +76,20 @@ if ($_POST['choice'] == "Report") {
     $reportUserID = $_POST['reportUserID'];
     $reportPrio = $_POST['reportPrio'];
     $reportUrl = $_POST['reportUrl'];
+    $reason = $_POST['reason'];
     if (empty($reportCommentID)) {
       $reportCommentID = 0;
     }
-    $sql = "INSERT INTO report (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`,`Url`) VALUES (null,'$bloggID','$reportPostID','$reportCommentID','$reportUserID','$reportPrio','$reportUrl')";
+    $sql = "INSERT INTO report (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`,`Url`,`Reason`) VALUES (null,'$bloggID','$reportPostID','$reportCommentID','$reportUserID','$reportPrio','$reportUrl','$reason')";
     echo $sql;
     $stmt = $dbh->prepare($sql);
-    //$stmt->execute();
+    $stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
+    $stmt->bindParam(':reportPostID', $reportPostID, PDO::PARAM_INT);
+    $stmt->bindParam(':reportCommentID', $reportCommentID, PDO::PARAM_INT);
+    $stmt->bindParam(':reportUserID', $reportUserID, PDO::PARAM_INT);
+    $stmt->bindParam(':reportPrio', $reportPrio, PDO::PARAM_INT);
+    $stmt->bindParam(':reportUrl', $reportUrl, PDO::PARAM_STR);
+    $stmt->execute();
     //header("Location:".$reportUrl);
   }
   else{
