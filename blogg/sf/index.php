@@ -181,11 +181,10 @@ $result2 = $stmt2->fetchAll();
                  ?>
                 <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
                 <?php
-                $sql10 = "SELECT * FROM report where UserID=:userID AND PostID=:res2Temp AND CommentID = '0'"; //Checks if user already reported the comment/post
+                $sql10 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
                 //echo $sql5;
                 $stmt10 = $dbh->prepare($sql10);
                 $stmt10->bindParam(':userID', $userID, PDO::PARAM_INT);
-                $stmt10->bindParam(':resTemp2', $resTemp2, PDO::PARAM_INT);
                 $stmt10->execute();
                 $result10 = $stmt10->fetchAll();
                 if (empty($result10)) {
@@ -247,11 +246,10 @@ $result2 = $stmt2->fetchAll();
          </h2>
          <!--If user already reported Comment-->
          <?php
-         $sql5 = "SELECT * FROM report where UserID=:userID AND PostID=:res2Temp AND CommentID = '0'"; //Checks if user already reported the comment/post
+         $sql5 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
          //echo $sql5;
          $stmt5 = $dbh->prepare($sql5);
          $stmt5->bindParam(':userID', $userID, PDO::PARAM_INT);
-         $stmt5->bindParam(':resTemp2', $resTemp2, PDO::PARAM_INT);
          $stmt5->execute();
          $result5 = $stmt5->fetchAll();
          if (empty($result5)) {
@@ -287,10 +285,9 @@ $result2 = $stmt2->fetchAll();
        </h2>
        <!--Select All Comments for the post-->
        <?php
-         $sql3 = "SELECT * FROM comment where PostID=:res2Temp";
+         $sql3 = "SELECT * FROM comment where PostID='$res2Temp'";
          //echo $sql3;
          $stmt3 = $dbh->prepare($sql3);
-         $stmt3->bindParam(':resTemp2', $resTemp2, PDO::PARAM_INT);
          $stmt3->execute();
          $result3 = $stmt3->fetchAll();?>
            <!--Open comment section with button above-->
@@ -392,11 +389,10 @@ $result2 = $stmt2->fetchAll();
          }
          if (!empty($userID) && $result7[0]->Edit == 1) {
          //If not reported earlier
-         $sql4 = "SELECT * FROM report where UserID=:userID AND CommentID=:res2Temp";
+         $sql4 = "SELECT * FROM report where UserID=:userID AND CommentID='$res2Temp'";
          //cho $sql4;
          $stmt4 = $dbh->prepare($sql4);
          $stmt4->bindParam(':userID', $userID, PDO::PARAM_INT);
-         $stmt4->bindParam(':resTemp2', $resTemp2, PDO::PARAM_INT);
          $stmt4->execute();
          $result4 = $stmt4->fetchAll();
          if (empty($result4)) {

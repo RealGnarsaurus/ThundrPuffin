@@ -89,8 +89,9 @@ if ($_POST['choice'] == "Report") {
     $stmt->bindParam(':reportUserID', $reportUserID, PDO::PARAM_INT);
     $stmt->bindParam(':reportPrio', $reportPrio, PDO::PARAM_INT);
     $stmt->bindParam(':reportUrl', $reportUrl, PDO::PARAM_STR);
+    $stmt->bindParam(':reason', $reason, PDO::PARAM_STR);
     $stmt->execute();
-    //header("Location:".$reportUrl);
+    header("Location:".$reportUrl);
   }
   else{
 

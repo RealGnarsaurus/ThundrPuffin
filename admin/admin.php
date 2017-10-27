@@ -14,7 +14,7 @@
 		$sql2 = "SELECT * from userinfo where ID = :userID";
 		//echo $sql2;
 		$stmt2 = $dbh->prepare($sql2);
-		$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+		$stmt2->bindParam(':userID', $userID, PDO::PARAM_INT);
 		$stmt2->execute();
 		$result2 = $stmt2->FetchAll();
 ?>
@@ -57,7 +57,7 @@
 							$sql3 = "SELECT * FROM blogg where UserID=:userID"; //Check if user has blogg
 							//echo $sql;
 							$stmt3 = $dbh->prepare($sql3);
-							$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+							$stmt3->bindParam(':userID', $userID, PDO::PARAM_INT);
 							$stmt3->execute();
 							$result3 = $stmt3->fetchAll();
 							if (!empty($result3)) {

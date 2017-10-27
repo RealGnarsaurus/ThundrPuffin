@@ -2,7 +2,6 @@
 require('db.php');
 
 $choice = $_POST['choice'];
-$dates = Date("Y/m-d H:G:s");
 $localIP = $_POST['localIP'];
 $publicIP = $_POST['publicIP'];
   $bloggID = $_POST['bloggID'];
@@ -25,7 +24,7 @@ if ($choice == "comment") {
   $stmt= $dbh->prepare($sql);
   $stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
   $stmt->bindParam(':postID', $postID, PDO::PARAM_INT);
-  $stmt->bindParam(':publicID', $publicID, PDO::PARAM_INT);
+  $stmt->bindParam(':publicIP', $publicID, PDO::PARAM_STR);
   $stmt->bindParam(':comment', $comment, PDO::PARAM_STR);
   $stmt->execute();
   header("location:../blogg/sf/index.php?bloggID=$bloggID");

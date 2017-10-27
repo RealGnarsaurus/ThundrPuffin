@@ -17,7 +17,7 @@ $bloggID = $result[0]->ID; //your bloggid
 $sql2 = "SELECT * from permission where BloggID = :bloggID";
 //echo $sql2;
 $stmt2 = $dbh->prepare($sql2);
-$stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
+$stmt2->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
 $stmt2->execute();
 $result2 = $stmt2->fetchAll();
 
