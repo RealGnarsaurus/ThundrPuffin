@@ -1,0 +1,111 @@
+/* **** Main CSS containing global styling like navbar-styling, fonts
+and other general websitestyles **** */
+body {
+    background-color: #eee;
+}
+@font-face {
+    font-family: Heebo;
+    src: url(../font-pkg/heebo/Heebo-Regular_0.ttf);
+}
+@font-face {
+    font-family: HeeboLight;
+    src: url(../font-pkg/heebo/Heebo-Light_0.ttf);
+}
+@font-face {
+    font-family: ZillaSlab;
+    src: url(../font-pkg/zillaSlab/ZillaSlab-Regular.ttf);
+}
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'HeeboLight';
+}
+h1 {
+    font-family: 'ZillaSlab';
+    font-weight: bold;
+}
+h3 {
+    font-family: 'ZillaSlab';
+    font-weight: bold;
+}
+h4 {
+    font-family: 'HeeboLight';
+    font-size: 24px;
+    font-weight: bold;
+}
+p {
+    font-family: 'HeeboLight';
+    font-size: 20px;
+}
+
+/* **** NORMAL NAVBAR-STYLING **** */
+
+#navbarBg {
+    background-color: #eb2424;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 100%;
+}
+#navbarBg a {
+    color: #dddddd;
+    font-family: 'HeeboLight';
+    font-size: 18px;
+}
+.navbar-header {
+    width: 25%;
+}
+.navbar-header img {
+    display: block;
+    position: absolute;
+    margin-top: 0.2%;
+}
+#brand {
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'ZillaSlab' !important;
+    font-weight: bold;
+    font-size: 30px !important;
+}
+.navbar{
+    margin: 0;
+    padding: 0;
+    border: none;
+    height: 50px;
+}
+.nav li:hover {
+    background-color: #535353;
+    color: #535353;
+}
+.nav li a:hover {
+    color: #535353;
+}
+.active>a {
+    background-color: #535353 !important;
+}
+/* ***** */
+/* **** SMALL NAVBAR STYLING **** */
+/* .navbarSmall {
+    height: 30px !important;
+    min-height: 0;
+}
+#brandSmall {
+    height: 100%;
+}
+#navbarSmallBg {
+    background-color: #535353;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 100%;
+    min-height: 0;
+} */
+.material-icons {
+    float: left;
+    margin-right: 6%;
+}
+.menuIcons {
+    margin-right: 0 !important;
+    padding-right: 2%;
+}
+
+
+/* *** STANDARD BLOG THEME *** */
