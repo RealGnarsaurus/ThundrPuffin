@@ -1,0 +1,28 @@
+*
+{
+	margin:0;
+	Padding:0;
+}
+
+.container {
+	background-color: #535353;
+    height: 100vh;
+    max-height: 897px;
+	min-height: 560px;
+	color: #dddddd;
+}
+
+.container textarea{
+	color: black;
+}
+
+#content
+{
+	margin-top:5%;
+}
+
+#content img
+{
+	max-width: 100px;
+	max-height: 100px;
+}
