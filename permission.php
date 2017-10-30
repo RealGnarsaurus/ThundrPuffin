@@ -1,5 +1,5 @@
 <?php
-require('Helpers/db.php');
+require('helpers/db.php');
 session_start();
 $userID = $_SESSION['userID'];
 //echo $userID;

@@ -1,7 +1,9 @@
 <?php
 require('Helpers/db.php');
 session_start();
-$userID = $_SESSION['userID'];
+if (!empty($_SESSION['userID'])) {
+    $userID = $_SESSION['userID'];
+
 //Gets it all from blogg table
 $sql = "SELECT * from blogg where UserID = '$userID'";
 $stmt = $dbh->prepare($sql);
@@ -54,4 +56,7 @@ else{
   }
   }
 }
+
+}
+
  ?>

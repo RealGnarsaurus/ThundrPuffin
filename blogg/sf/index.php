@@ -78,7 +78,7 @@ $result2 = $stmt2->fetchAll();
 
  <!-- Latest compiled JavaScript -->
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <link href="../../css/welcomeStyle.css" rel="stylesheet">
+ <link href="../../css/welcomestyle.css" rel="stylesheet">
  <link href="../../css/main.css" rel="stylesheet">
  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
  <script>
