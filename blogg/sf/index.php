@@ -81,7 +81,7 @@ $result2 = $stmt2->fetchAll();
 
  <!-- Latest compiled JavaScript -->
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <link href="../../css/welcomeStyle.css" rel="stylesheet">
+ <link href="../../css/welcomestyle.css" rel="stylesheet">
  <link href="../../css/main.css" rel="stylesheet">
  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
  <script>
@@ -127,8 +127,9 @@ $result2 = $stmt2->fetchAll();
                  <?PHP
                      if(!empty($_SESSION['userID'])) {
                          $userID = $_SESSION['userID'];
-                         $sql = "SELECT Username from userinfo WHERE ID = $userID";
+                         $sql = "SELECT Username from userinfo WHERE ID = :userID";
                          $getName = $dbh->prepare($sql);
+                         $getName->bindParam(':userID', $userID, PDO::PARAM_INT);
                          $getName->execute();
                          $getNameResult = $getName->fetchAll();
                          echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
@@ -195,9 +196,10 @@ $result2 = $stmt2->fetchAll();
                  ?>
                 <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
                 <?php
-                $sql10 = "SELECT * FROM report where UserID='$userID' AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
+                $sql10 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
                 //echo $sql5;
                 $stmt10 = $dbh->prepare($sql10);
+                $stmt10->bindParam(':userID', $userID, PDO::PARAM_INT);
                 $stmt10->execute();
                 $result10 = $stmt10->fetchAll();
                 if (empty($result10)) {

@@ -292,8 +292,14 @@ if ($_POST['choice'] == "addBlogg") {
       $stmt2->bindParam(':bloggName', $bloggName, PDO::PARAM_INT);
       $stmt2->bindParam(':userID', $userID, PDO::PARAM_INT);
       $stmt2->execute();
-      
-      $bloggID = $result[0]->ID;
+
+      $sql3 = "SELECT * FROM blogg where UserID=:userID"; //Check if user has blogg
+      echo $sql3;
+      $stmt3 = $dbh->prepare($sql3);
+      $stmt3->bindParam(':userID', $userID, PDO::PARAM_INT);
+      $stmt3->execute();
+      $result3 = $stmt3->fetchAll();
+      $bloggID = $result3[0]->ID;
 
       if ($stmt2) { //If correctly inserted to databsae, create folders
         //Create Files
