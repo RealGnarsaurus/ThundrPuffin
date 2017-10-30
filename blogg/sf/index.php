@@ -69,7 +69,7 @@ $result2 = $stmt2->fetchAll();
 ?>
  <!DOCTYPE html>
  <html>
- <link rel="stylesheet" href="../<?php echo $bloggID;?>/style.css">
+ 
  <script src="../../helpers/edit.Js"></script> <!--Edit Forms Script-->
  <script src="../../helpers/ip.js"></script><!--LocalIp-->
  <meta charset="UTF-8">
@@ -78,11 +78,10 @@ $result2 = $stmt2->fetchAll();
  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
  <!-- jQuery library -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
  <!-- Latest compiled JavaScript -->
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <link href="../../css/welcomestyle.css" rel="stylesheet">
  <link href="../../css/main.css" rel="stylesheet">
+ <link rel="stylesheet" href="../<?php echo $bloggID;?>/style.css">
  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
  <script>
  function acceptEula(source){
@@ -144,11 +143,11 @@ $result2 = $stmt2->fetchAll();
      </nav>
     <br>
     <br>
-   <div id="container">
-     <!--BloggName-->
-     <div id="header">
-       <h1><?php echo $result[0]->Name;?></h1>
-     </div>
+    <div class="container-fluid" id="header">
+     <!--BloggName--> 
+        <h1><?php echo $result[0]->Name;?></h1>
+    </div>
+    <div class="container" id="container">
      <!--TextArea For New Post-->
      <?php
        if (!empty($userID) && $result7[0]->Post == 1) {
@@ -156,14 +155,18 @@ $result2 = $stmt2->fetchAll();
          <div id="newPost">
           <!--New Post-->
           <form action="../../helpers/newpost.php" method="post">
-            <textarea minlength="1" name="post"></textarea>
-            <br>
+            <div class="form-group">
+                <textarea class="form-control" minlength="1" name="post"></textarea>
+            </div>
+            <div class="form-group">
+            
               <input id="Local" type="text" name="localIP" value="" hidden>
               <input id="public" type="text" name="publicIP" value="" hidden>
               <input type="text" name="userID" value="<?php echo $bloggID;?>"hidden>
               <input type="text" name="bloggID" value="<?php echo $resTemp;?>"hidden>
               <input type="text" name="choice" value="post" hidden>
-              <input type="submit" name="" value="Send">
+              <input class="btn btn-success btn-block" type="submit" value="Post">
+            </div>
           </form>
         </div>
       <?php
@@ -184,17 +187,17 @@ $result2 = $stmt2->fetchAll();
          //If reported link has been pressed;
          if ($res2->ID == $reportedPostID){
            ?>
-           <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+           <p style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
              <?php
           }
           //shown normal
             else{?>
-              <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+              <p><?php echo $res2->Post . "<br>" . $res2->Dates;//This Prints The Post?>
                 <?php
               }
                 if (!empty($userID) && $result7[0]->Comment == 1) {
                  ?>
-                <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
+                <button id="" class="openComment btn btn-default" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
                 <?php
                 $sql10 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
                 //echo $sql5;
@@ -204,25 +207,25 @@ $result2 = $stmt2->fetchAll();
                 $result10 = $stmt10->fetchAll();
                 if (empty($result10)) {
                     ?>
-                    <button id="" class="openComment" onclick="edithide('Report',<?php echo $res2Temp?>);">Report</button><!--Comment Button-->
+                    <button id="" class="openComment btn btn-default" onclick="edithide('Report',<?php echo $res2Temp?>);">Report</button><!--Comment Button-->
                     <?php
                 }
               }
               if (!empty($userID) && $result7[0]->Edit == 1) {
                ?>
-              <button id="" class="openComment" onclick="edithide('Edit',<?php echo $res2Temp?>);">Edit</button><!--Comment Button-->
+              <button id="" class="openComment btn btn-default" onclick="edithide('Edit',<?php echo $res2Temp?>);">Edit</button><!--Comment Button-->
              <?php
              }
              if (!empty($userID) && $result7[0]->Del == 1) {
               ?>
-              <button id="" class="openComment" onclick="edithide('Delete',<?php echo $res2Temp?>)">Delete</button><!--Comment Button-->
+              <button id="" class="openComment btn btn-default" onclick="edithide('Delete',<?php echo $res2Temp?>)">Delete</button><!--Comment Button-->
 
             <?php
             }
             //Comment for anonymous
               if (empty($userID)){
               ?>
-             <button id=""  onclick="acceptEula(<?php echo $res2Temp?>);">Comment</button><!--Comment Button-->
+             <button id="" class="btn btn-default" onclick="acceptEula(<?php echo $res2Temp?>);">Comment</button><!--Comment Button-->
             <?php
             }
               //delete button for admin
@@ -236,7 +239,7 @@ $result2 = $stmt2->fetchAll();
                   <input type="text" name="delbloggID" value="<?php echo $bloggID;?>"hidden >
                   <input type="text" name="reason" value="" placeholder="Reason">
                   <input type="text" name="delTextAfter" value="*DELETED*"hidden>
-                  <input type="submit"name="" value="Delete">
+                  <input class="btn btn-default" type="submit"name="" value="Delete">
                 </form>
                 <?php
               }
@@ -253,12 +256,12 @@ $result2 = $stmt2->fetchAll();
              <input type="text" name="choice" value="Post" hidden>
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
              <input type="text" class="Edit<?php echo $res2Temp?>" name="editTextAfter" value="">
-             <input type="submit" class="Edit<?php echo $res2Temp?>" name="" value="Edit">
+             <input type="submit" class="Edit<?php echo $res2Temp?> btn btn-default" name="" value="Edit">
            </form>
            <?php
            }
             ?>
-         </h2>
+         </p>
          <!--If user already reported Comment-->
          <?php
          $sql5 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
@@ -291,13 +294,13 @@ $result2 = $stmt2->fetchAll();
            <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
            <input type="text" name="choice" value="Report" hidden>
            <input type="text" name="reason" value="" placeholder="Report Reason">
-           <input type="submit"name="" value="Report">
+           <input class="btn btn-default" type="submit"name="" value="Report">
          </form>
          <?php
        }
        }
           ?>
-       </h2>
+       </p>
        <!--Select All Comments for the post-->
        <?php
          $sql3 = "SELECT * FROM comment where PostID='$res2Temp'";
@@ -324,7 +327,7 @@ $result2 = $stmt2->fetchAll();
                }
              </script>
              <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
-             <input class="Comment<?php echo $res2Temp?>" type="submit" onkeypress="acceptEula();" name="" value="Send" >
+             <input class="Comment<?php echo $res2Temp?> btn btn-default" type="submit" onkeypress="acceptEula();" name="" value="Send" >
 
          </form>
          <?php
@@ -341,12 +344,12 @@ $result2 = $stmt2->fetchAll();
            <?php
             if ($reportedCommentID == $res3->ID) {
                 ?>
-                <h3 style="background-color:red;"><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
+                <p style="background-color:red;"><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></p>
                 <?php
             }
             else{
               ?>
-              <h3><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></h3>
+              <p><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></p>
               <?php
             }
             if (!empty($userID) && $result7[0]->Comment == 1) {
@@ -358,18 +361,18 @@ $result2 = $stmt2->fetchAll();
               $result9 = $stmt9->fetchAll();
               if (empty($result9)) {
                ?>
-              <button id="" class="openComment" onclick="edithide('Report2',<?php echo $res3->ID?>)">Report</button><!--Comment Button-->
+              <button id="" class="openComment btn btn-default" onclick="edithide('Report2',<?php echo $res3->ID?>)">Report</button><!--Comment Button-->
              <?php
            }
           }
           if (!empty($userID) && $result7[0]->Edit == 1) {
            ?>
-          <button id="" class="openComment" onclick="edithide('Edit2',<?php echo $res3->ID?>)">Edit</button><!--Comment Button-->
+          <button id="" class="openComment btn btn-default" onclick="edithide('Edit2',<?php echo $res3->ID?>)">Edit</button><!--Comment Button-->
          <?php
          }
          if (!empty($userID) && $result7[0]->Del == 1) {
           ?>
-          <button id="" class="openComment" onclick="edithide('Delete2',<?php echo $res3->ID?>)">Delete</button><!--Comment Button-->
+          <button id="" class="openComment btn btn-default" onclick="edithide('Delete2',<?php echo $res3->ID?>)">Delete</button><!--Comment Button-->
 
         <?php
         }
@@ -384,7 +387,7 @@ $result2 = $stmt2->fetchAll();
            <input type="text" name="editTextAfter" value="">
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
            <input type="text" name="choice" value="Comment" hidden>
-           <input type="submit"name="" value="Edit">
+           <input class="btn btn-default" type="submit"name="" value="Edit">
          </form>
          <?php
        }
@@ -399,7 +402,7 @@ $result2 = $stmt2->fetchAll();
              <input type="text" name="delbloggID" value="<?php echo $bloggID;?>" hidden >
              <input type="text" name="reason" value="" placeholder="Delete Reason" required >
              <input type="text" name="delTextNew" value="*DELETED*" hidden>
-             <input type="submit"name="" value="Delete">
+             <input class="btn btn-default" type="submit"name="" value="Delete">
            </form>
            <?php
          }
@@ -434,7 +437,7 @@ $result2 = $stmt2->fetchAll();
              <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
              <input type="text" name="reason" value="" placeholder="Report Reason">
              <input type="text" name="choice" value="Report" hidden>
-             <input type="submit"name="" value="Report">
+             <input class="btn btn-default" type="submit"name="" value="Report">
            </form>
            <?php
          }
