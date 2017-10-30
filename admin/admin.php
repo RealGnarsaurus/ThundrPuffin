@@ -65,7 +65,6 @@
 						 	<button href="#" class="adminLiButton btn" id="customizeBlog" onClick="blogSettings()"><span class="material-icons">settings </span> Customize blog</button>
 							<button href="#" class="adminLiButton btn" id="manageUser" onClick="loadDoc()"><span class="material-icons">assignment_ind </span> Manage Users</button>
 							<button href="#" class="adminLiButton btn" id="flagReports" onClick="showFlagReports()"><span class="material-icons">feedback</span>Flag reports</button>
-							<button href="#" class="adminLiButton btn" id="flagReports" onClick="showDelete()"><span class="material-icons">feedback</span>Deleted</button>
 							</br>
 							<button href="#" class="adminLiButton btn" onClick="window.location.href='../blogg/sf/index.php?bloggID=<?PHP echo $result[0]->ID;?>'"><span class="material-icons">desktop_windows </span> Go to blog</button>
 						<?php
