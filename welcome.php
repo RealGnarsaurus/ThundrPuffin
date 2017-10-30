@@ -42,7 +42,7 @@
                             $getName->execute();
                             $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                            echo '<li><a href=helpers/logout.php">Logout</a></li>';
+                            echo '<li><a href="helpers/logout.php">Logout</a></li>';
                         }
                         else{
                             echo '<li><a href="login.php">Login/Register</a></li>';

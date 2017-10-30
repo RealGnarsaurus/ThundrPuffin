@@ -4,9 +4,10 @@ require("helpers/db.php");
 if (!empty($_SESSION['userID'])) {
   $userID = $_SESSION['userID'];
 }
-$sql = "SELECT * from userinfo WHERE ID ='$userID'";
+$sql = "SELECT * from userinfo WHERE ID =:userID";
 //echo $sql;
 $stmt = $dbh->prepare($sql);
+$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();
 $result = $stmt->fetchAll();
 
