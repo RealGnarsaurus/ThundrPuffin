@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 26 okt 2017 kl 09:50
+-- Tid vid skapande: 30 okt 2017 kl 10:34
 -- Serverversion: 10.1.19-MariaDB
 -- PHP-version: 7.0.13
 
@@ -32,13 +32,6 @@ CREATE TABLE `blogg` (
   `UserID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `blogg`
---
-
-INSERT INTO `blogg` (`ID`, `Name`, `UserID`) VALUES
-(1, 'deded', 9);
-
 -- --------------------------------------------------------
 
 --
@@ -53,15 +46,6 @@ CREATE TABLE `comment` (
   `Message` varchar(256) NOT NULL,
   `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `comment`
---
-
-INSERT INTO `comment` (`ID`, `BloggID`, `PostID`, `IP`, `Message`, `Dates`) VALUES
-(1, 0, 1, '62.20.62.219', 'hej', '2017-10-24 14:14:39'),
-(2, 0, 1, '62.20.62.219', 'bylaet', '2017-10-26 09:09:37'),
-(3, 0, 2, '', 'tjaena', '2017-10-26 09:09:01');
 
 -- --------------------------------------------------------
 
@@ -111,17 +95,6 @@ CREATE TABLE `permission` (
   `Del` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `permission`
---
-
-INSERT INTO `permission` (`ID`, `BloggID`, `UserID`, `Post`, `Comment`, `Edit`, `Del`) VALUES
-(1, 1, 1, 0, 1, 0, 0),
-(2, 1, 1, 0, 1, 0, 0),
-(3, 1, 9, 1, 1, 1, 1),
-(4, 4, 9, 0, 1, 0, 0),
-(5, 1, 10, 0, 1, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -135,14 +108,6 @@ CREATE TABLE `post` (
   `Post` varchar(256) NOT NULL,
   `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `post`
---
-
-INSERT INTO `post` (`ID`, `BloggID`, `UserID`, `Post`, `Dates`) VALUES
-(1, 1, 0, 'blyat', '2017-10-24 08:08:58'),
-(2, 1, 2, 'blyaet', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -158,15 +123,9 @@ CREATE TABLE `report` (
   `UserID` int(11) NOT NULL,
   `Prio` int(11) NOT NULL,
   `Url` varchar(256) NOT NULL,
-  `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `Dates` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Reason` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `report`
---
-
-INSERT INTO `report` (`ID`, `BloggID`, `PostID`, `CommentID`, `UserID`, `Prio`, `Url`, `Dates`) VALUES
-(1, 1, 1, 0, 1, 1, 'http://localhost/wills/blogg/sf/index.php?bloggID=1', '2017-10-24 09:47:24');
 
 -- --------------------------------------------------------
 
@@ -182,14 +141,6 @@ CREATE TABLE `userinfo` (
   `Password` varchar(256) NOT NULL,
   `Username` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `userinfo`
---
-
-INSERT INTO `userinfo` (`ID`, `IP`, `PublicIP`, `Email`, `Password`, `Username`) VALUES
-(9, '62.20.62.210', '192.168.216.146', 'test@gmail.com', '$2y$10$SczeJ35L/vYGrHItssv2rOV5pPhrgtC6GCNg3YDDa5.v0eX.fYbrq', 'fredan'),
-(10, '62.20.62.219', '192.168.217.107', 'hej@gmail.com', '$2y$10$Yb8PITloFr8ef6l/e1zpUOm46OAi8Vhe/tLmHimmuHSrUl/94Iod.', 'RealGnarsaurus');
 
 --
 -- Index för dumpade tabeller
@@ -251,12 +202,12 @@ ALTER TABLE `userinfo`
 -- AUTO_INCREMENT för tabell `blogg`
 --
 ALTER TABLE `blogg`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT för tabell `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT för tabell `editcomment`
 --
@@ -271,22 +222,22 @@ ALTER TABLE `editpost`
 -- AUTO_INCREMENT för tabell `permission`
 --
 ALTER TABLE `permission`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT för tabell `post`
 --
 ALTER TABLE `post`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT för tabell `report`
 --
 ALTER TABLE `report`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT för tabell `userinfo`
 --
 ALTER TABLE `userinfo`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
