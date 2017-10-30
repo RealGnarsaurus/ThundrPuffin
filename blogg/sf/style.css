@@ -1,6 +1,5 @@
 body{
-    background-color:#ffffff;
-  background-image: url("Texture/BackGround.jpg");
+  background-color:;
   background-repeat: no-repeat;
   width: 100%;
   height: auto;
@@ -9,13 +8,17 @@ body{
 div#container{
   /* width: 100%; */
   height: 100%;
+  background-image: url("Texture/BackGround.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 div#newPost textarea,form{
   width: 80%;
   height: 200px;
   margin: auto;
   font-size: 15px;
-  background-color:White;
+   background-color:;
+  color:;
 }
 /* div#newPost input{
   margin: auto;
@@ -41,47 +44,59 @@ div#header{
 } */
 div#post{
   width: 65%;
-  /* border-style: solid;
-  border-width: 2px; */
-  /* border-color: black; */
+  border-color: black;
+  border-width: 5px;
+  background-color: ;
+  font-size: 20px;
+  color: ;
   background-color:;
-  /* font-size: 10px; */
-  color:;
+  opacity: 0.90;
+  margin: auto;
+  text-align: center;
 }
 div#comment{
-  width: 65%;
-  margin-left: 50px;
-  /* border-style: solid;
-  border-width: 2px; */
-  /* border-color: black; */
-  background-color: white;
-  /* font-size: 8px; */
-  color: black;
+  width: 45%;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom: 1px solid black;
+  padding-bottom: 3%;
+  padding-top: 2%;
+  font-size: 10px;
+  text-align: center;
+    background-color:;
+  opacity: 0.90;
 }
 div#comment:nth-child(even){
-  width: 65%;
-  margin-left: 50px;
-  /* border-style: solid;
-  border-width: 2px; */
-  /* border-color: black; */
-  background-color: gray;
-  color: black;
+  width: 45%;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom: 1px solid black;
+  padding-bottom: 3%;
+  padding-top: 2%;
+  font-size: 10px;
+  text-align: center;
+    background-color:;
+  opacity: 0.90;
+}
+div#comment iframe{
+  max-width: 300px;
+  max-height: 180px;
 }
 /* *** Static styling *** */
 #header {
     height: 40%;
     position: relative;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 #header h1 {
     position: absolute;
     bottom: 0;
     text-align: center;
     width: 100%;
+    color:;
 }
 #container {
-    background-color: #fff;
+    background-color:;
     height: 100%;
 }
 #newPost {
@@ -95,6 +110,9 @@ div#comment:nth-child(even){
     padding-top: 3%;
     font-size: 16px;
 }
+#post h2 {
+   color:;
+}
 form {
     height: 100%;
 }
@@ -103,4 +121,5 @@ form {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
+   color:;
 }

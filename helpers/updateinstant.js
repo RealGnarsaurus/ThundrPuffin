@@ -26,7 +26,7 @@ function update(ObjectName,bloggID) {
         {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
             {
-                //alert(xmlhttp.responseText);
+                alert(xmlhttp.responseText);
             }
         };
       //alert("Helpers/Blogg_Check.php?choice=updateBlogg&bloggID="+bloggID+"&"+ObjectName.name+"="+ObjectName.value);

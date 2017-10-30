@@ -1,8 +1,7 @@
 <?php
 require('Helpers/db.php');
 session_start();
-$userID = 9;
-//$userID = $_SESSION['userID'];
+$userID = $_SESSION['userID'];
 //echo $userID;
 //Gets it all from your blogg table
 $sql = "SELECT * from Blogg where UserID = :userID";

@@ -21,15 +21,25 @@ if ($_POST['choice'] == "updateBlogg") {
   //POST
     if (!empty($_POST['BBC'])) {  //Body background color
       echo $_POST['BBC'] . " || ";
-      getLineWithString("../Blogg/$bloggID/style.css","1",$_POST['BBC'],'background-color:');
+      getLineWithString("../Blogg/$bloggID/style.css","98",$_POST['BBC'],'  background-color:');
     }
     if (!empty($_POST['IPBC'])) { //Input Post Background Color - newpost
       echo $_POST['IPBC'] . " || ";
-      getLineWithString("../Blogg/$bloggID/style.css","17",$_POST['IPBC'],'background-color:');
+      getLineWithString("../Blogg/$bloggID/style.css","19",$_POST['IPBC'],' background-color:');
     }
-    if (!empty($_POST['PBC'])) { //Post Background Color
+    if (!empty($_POST['PC'])) { //Post Color
+      echo $_POST['PC'] . " || ";
+      getLineWithString("../Blogg/$bloggID/style.css","20",$_POST['PC'],'color:');
+    }
+    if (!empty($_POST['PBC'])) { //Post background Color
       echo $_POST['PBC'] . " || ";
-      getLineWithString("../Blogg/$bloggID/style.css","46",$_POST['PBC'],'background-color:');
+      getLineWithString("../Blogg/$bloggID/style.css","51",$_POST['PBC'],'background-color:');
+    }
+    if (!empty($_POST['BC'])) { //background comment
+      getLineWithString("../Blogg/$bloggID/style.css","65",$_POST['BC'],'  background-color:');
+    }
+    if (!empty($_POST['BC2'])) { //background comment
+      getLineWithString("../Blogg/$bloggID/style.css","77",$_POST['BC2'],'  background-color:');
     }
     // if (!empty(!empty($_POST['ICBC']))) { //Input Comment Background Color
     //   getLineWithString("Blogg/$bloggID/style.css","5",$_POST['ICBC']);
@@ -38,30 +48,28 @@ if ($_POST['choice'] == "updateBlogg") {
     //   getLineWithString("Blogg/$bloggID/style.css","5",$_POST['CBC']);
     // }
     //Replaces text size
-    if (!empty($_POST['TFHS'])) {//Text Size Header
-      echo $_POST['THFS'] . " || ";
-      getLineWithString("../Blogg/$bloggID/style.css","35",$_POST['TFHS'],'font-size:');
-    }
-    if (!empty($_POST['TFPS'])) {//Text size post
-      getLineWithString("../Blogg/$bloggID/style.css","47",$_POST['TFPS'],'font-size:');
-    }
-    if (!empty($_POST['TFCS'])) { //text size comment
-      getLineWithString("../Blogg/$bloggID/style.css","57",$_POST['TFCS'],'font-size:');
-      getLineWithString("../Blogg/$bloggID/style.css","67",$_POST['TFCS'],'font-size:');
-    }
+    // if (!empty($_POST['TFHS'])) {//Text Size Header
+    //   echo $_POST['THFS'] . " || ";
+    //   getLineWithString("../Blogg/$bloggID/style.css","35",$_POST['TFHS'],'font-size:');
+    // }
+    // if (!empty($_POST['TFPS'])) {//Text size post
+    //   getLineWithString("../Blogg/$bloggID/style.css","47",$_POST['TFPS'],'font-size:');
+    // }
+    // if (!empty($_POST['TFCS'])) { //text size comment
+    //   getLineWithString("../Blogg/$bloggID/style.css","57",$_POST['TFCS'],'font-size:');
+    //   getLineWithString("../Blogg/$bloggID/style.css","67",$_POST['TFCS'],'font-size:');
+    // }
     //Replaces text color
     if (!empty($_POST['TCH'])) { //text color header
       echo $_POST['TCH'];
-      getLineWithString("../Blogg/$bloggID/style.css","34",$_POST['TCH'],'color:');
+      getLineWithString("../Blogg/$bloggID/style.css","95",$_POST['TCH'],'  color:');
     }
     if (!empty($_POST['TCP'])) { //text color post
-      getLineWithString("../Blogg/$bloggID/style.css","58",$_POST['TCP'],'color:');
-        getLineWithString("../Blogg/$bloggID/style.css","68",$_POST['TCP'],'color:');
+      getLineWithString("../Blogg/$bloggID/style.css","113",$_POST['TCP'],' color:');
     }
     if (!empty($_POST['TCC'])) { //text color comment
-      getLineWithString("../Blogg/$bloggID/style.css","48",$_POST['TCC'],'color:');
+      getLineWithString("../Blogg/$bloggID/style.css","123",$_POST['TCC'],' color:');
     }
-
 
   if (!empty(basename($_FILES["BG"]["name"]))) {
 

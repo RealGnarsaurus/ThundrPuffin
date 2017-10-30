@@ -15,6 +15,7 @@ if (!empty($recentlyInserted)) {
   }
   if (!empty($_POST['reportedCommentID'])) {
     $reportedCommentID = $_POST['reportedCommentID'];
+    //echo "<h2>REported ID :</h2>" . $reportedCommentID;
   }
   else{
     $reportedCommentID = "*";
@@ -162,7 +163,7 @@ $result2 = $stmt2->fetchAll();
             <br>
               <input id="Local" type="text" name="localIP" value="" hidden>
               <input id="public" type="text" name="publicIP" value="" hidden>
-              <input type="text" name="userID" value="<?php echo $bloggID;?>"hidden>
+              <input type="text" name="userID" value="<?php echo $userID;?>"hidden>
               <input type="text" name="bloggID" value="<?php echo $resTemp;?>"hidden>
               <input type="text" name="choice" value="post" hidden>
               <input class="btn btn-success btn-block" type="submit" value="Post">
@@ -176,22 +177,36 @@ $result2 = $stmt2->fetchAll();
      <?php
      foreach ($result2 as $res2) {
        $res2Temp = $res2->ID;
+       $res2userTemp = $res2->UserID;
+
+       //echo $res2Temp;//Post ID
+       $sqlffs = "SELECT * from userinfo WHERE ID = :userID";
+       $ffs = $dbh->prepare($sqlffs);
+       $ffs->bindParam(':userID', $res2userTemp, PDO::PARAM_INT);
+       $ffs->execute();
+       $ffsResult = $ffs->fetchAll();
+
+
        ?>
        <!--Show All Posts-->
        <div id="post">
          <?php
+         //echo count($ffsResult);
+         //echo $res2->Post;
+        foreach ($ffsResult as $ffsr){
 
          //If reported link has been pressed;
          if ($res2->ID == $reportedPostID){
            ?>
-           <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+           <h2 style="background-color:red;"><?php echo $ffsr->Username." - "  . $res2->Post . "<br>" . $res2->Dates;//This Prints The Post?></h2><br>
              <?php
           }
           //shown normal
             else{?>
-              <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+              <h2><?php echo $ffsr->Username." - "  . $res2->Post . "<br>" . $res2->Dates;//This Prints The Post?></h2>
                 <?php
               }
+            }
                 if (!empty($userID) && $result7[0]->Comment == 1) {
                  ?>
                 <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
@@ -249,9 +264,9 @@ $result2 = $stmt2->fetchAll();
            <form id="Edit<?php echo $res2Temp?>" class="Edit<?php echo $res2Temp?>" action="../../helpers/edit_message.php" method="post" hidden>
              <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
              <input type="text" name="editPostID" value="<?php echo $res2Temp;?>" hidden>
-             <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>" hidden>
+             <input type="text" name="editTextBefore" hidden value="<?php echo $res2->Post;?>">
              <input type="text" name="choice" value="Post" hidden>
-             <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+             <input type="text" name="bloggID" value="<?php echo $bloggID;?>">
              <input type="text" class="Edit<?php echo $res2Temp?>" name="editTextAfter" value="">
              <input type="submit" class="Edit<?php echo $res2Temp?>" name="" value="Edit">
            </form>
@@ -317,6 +332,7 @@ $result2 = $stmt2->fetchAll();
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
              <input id="local" type="text" name="localIP" value="" hidden>
              <input id="Public" type="text" name="publicIP" value="" hidden>
+             <input id="userID" type="text" name="userID" value="<?php echo $userID;?>" hidden>
              <script type="application/javascript">
                function getIP(json) {
                  document.getElementById("Public").value=json.ip; //
@@ -335,20 +351,33 @@ $result2 = $stmt2->fetchAll();
 
       <?php
        foreach ($result3 as $res3) {
+
+         $res3userTemp = $res3->UserID;
+         //echo $res3userTemp;
+         //echo $res2Temp;//Post ID
+         $sqlffs2 = "SELECT * from userinfo WHERE ID = :userID";
+         $ffs2 = $dbh->prepare($sqlffs2);
+         $ffs2->bindParam(':userID', $res3userTemp, PDO::PARAM_INT);
+         $ffs2->execute();
+         $ffsResult2 = $ffs2->fetchAll();
+
          ?>
          <!--If comment reported-->
          <div id="comment">
            <?php
+           //echo $reportedCommentID . "||" . $res3->ID;
+           foreach ($ffsResult2 as $ffsr2) { //Get All Users from the comments
             if ($reportedCommentID == $res3->ID) {
                 ?>
-                <p style="background-color:red;"><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></p>
+                <p style="background-color:red;"><?php echo $ffsr2->Username . " - " . $res3->Message . "<br>" . $res3->Dates ;//This Prints The Post?></p><br>
                 <?php
             }
             else{
               ?>
-              <p><?php echo $res3->Message . " - " . $res3->Dates ;//This Prints The Post?></p>
+              <p><?php echo $ffsr2->Username . " - "  . $res3->Message . "<br>" . $res3->Dates ;//This Prints The Post?></p>
               <?php
             }
+             }
             if (!empty($userID) && $result7[0]->Comment == 1) {
               $sql9 = "SELECT * FROM report where UserID=:userID AND CommentID='$res3->ID'"; //Checks if user already reported the comment/post
               //echo $sql5;
@@ -379,7 +408,7 @@ $result2 = $stmt2->fetchAll();
          <!--Edit Comment tab-->
          <form id="Edit2<?php echo $res3->ID?>" class="Edit2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
            <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
-           <input type="text" name="editCommentID" value="<?php echo $res2Temp;?>" hidden>
+           <input type="text" name="editCommentID" value="<?php echo $res3->ID;?>" hidden>
            <input type="text" name="editTextBefore" value="<?php echo $res3->Message;?>" hidden>
            <input type="text" name="editTextAfter" value="">
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
@@ -429,7 +458,6 @@ $result2 = $stmt2->fetchAll();
              else{?>
                <input type="text" name="reportPrio" value="1" hidden>
                <?php
-
              }?>
              <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
              <input type="text" name="reason" value="" placeholder="Report Reason">

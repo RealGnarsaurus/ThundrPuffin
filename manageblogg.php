@@ -123,7 +123,7 @@ $result = $stmt->fetchAll();
         else{
         //echo "cant create new"; //Manage Blogg'
         //echo "BloggID ->" . $bloggID;
-        // getLineWithString("Blogg/$bloggID/style.css","body","}");
+        //getLineWithString("Blogg/$bloggID/style.css","header","}");
         ?>
         <div id="AdminMenu">
             <h1>Customize blog</h1>
@@ -201,19 +201,21 @@ $result = $stmt->fetchAll();
                 </div>
             </form>
                 <h2>Background</h2>
-                <!-- Body BackGround Color: <input type="color" onchange="update(this,<?php //echo $bloggID;?>)" name="BBC"><br>
-                Input - Post BackGround Color: <input type="color" onchange="update(this,<?php //echo $bloggID;?>)" name="IPBC"><br>
-                Post BackGround Color: <input type="color" name="PBC" onchange="update(this,<?php //echo $bloggID;?>)" id="HeaderColor"><br>
-                Input - Comment BackGround Color: <input type="color" onchange="update(this,<?php //echo $bloggID;?>)" name="ICBC"><br>
-                Comment BackGround Color: <input type="color" onchange="update(this,<?php //echo $bloggID;?>)" name="CBC"><br> -->
+                Body BackGround Color: <input type="color" onchange="update(this,<?php echo $bloggID;?>)" name="BBC"><br>
+                Input Post BackGround Color: <input type="color" onchange="update(this,<?php echo $bloggID;?>)" name="IPBC"><br>
+                Post BackGround Color: <input type="color" onchange="update(this,<?php echo $bloggID;?>)" name="PBC"><br>
+                Comment BackGround Color: <input type="color" onchange="update(this,<?php echo $bloggID;?>)" name="BC"><br>
+                Comment(even) BackGround Color: <input type="color" onchange="update(this,<?php echo $bloggID;?>)" name="BC2"><br>
 
                 <h2>Text</h2>
-                Text Size  [Header]:  <input type="number" name="TFHS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 25px"><br>
-                Text Size    [Post]: <input type="number" name="TFPS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 10px"><br>
-                Text Size [Comment]:  <input type="number" name="TFCS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 9px"><br><br>
+                <!--Text Size  [Header]:  <input type="number" name="TFHS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 25px"><br>-->
+                <!--Text Size    [Post]: <input type="number" name="TFPS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 10px"><br>-->
+                <!--Text Size [Comment]:  <input type="number" name="TFCS" onchange="update(this,<?php echo $bloggID;?>)" placeholder="Normal is 9px"><br><br>-->
                 Text Color [Header]: <input type="color" name="TCH" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
-                Text Color   [Comment]: <input type="color" name="TCP" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
-                Text Color [Post]: <input type="color" name="TCC" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
+                Text Color [Posted]: <input type="color" name="TCP" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
+                Text Color [Commented]: <input type="color" name="TCC" onchange="update(this,<?php echo $bloggID;?>)" id="HeaderColor"><br>
+
+
                 <br>
                 Text Font:
         </div>

@@ -46,7 +46,7 @@ else{
     else{
         echo "User:" . $res3->Username . " || Reported With CommentID:". $res2->PostID. " [Reason:" . $res2->Reason."]";
      ?>
-    <input type="text" name="reportedCommentID" value="<?php echo $res2->PostID;?>" hidden>
+    <input type="text" name="reportedCommentID" value="<?php echo $res2->CommentID;?>" hidden>
     <input type="submit" value="Quick Link">
     <?php
   }

@@ -29,7 +29,9 @@
       $stmt2->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_STR);
       $stmt2->bindParam(':editPostID', $editPostID, PDO::PARAM_INT);
       $stmt2->execute();
-    }
+
+      header("Location:../blogg/sf/index.php?bloggID=$editBloggID");
+      }
     }
   else{
 
@@ -57,10 +59,13 @@ if ($_POST['choice'] == "Comment") {
     $stmt->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_STR);
     $stmt->execute();
     if ($stmt) {
-      $sql2 = "UPDATE comment SET Message = '$editTextAfter'";
-      echo $sql2;
+      $sql2 = "UPDATE comment SET Message = :editTextAfter WHERE ID = :editCommentID";
+      echo $sql2 . "||" . $editCommentID;
       $stmt2 = $dbh->prepare($sql2);
+      $stmt2->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_STR);
+      $stmt2->bindParam(':editCommentID', $editCommentID, PDO::PARAM_INT);
       $stmt2->execute();
+      header("Location:../blogg/sf/index.php?bloggID=$editBloggID");
     }
   }
   else{
