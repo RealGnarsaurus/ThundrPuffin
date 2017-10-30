@@ -27,8 +27,8 @@ if (!empty($recentlyInserted)) {
     $sql7 = "SELECT * FROM permission where BloggID=:bloggID AND UserID = :userID";
     //echo $sql7;
     $stmt7 = $dbh->prepare($sql7);
-    $stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
-    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt7->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
+    $stmt7->bindParam(':userID', $userID, PDO::PARAM_INT);
     $stmt7->execute();
     $result7 = $stmt7->fetchAll();
 
@@ -64,7 +64,7 @@ $resTemp = $result[0]->ID;
 $sql2 = "SELECT * FROM post where BloggID=:resTemp";
 //echo $sql2;
 $stmt2 = $dbh->prepare($sql2);
-$stmt->bindParam(':resTemp', $resTemp, PDO::PARAM_INT);
+$stmt2->bindParam(':resTemp', $resTemp, PDO::PARAM_INT);
 $stmt2->execute();
 $result2 = $stmt2->fetchAll();
 ?>
@@ -118,10 +118,10 @@ $result2 = $stmt2->fetchAll();
                          $getName->execute();
                          $getNameResult = $getName->fetchAll();
                          echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';
-                         echo '<li><a href=helpers/logout.php">Logout</a></li>';
+                         echo '<li><a href="../../helpers/logout.php">Logout</a></li>';
                      }
                      else{
-                         echo '<li><a href="login.php">Login/Register</a></li>';
+                         echo '<li><a href="../../login.php">Login/Register</a></li>';
                      }
                  ?>
              </ul>
@@ -179,40 +179,41 @@ $result2 = $stmt2->fetchAll();
               }
                 if (!empty($userID) && $result7[0]->Comment == 1) {
                  ?>
-                <button id="" class="openComment" onclick="edit('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
+                <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
                 <?php
-                $sql10 = "SELECT * FROM report where UserID='$userID' AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
+                $sql10 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
                 //echo $sql5;
                 $stmt10 = $dbh->prepare($sql10);
+                $stmt10->bindParam(':userID', $userID, PDO::PARAM_INT);
                 $stmt10->execute();
                 $result10 = $stmt10->fetchAll();
                 if (empty($result10)) {
                     ?>
-                      <button id="" class="openComment" onclick="edit('Report',<?php echo $res2Temp?>)">Report</button><!--Comment Button-->
+                    <button id="" class="openComment" onclick="edithide('Report',<?php echo $res2Temp?>);">Report</button><!--Comment Button-->
                     <?php
                 }
               }
-              if (!empty($userID) && $result7[0]->Del == 1) {
+              if (!empty($userID) && $result7[0]->Edit == 1) {
                ?>
-              <button id="" class="openComment" onclick="edit('Edit',<?php echo $res2Temp?>)">Edit</button><!--Comment Button-->
+              <button id="" class="openComment" onclick="edithide('Edit',<?php echo $res2Temp?>);">Edit</button><!--Comment Button-->
              <?php
              }
-             if (!empty($userID) && $result7[0]->Edit == 1) {
+             if (!empty($userID) && $result7[0]->Del == 1) {
               ?>
-              <button id="" class="openComment" onclick="edit('Delete',<?php echo $res2Temp?>)">Delete</button><!--Comment Button-->
+              <button id="" class="openComment" onclick="edithide('Delete',<?php echo $res2Temp?>)">Delete</button><!--Comment Button-->
 
             <?php
             }
             //Comment for anonymous
               if (empty($userID)){
               ?>
-             <button id="" class="openComment" onclick="edit('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
+             <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
             <?php
             }
               //delete button for admin
               if (!empty($userID) && $result7[0]->Del == 1) {
                 ?>
-                <form class="Delete<?php echo $res2Temp?>" action="../../helpers/delete_msg.php" method="post" hidden>
+                <form id="Delete<?php echo $res2Temp?>" class="Delete<?php echo $res2Temp?>" action="../../helpers/delete_msg.php" method="post" hidden>
                   <input type="text" name="delUserID" value="<?php echo $userID;?>" hidden>
                   <input type="text" name="delPostID" value="<?php echo $res2Temp;?>" hidden>
                   <input type="text" name="delTextBefore" value="<?php echo $res2->Post;?>"hidden>
@@ -230,7 +231,7 @@ $result2 = $stmt2->fetchAll();
             <?php
             if (!empty($userID) && $result7[0]->Edit == 1) {
              ?>
-           <form class="Edit<?php echo $res2Temp?>" action="../../helpers/edit_message.php" method="post" hidden>
+           <form id="Edit<?php echo $res2Temp?>" class="Edit<?php echo $res2Temp?>" action="../../helpers/edit_message.php" method="post" hidden>
              <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
              <input type="text" name="editPostID" value="<?php echo $res2Temp;?>" hidden>
              <input type="text" name="editTextBefore" value="<?php echo $res2->Post;?>" hidden>
@@ -245,11 +246,10 @@ $result2 = $stmt2->fetchAll();
          </h2>
          <!--If user already reported Comment-->
          <?php
-         $sql5 = "SELECT * FROM report where UserID=:userID AND PostID=:res2Temp AND CommentID = '0'"; //Checks if user already reported the comment/post
+         $sql5 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
          //echo $sql5;
          $stmt5 = $dbh->prepare($sql5);
-         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-         $stmt->bindParam(':resTemp2', $resTemp2, PDO::PARAM_INT);
+         $stmt5->bindParam(':userID', $userID, PDO::PARAM_INT);
          $stmt5->execute();
          $result5 = $stmt5->fetchAll();
          if (empty($result5)) {
@@ -259,7 +259,7 @@ $result2 = $stmt2->fetchAll();
           if (!empty($userID) && $result7[0]->Comment == 1) {
            ?>
            <!--Report Post-->
-         <form class="Report<?php echo $res2Temp?>" action="../../helpers/edit_message.php" method="post" hidden>
+         <form id="Report<?php echo $res2Temp?>" class="Report<?php echo $res2Temp?>" action="../../helpers/edit_message.php" method="post" hidden>
            <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
            <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
            <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
@@ -285,18 +285,17 @@ $result2 = $stmt2->fetchAll();
        </h2>
        <!--Select All Comments for the post-->
        <?php
-         $sql3 = "SELECT * FROM comment where PostID=:res2Temp";
+         $sql3 = "SELECT * FROM comment where PostID='$res2Temp'";
          //echo $sql3;
          $stmt3 = $dbh->prepare($sql3);
-         $stmt->bindParam(':resTemp2', $resTemp2, PDO::PARAM_INT);
          $stmt3->execute();
          $result3 = $stmt3->fetchAll();?>
            <!--Open comment section with button above-->
            <?php
            if (!empty($userID) && $result7[0]->Comment == 1 || $userID == 0) {
             ?>
-         <form class="Comment<?php echo $res2Temp?>" action="../../helpers/newpost.php" method="post" hidden>
-           <textarea class="Comment<?php echo $res2Temp?>" name="comment" hidden></textarea>
+         <form id="Comment<?php echo $res2Temp?>" class="Comment<?php echo $res2Temp?>" action="../../helpers/newpost.php" method="post" hidden>
+           <textarea class="Comment<?php echo $res2Temp?>" name="comment" ></textarea>
            <br>
              <input  type="text" name="postID" value="<?php echo $res2Temp;?>" hidden>
              <input  type="text" name="choice" value="comment" hidden>
@@ -310,7 +309,7 @@ $result2 = $stmt2->fetchAll();
                }
              </script>
              <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
-             <input class="Comment<?php echo $res2Temp?>" type="submit" name="" value="Send" hidden>
+             <input class="Comment<?php echo $res2Temp?>" type="submit" name="" value="Send" >
          </form>
          <?php
        }
@@ -335,25 +334,26 @@ $result2 = $stmt2->fetchAll();
               <?php
             }
             if (!empty($userID) && $result7[0]->Comment == 1) {
-              $sql9 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res3->ID'"; //Checks if user already reported the comment/post
+              $sql9 = "SELECT * FROM report where UserID=:userID AND CommentID='$res3->ID'"; //Checks if user already reported the comment/post
               //echo $sql5;
               $stmt9 = $dbh->prepare($sql9);
+              $stmt9->bindParam(':userID', $userID, PDO::PARAM_INT);
               $stmt9->execute();
               $result9 = $stmt9->fetchAll();
               if (empty($result9)) {
                ?>
-              <button id="" class="openComment" onclick="edit('Report2',<?php echo $res3->ID?>)">Report</button><!--Comment Button-->
+              <button id="" class="openComment" onclick="edithide('Report2',<?php echo $res3->ID?>)">Report</button><!--Comment Button-->
              <?php
            }
           }
-          if (!empty($userID) && $result7[0]->Del == 1) {
+          if (!empty($userID) && $result7[0]->Edit == 1) {
            ?>
-          <button id="" class="openComment" onclick="edit('Edit2',<?php echo $res3->ID?>)">Edit</button><!--Comment Button-->
+          <button id="" class="openComment" onclick="edithide('Edit2',<?php echo $res3->ID?>)">Edit</button><!--Comment Button-->
          <?php
          }
-         if (!empty($userID) && $result7[0]->Edit == 1) {
+         if (!empty($userID) && $result7[0]->Del == 1) {
           ?>
-          <button id="" class="openComment" onclick="edit('Delete2',<?php echo $res3->ID?>)">Delete</button><!--Comment Button-->
+          <button id="" class="openComment" onclick="edithide('Delete2',<?php echo $res3->ID?>)">Delete</button><!--Comment Button-->
 
         <?php
         }
@@ -361,7 +361,7 @@ $result2 = $stmt2->fetchAll();
            ?>
 
          <!--Edit Comment tab-->
-         <form class="Edit2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
+         <form id="Edit2<?php echo $res3->ID?>" class="Edit2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
            <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
            <input type="text" name="editCommentID" value="<?php echo $res2Temp;?>" hidden>
            <input type="text" name="editTextBefore" value="<?php echo $res3->Message;?>" hidden>
@@ -371,10 +371,11 @@ $result2 = $stmt2->fetchAll();
            <input type="submit"name="" value="Edit">
          </form>
          <?php
+       }
          //Delete Button for ADMIN when reported
          if (!empty($userID) && $result7[0]->Del == 1) {
            ?>
-           <form class="Delete2<?php echo $res3->ID?>" action="../../helpers/delete_msg.php" method="post" hidden>
+           <form id="Delete2<?php echo $res3->ID?>" class="Delete2<?php echo $res3->ID?>" action="../../helpers/delete_msg.php" method="post" hidden>
              <input type="text" name="delUserID" value="<?php echo $userID;?>"hidden >
              <input type="text" name="delCommentID" value="<?php echo $res3->ID;?>"hidden >
              <input type="text" name="delTextBefore" value="<?php echo $res3->Message;?>"hidden>
@@ -386,19 +387,19 @@ $result2 = $stmt2->fetchAll();
            </form>
            <?php
          }
+         if (!empty($userID) && $result7[0]->Edit == 1) {
          //If not reported earlier
-         $sql4 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res2Temp'";
+         $sql4 = "SELECT * FROM report where UserID=:userID AND CommentID='$res2Temp'";
          //cho $sql4;
          $stmt4 = $dbh->prepare($sql4);
-         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-         $stmt->bindParam(':resTemp2', $resTemp2, PDO::PARAM_INT);
+         $stmt4->bindParam(':userID', $userID, PDO::PARAM_INT);
          $stmt4->execute();
          $result4 = $stmt4->fetchAll();
          if (empty($result4)) {
 
          ?>
          <!--Report Comment-->
-           <form class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
+           <form id="Report2<?php echo $res3->ID?>" class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
              <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
              <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
              <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
@@ -420,9 +421,10 @@ $result2 = $stmt2->fetchAll();
              <input type="submit"name="" value="Report">
            </form>
            <?php
+         }
          }?>
          <?php
-        }
+
           ?>
          <br>
          <br>

@@ -261,8 +261,8 @@ if ($_POST['choice'] == "updateBlogg") {
       $sql2 = "UPDATE blogg SET Name =:bloggName WHERE ID=:bloggID"; //Check if user has blogg
       //echo $sql2;
       $stmt2 = $dbh->prepare($sql2);
-      $stmt->bindParam(':bloggName', $bloggName, PDO::PARAM_STR);
-      $stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
+      $stmt2->bindParam(':bloggName', $bloggName, PDO::PARAM_STR);
+      $stmt2->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
       $stmt2->execute();
     }
   }
@@ -289,14 +289,14 @@ if ($_POST['choice'] == "addBlogg") {
       $sql2 = "INSERT INTO `blogg`(`ID`, `Name`, `UserID`) VALUES (null,:bloggName,:userID)"; //Check if user has blogg
       //echo $sql2;
       $stmt2 = $dbh->prepare($sql2);
-      $stmt->bindParam(':bloggName', $bloggName, PDO::PARAM_STR);
-      $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+      $stmt2->bindParam(':bloggName', $bloggName, PDO::PARAM_STR);
+      $stmt2->bindParam(':userID', $userID, PDO::PARAM_INT);
       $stmt2->execute();
 
       $sql3 = "SELECT * FROM blogg where UserID=:userID"; //Check if user has blogg
       echo $sql3;
       $stmt3 = $dbh->prepare($sql3);
-      $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+      $stmt3->bindParam(':userID', $userID, PDO::PARAM_INT);
       $stmt3->execute();
       $result3 = $stmt3->fetchAll();
       $bloggID = $result3[0]->ID;
@@ -326,8 +326,8 @@ if ($_POST['choice'] == "addBlogg") {
       $sql8 = "INSERT INTO `permission`(`BloggID`, `UserID`, `Post`, `Comment`, `Edit`, `Del`) VALUES (:bloggID,:userID,'1','1','1','1')";
       echo $sql8;
       $stmt8 = $dbh->prepare($sql8);
-      $stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
-      $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+      $stmt8->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
+      $stmt8->bindParam(':userID', $userID, PDO::PARAM_INT);
       $stmt8->execute();
     }
   }

@@ -58,7 +58,7 @@
                             $userID = $_SESSION['userID'];
                             $sql = "SELECT Username from userinfo WHERE ID = :userID";
                             $getName = $dbh->prepare($sql);
-                            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+                            $getName->bindParam(':userID', $userID, PDO::PARAM_INT);
                             $getName->execute();
                             $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';

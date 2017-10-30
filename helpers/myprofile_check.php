@@ -22,7 +22,7 @@ if (!empty($_POST['CurrentPassword'])) {
           $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
           $sql2 = "UPDATE `userinfo` SET `Password`= :newPassword";
           $stmt2 = $dbh->prepare($sql2);
-          $stmt->bindParam(':newPassword', $newPassword, PDO::PARAM_INT);
+          $stmt2->bindParam(':newPassword', $newPassword, PDO::PARAM_STR);
           $stmt2->execute();
             header("location:../admin/admin.php");
         }
@@ -31,7 +31,7 @@ if (!empty($_POST['CurrentPassword'])) {
         $Email = $_POST['Email'];
         $sql2 = "UPDATE `userinfo` SET `Email`= :Email";
         $stmt2 = $dbh->prepare($sql2);
-        $stmt->bindParam(':Email', $Email, PDO::PARAM_INT);
+        $stmt2->bindParam(':Email', $Email, PDO::PARAM_STR);
         $stmt2->execute();
           header("location:../admin/admin.php");
       }

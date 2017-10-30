@@ -6,9 +6,9 @@ $commentID = $_POST['commentID'];
 
 echo $postID . $commentID;
 //remove all reports on the id.
-if (empty($commentID)) {
+if (!empty($_POST['postID'])) {
   //Its a Post
-  $sql = "DELETE FROM report where PostID=:postID AND CommentID = '0'"; //Check if user has blogg
+  $sql = "DELETE FROM report where PostID=:postID"; //Check if user has blogg
   echo $sql;
   $stmt = $dbh->prepare($sql);
   $stmt->bindParam(':postID', $postID, PDO::PARAM_INT); //mby works
