@@ -17,7 +17,7 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link href="css/welcomeStyle.css" rel="stylesheet">
+        <link href="css/welcomestyle.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
     </head>
     <body>
@@ -37,8 +37,9 @@
                     <?PHP
                         if(!empty($_SESSION['userID'])) {
                             $userID = $_SESSION['userID'];
-                            $sql = "SELECT Username from userinfo WHERE ID = $userID";
+                            $sql = "SELECT Username from userinfo WHERE ID = :userID";
                             $getName = $dbh->prepare($sql);
+                            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
                             $getName->execute();
                             $getNameResult = $getName->fetchAll();
                             echo '<li><a href="admin/admin.php"><i class="material-icons menuIcons">account_circle</i>'.$getNameResult[0]->Username.'</a></li>';

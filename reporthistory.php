@@ -3,15 +3,17 @@ require('Helpers/db.php');
 session_start();
 $userID = $_SESSION['userID'];
 //Gets it all from blogg table
-$sql = "SELECT * from blogg where UserID = '$userID'";
+$sql = "SELECT * from blogg where UserID = :userID";
 $stmt = $dbh->prepare($sql);
+$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();
 $result = $stmt->fetchAll();
 $bloggReportID = $result[0]->ID;
 
 //Get all Comments Reported On Your Site
-$sql2 = "SELECT * from report where BloggID = '$bloggReportID'";
+$sql2 = "SELECT * from report where BloggID = :bloggReportID";
 $stmt2 = $dbh->prepare($sql2);
+$stmt2->bindParam(':bloggReportID', $bloggReportID, PDO::PARAM_INT);
 $stmt2->execute();
 $result2 = $stmt2->fetchAll();
 
@@ -20,8 +22,9 @@ if (empty($result2)) {
 }
 else{
   $reportUserInfo = $result2[0]->UserID;
-  $sql3 = "SELECT * from userinfo where ID = '$reportUserInfo'";
+  $sql3 = "SELECT * from userinfo where ID = :reportUserInfo";
   $stmt3 = $dbh->prepare($sql3);
+  $stmt3->bindParam(':reportUserInfo', $reportUserInfo, PDO::PARAM_INT);
   $stmt3->execute();
   $result3 = $stmt3->fetchAll();
   foreach ($result2 as $res2) {
