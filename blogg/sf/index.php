@@ -1,4 +1,4 @@
-    <?php
+<?php
     session_start();
     require('../../helpers/db.php');
     $bloggID = $_GET['bloggID'];
@@ -131,6 +131,7 @@
         <br>
         <br>
     <div class="container-fluid" id="header">
+
         <!--BloggName-->
         <h1><?php echo $result[0]->Name;?></h1>
     </div>
@@ -167,8 +168,26 @@
         <!--Show All Posts-->
         <div id="post">
             <?php
+            //echo $res2Temp;
+         $gnsql = "SELECT Username from userinfo WHERE ID = $res2Temp";
+         $gn = $dbh->prepare($gnsql);
+         $gn->execute();
+         $gnResult = $gn->fetchAll();
+         foreach ($gnResult as $gnr) {
+         //If reported link has been pressed;
 
-
+           if ($res2->ID == $reportedPostID){
+             ?>
+             <h2 style="background-color:red;"><?php echo $gnr->Username . ": " . $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+               <?php
+            }
+            //shown normal
+            else{?>
+              <h2><?php echo $gnr->Username . ": " . $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+                <?php
+              }
+            }
+  
 
             //If reported link has been pressed;
             if ($res2->ID == $reportedPostID){
@@ -200,6 +219,67 @@
                 if (!empty($userID) && $result7[0]->Edit == 1) {
                 ?>
                 <button id="" class="openComment" onclick="edithide('Edit',<?php echo $res2Temp?>);">Edit</button><!--Comment Button-->
+
+     <!--BloggName-->
+        <h1><?php echo $result[0]->Name;?></h1>
+    </div>
+    <div class="container" id="container">
+     <!--TextArea For New Post-->
+     <?php
+       if (!empty($userID) && $result7[0]->Post == 1) {
+        ?>
+         <div id="newPost">
+          <!--New Post-->
+          <form action="../../helpers/newpost.php" method="post">
+            <div class="form-group">
+                <textarea class="form-control" minlength="1" name="post"></textarea>
+            </div>
+            <div class="form-group">
+
+              <input id="Local" type="text" name="localIP" value="" hidden>
+              <input id="public" type="text" name="publicIP" value="" hidden>
+              <input type="text" name="userID" value="<?php echo $bloggID;?>"hidden>
+              <input type="text" name="bloggID" value="<?php echo $resTemp;?>"hidden>
+              <input type="text" name="choice" value="post" hidden>
+              <input class="btn btn-success btn-block" type="submit" value="Post">
+            </div>
+          </form>
+        </div>
+      <?php
+      }
+    ?>
+    <!--Contains All Posts And Comments-->
+   <div id="postFeed">
+     <?php
+     foreach ($result2 as $res2) {
+       $res2Temp = $res2->ID;
+       ?>
+       <!--Show All Posts-->
+       <div id="post">
+         <?php
+         //echo $res2Temp;
+         $gnsql = "SELECT Username from userinfo WHERE ID = $res2Temp";
+         $gn = $dbh->prepare($gnsql);
+         $gn->execute();
+         $gnResult = $gn->fetchAll();
+         foreach ($gnResult as $gnr) {
+         //If reported link has been pressed;
+
+           if ($res2->ID == $reportedPostID){
+             ?>
+             <h2 style="background-color:red;"><?php echo $gnr->Username . ": " . $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+               <?php
+            }
+            //shown normal
+            else{?>
+              <h2><?php echo $gnr->Username . ": " . $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+                <?php
+              }
+            }
+                if (!empty($userID) && $result7[0]->Comment == 1) {
+                 ?>
+                <button id="" class="openComment btn btn-default" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
+
                 <?php
                 }
                 if (!empty($userID) && $result7[0]->Del == 1) {
@@ -364,6 +444,7 @@
             if (!empty($userID) && $result7[0]->Edit == 1) {
             ?>
 
+
             <!--Edit Comment tab-->
             <form id="Edit2<?php echo $res3->ID?>" class="Edit2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
             <input type="text" name="editUserID" value="<?php echo $userID;?>" hidden>
@@ -389,17 +470,31 @@
                 <input type="text" name="delTextNew" value="*DELETED*" hidden>
                 <input type="submit"name="" value="Delete">
             </form>
+              <!--Report Comment-->
+           <form id="Report2<?php echo $res3->ID?>" class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
+             <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+             <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
+             <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
+             <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
+             <?php
+             $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+             if (empty($userID)){?>
+               <input type="text" name="reportPrio" value="5" hidden>
+               <?php
+             }
+             else{?>
+               <input type="text" name="reportPrio" value="1" hidden>
+               <?php
+
+             }?>
+             <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
+             <input type="text" name="reason" value="" placeholder="Report Reason">
+             <input type="text" name="choice" value="Report" hidden>
+             <input type="submit"name="" value="Report">
+           </form>
             <?php
             }
-            if (!empty($userID) && $result7[0]->Edit == 1) {
-            //If not reported earlier
-            $sql4 = "SELECT * FROM report where UserID=:userID AND CommentID='$res2Temp'";
-            //cho $sql4;
-            $stmt4 = $dbh->prepare($sql4);
-            $stmt4->bindParam(':userID', $userID, PDO::PARAM_INT);
-            $stmt4->execute();
-            $result4 = $stmt4->fetchAll();
-            if (empty($result4)) {
+           
 
             ?>
             <!--Report Comment-->
