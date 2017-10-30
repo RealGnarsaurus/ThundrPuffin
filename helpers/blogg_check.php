@@ -289,7 +289,7 @@ if ($_POST['choice'] == "addBlogg") {
       $sql2 = "INSERT INTO `blogg`(`ID`, `Name`, `UserID`) VALUES (null,:bloggName,:userID)"; //Check if user has blogg
       //echo $sql2;
       $stmt2 = $dbh->prepare($sql2);
-      $stmt2->bindParam(':bloggName', $bloggName, PDO::PARAM_STR);
+      $stmt2->bindParam(':bloggName', $bloggName, PDO::PARAM_INT);
       $stmt2->bindParam(':userID', $userID, PDO::PARAM_INT);
       $stmt2->execute();
 

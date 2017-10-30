@@ -20,7 +20,7 @@
     $stmt->bindParam(':editPostID', $editPostID, PDO::PARAM_INT);
     $stmt->bindParam(':editBloggID', $editBloggID, PDO::PARAM_INT);
     $stmt->bindParam(':editTextBefore', $editTextBefore, PDO::PARAM_STR);
-    $stmt->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_STR);
+    $stmt->bindParam(':editTextAfter', $editTextafter, PDO::PARAM_STR);
     $stmt->execute();
     if ($stmt) {
       $sql2 = "UPDATE post SET Post = :editTextAfter where ID=:editPostID";
@@ -51,7 +51,7 @@ if ($_POST['choice'] == "Comment") {
     echo $sql;
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':editUserID', $editUserID, PDO::PARAM_INT);
-    $stmt->bindParam(':editCommentID', $editCommentID, PDO::PARAM_INT);
+    $stmt->bindParam(':editCommentID', $editcommentID, PDO::PARAM_INT);
     $stmt->bindParam(':editBloggID', $editBloggID, PDO::PARAM_INT);
     $stmt->bindParam(':editTextBefore', $editTextBefore, PDO::PARAM_STR);
     $stmt->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_STR);
@@ -60,6 +60,7 @@ if ($_POST['choice'] == "Comment") {
       $sql2 = "UPDATE comment SET Message = '$editTextAfter'";
       echo $sql2;
       $stmt2 = $dbh->prepare($sql2);
+      $stmt2->bindParam(':editTextAfter', $editTextAfter, PDO::PARAM_STR);
       $stmt2->execute();
     }
   }
