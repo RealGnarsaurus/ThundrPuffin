@@ -1,5 +1,5 @@
 <?php
-require('Helpers/db.php');
+require('helpers/db.php');
 session_start();
 $userID = $_SESSION['userID'];
 //echo $userID;
@@ -7,7 +7,7 @@ $userID = $_SESSION['userID'];
 $sql = "SELECT * from Blogg where UserID = :userID";
 //echo $sql;
 $stmt = $dbh->prepare($sql);
-$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+$stmt->bindParam(':userID', $userID, PDO::PARAM_INT); //mby works
 $stmt->execute();
 $result = $stmt->fetchAll();
 $bloggID = $result[0]->ID; //your bloggid
@@ -17,7 +17,7 @@ $bloggID = $result[0]->ID; //your bloggid
 $sql2 = "SELECT * from permission where BloggID = :bloggID";
 //echo $sql2;
 $stmt2 = $dbh->prepare($sql2);
-$stmt2->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
+$stmt2->bindParam(':bloggID', $bloggID, PDO::PARAM_INT); //mby works
 $stmt2->execute();
 $result2 = $stmt2->fetchAll();
 

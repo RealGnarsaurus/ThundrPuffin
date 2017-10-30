@@ -39,21 +39,21 @@ if (empty($result)) { //IF Database Contains Username/Email -> check password
         $stmt2->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt2->execute();
         $_SESSION['errorMsg'] = "Account Registered";
-        //header("Location:../login.php");
+        header("Location:../login.php");
     }
     else{
 
       $_SESSION['errorMsg'] = "Password Doesnt Match";
-      //header("Location:../register.php");
+      header("Location:../register.php");
     }
   }
   else{
     $_SESSION['errorMsg'] = "Email Already Exists";
-    //header("Location:../register.php");
+    header("Location:../register.php");
   }
 }
 else{
   $_SESSION['errorMsg'] = "Username Already Exists";
-  //header("Location:../register.php");
+  header("Location:../register.php");
 }
  ?>
