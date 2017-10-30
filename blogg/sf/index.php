@@ -69,7 +69,7 @@ $result2 = $stmt2->fetchAll();
 ?>
  <!DOCTYPE html>
  <html>
- 
+
  <script src="../../helpers/edit.Js"></script> <!--Edit Forms Script-->
  <script src="../../helpers/ip.js"></script><!--LocalIp-->
  <meta charset="UTF-8">
@@ -144,7 +144,7 @@ $result2 = $stmt2->fetchAll();
     <br>
     <br>
     <div class="container-fluid" id="header">
-     <!--BloggName--> 
+     <!--BloggName-->
         <h1><?php echo $result[0]->Name;?></h1>
     </div>
     <div class="container" id="container">
@@ -159,7 +159,7 @@ $result2 = $stmt2->fetchAll();
                 <textarea class="form-control" minlength="1" name="post"></textarea>
             </div>
             <div class="form-group">
-            
+
               <input id="Local" type="text" name="localIP" value="" hidden>
               <input id="public" type="text" name="publicIP" value="" hidden>
               <input type="text" name="userID" value="<?php echo $bloggID;?>"hidden>
@@ -181,20 +181,25 @@ $result2 = $stmt2->fetchAll();
        <!--Show All Posts-->
        <div id="post">
          <?php
-
-
-
+         //echo $res2Temp;
+         $gnsql = "SELECT Username from userinfo WHERE ID = $res2Temp";
+         $gn = $dbh->prepare($gnsql);
+         $gn->execute();
+         $gnResult = $gn->fetchAll();
+         foreach ($gnResult as $gnr) {
          //If reported link has been pressed;
-         if ($res2->ID == $reportedPostID){
-           ?>
-           <p style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
-             <?php
-          }
-          //shown normal
+
+           if ($res2->ID == $reportedPostID){
+             ?>
+             <h2 style="background-color:red;"><?php echo $gnr->Username . ": " . $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+               <?php
+            }
+            //shown normal
             else{?>
-              <p><?php echo $res2->Post . "<br>" . $res2->Dates;//This Prints The Post?>
+              <h2><?php echo $gnr->Username . ": " . $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
                 <?php
               }
+            }
                 if (!empty($userID) && $result7[0]->Comment == 1) {
                  ?>
                 <button id="" class="openComment btn btn-default" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
@@ -389,6 +394,28 @@ $result2 = $stmt2->fetchAll();
            <input type="text" name="choice" value="Comment" hidden>
            <input class="btn btn-default" type="submit"name="" value="Edit">
          </form>
+         <!--Report Comment-->
+           <form id="Report2<?php echo $res3->ID?>" class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
+             <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+             <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
+             <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
+             <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
+             <?php
+             $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+             if (empty($userID)){?>
+               <input type="text" name="reportPrio" value="5" hidden>
+               <?php
+             }
+             else{?>
+               <input type="text" name="reportPrio" value="1" hidden>
+               <?php
+
+             }?>
+             <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
+             <input type="text" name="reason" value="" placeholder="Report Reason">
+             <input type="text" name="choice" value="Report" hidden>
+             <input type="submit"name="" value="Report">
+           </form>
          <?php
        }
          //Delete Button for ADMIN when reported
