@@ -174,39 +174,45 @@ $result2 = $stmt2->fetchAll();
      <?php
      foreach ($result2 as $res2) {
        $res2Temp = $res2->ID;
+       //echo $res2Temp;
+       $gnsql = "SELECT Username from userinfo WHERE ID = $res2Temp";
+       $gn = $dbh->prepare($gnsql);
+       $gn->execute();
+       $gnResult = $gn->fetchAll();
        ?>
        <!--Show All Posts-->
        <div id="post">
          <?php
 
+           foreach ($gnResult as $gnr) {
+           //If reported link has been pressed;
 
-
-         //If reported link has been pressed;
-         if ($res2->ID == $reportedPostID){
-           ?>
-           <h2 style="background-color:red;"><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
-             <?php
-          }
-          //shown normal
+           if ($res2->ID == $reportedPostID){
+             ?>
+             <h2 style="background-color:red;"><?php echo $gnr->Username . ": " . $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+               <?php
+            }
+            //shown normal
             else{?>
-              <h2><?php echo $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
+              <h2><?php echo $gnr->Username . ": " . $res2->Post . " - " . $res2->Dates;//This Prints The Post?>
                 <?php
               }
-                if (!empty($userID) && $result7[0]->Comment == 1) {
-                 ?>
-                <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
-                <?php
-                $sql10 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
-                //echo $sql5;
-                $stmt10 = $dbh->prepare($sql10);
-                $stmt10->bindParam(':userID', $userID, PDO::PARAM_INT);
-                $stmt10->execute();
-                $result10 = $stmt10->fetchAll();
-                if (empty($result10)) {
-                    ?>
-                    <button id="" class="openComment" onclick="edithide('Report',<?php echo $res2Temp?>);">Report</button><!--Comment Button-->
-                    <?php
-                }
+            }
+              if (!empty($userID) && $result7[0]->Comment == 1) {
+               ?>
+              <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
+              <?php
+              $sql10 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
+              //echo $sql5;
+              $stmt10 = $dbh->prepare($sql10);
+              $stmt10->bindParam(':userID', $userID, PDO::PARAM_INT);
+              $stmt10->execute();
+              $result10 = $stmt10->fetchAll();
+              if (empty($result10)) {
+                  ?>
+                  <button id="" class="openComment" onclick="edithide('Report',<?php echo $res2Temp?>);">Report</button><!--Comment Button-->
+                  <?php
+              }
               }
               if (!empty($userID) && $result7[0]->Edit == 1) {
                ?>
@@ -386,6 +392,28 @@ $result2 = $stmt2->fetchAll();
            <input type="text" name="choice" value="Comment" hidden>
            <input type="submit"name="" value="Edit">
          </form>
+         <!--Report Comment-->
+	           <form id="Report2<?php echo $res3->ID?>" class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
+             <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
+	             <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
+	             <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
+	             <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
+	             <?php
+             $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	             if (empty($userID)){?>
+               <input type="text" name="reportPrio" value="5" hidden>
+               <?php
+	             }
+	             else{?>
+               <input type="text" name="reportPrio" value="1" hidden>
+               <?php
+
+	             }?>
+             <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
+	             <input type="text" name="reason" value="" placeholder="Report Reason">
+	             <input type="text" name="choice" value="Report" hidden>
+	             <input type="submit"name="" value="Report">
+           </form>
          <?php
        }
          //Delete Button for ADMIN when reported
@@ -403,44 +431,6 @@ $result2 = $stmt2->fetchAll();
            </form>
            <?php
          }
-         if (!empty($userID) && $result7[0]->Edit == 1) {
-         //If not reported earlier
-         $sql4 = "SELECT * FROM report where UserID=:userID AND CommentID='$res2Temp'";
-         //cho $sql4;
-         $stmt4 = $dbh->prepare($sql4);
-         $stmt4->bindParam(':userID', $userID, PDO::PARAM_INT);
-         $stmt4->execute();
-         $result4 = $stmt4->fetchAll();
-         if (empty($result4)) {
-
-         ?>
-         <!--Report Comment-->
-           <form id="Report2<?php echo $res3->ID?>" class="Report2<?php echo $res3->ID?>" action="../../helpers/edit_message.php" method="post" hidden>
-             <input type="text" name="bloggID" value="<?php echo $bloggID;?>" hidden>
-             <input type="text" name="reportPostID" value="<?php echo $res2Temp;?>" hidden>
-             <input type="text" name="reportCommentID" value="<?php echo $res3->ID;?>" hidden>
-             <input type="text" name="reportUserID" value="<?php echo $userID;?>" hidden>
-             <?php
-             $link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-             if (empty($userID)){?>
-               <input type="text" name="reportPrio" value="5" hidden>
-               <?php
-             }
-             else{?>
-               <input type="text" name="reportPrio" value="1" hidden>
-               <?php
-
-             }?>
-             <input type="text" name="reportUrl" value="<?php echo $link;?>" hidden>
-             <input type="text" name="reason" value="" placeholder="Report Reason">
-             <input type="text" name="choice" value="Report" hidden>
-             <input type="submit"name="" value="Report">
-           </form>
-           <?php
-         }
-         }?>
-         <?php
-
           ?>
          <br>
          <br>
