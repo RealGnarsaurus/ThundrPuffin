@@ -47,6 +47,18 @@ function showFlagReports() {
     xhttp.open("GET", "../reporthistory.php", true);
     xhttp.send();
 }
+//open delete history
+function showDelete() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("content").innerHTML =
+            this.responseText;
+        }
+    };
+    xhttp.open("GET", "../deletehistory.php", true);
+    xhttp.send();
+}
 //open Eula
 function eula() {
 

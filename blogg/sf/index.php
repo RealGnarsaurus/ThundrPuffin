@@ -24,11 +24,9 @@ if (!empty($recentlyInserted)) {
   }
   if (!empty($_SESSION['userID'])) {
     $userID = $_SESSION['userID'];
-    $sql7 = "SELECT * FROM permission where BloggID=:bloggID AND UserID = :userID";
+    $sql7 = "SELECT * FROM permission where BloggID='$bloggID' AND UserID = '$userID'";
     //echo $sql7;
     $stmt7 = $dbh->prepare($sql7);
-    $stmt7->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
-    $stmt7->bindParam(':userID', $userID, PDO::PARAM_INT);
     $stmt7->execute();
     $result7 = $stmt7->fetchAll();
 
@@ -50,10 +48,9 @@ if (!empty($recentlyInserted)) {
 }
 
 
-$sql = "SELECT * FROM blogg where ID=:bloggID";
+$sql = "SELECT * FROM blogg where ID='$bloggID'";
 //echo $sql;
 $stmt = $dbh->prepare($sql);
-$stmt->bindParam(':bloggID', $bloggID, PDO::PARAM_INT);
 $stmt->execute();
 $result = $stmt->fetchAll();
 if (empty($result)) {
@@ -61,10 +58,9 @@ if (empty($result)) {
 }
 $resTemp = $result[0]->ID;
 //echo $resTemp;
-$sql2 = "SELECT * FROM post where BloggID=:resTemp";
+$sql2 = "SELECT * FROM post where BloggID='$resTemp'";
 //echo $sql2;
 $stmt2 = $dbh->prepare($sql2);
-$stmt2->bindParam(':resTemp', $resTemp, PDO::PARAM_INT);
 $stmt2->execute();
 $result2 = $stmt2->fetchAll();
 ?>
@@ -85,6 +81,21 @@ $result2 = $stmt2->fetchAll();
  <link href="../../css/welcomeStyle.css" rel="stylesheet">
  <link href="../../css/main.css" rel="stylesheet">
  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
+ <script>
+ function acceptEula(source){
+
+    var txt;
+    var choice = confirm("By Posting You Agree To The Eula!\n *To Read Eula GoTo Register*");
+    if (choice == true) {
+        edithide('Comment',source)
+
+
+    } else {
+        //txt = "You pressed Cancel!";
+        alert("Please Accept Eula And/Or Create An Account")
+    }
+ }
+ </script>
  <body onload="GetLocalIp();">
     <!--Menu-->
     <nav class="navbar navbar-default">
@@ -181,10 +192,9 @@ $result2 = $stmt2->fetchAll();
                  ?>
                 <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
                 <?php
-                $sql10 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
+                $sql10 = "SELECT * FROM report where UserID='$userID' AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
                 //echo $sql5;
                 $stmt10 = $dbh->prepare($sql10);
-                $stmt10->bindParam(':userID', $userID, PDO::PARAM_INT);
                 $stmt10->execute();
                 $result10 = $stmt10->fetchAll();
                 if (empty($result10)) {
@@ -207,7 +217,7 @@ $result2 = $stmt2->fetchAll();
             //Comment for anonymous
               if (empty($userID)){
               ?>
-             <button id="" class="openComment" onclick="edithide('Comment',<?php echo $res2Temp?>)">Comment</button><!--Comment Button-->
+             <button id=""  onclick="acceptEula(<?php echo $res2Temp?>);">Comment</button><!--Comment Button-->
             <?php
             }
               //delete button for admin
@@ -246,10 +256,9 @@ $result2 = $stmt2->fetchAll();
          </h2>
          <!--If user already reported Comment-->
          <?php
-         $sql5 = "SELECT * FROM report where UserID=:userID AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
+         $sql5 = "SELECT * FROM report where UserID='$userID' AND PostID='$res2Temp' AND CommentID = '0'"; //Checks if user already reported the comment/post
          //echo $sql5;
          $stmt5 = $dbh->prepare($sql5);
-         $stmt5->bindParam(':userID', $userID, PDO::PARAM_INT);
          $stmt5->execute();
          $result5 = $stmt5->fetchAll();
          if (empty($result5)) {
@@ -309,7 +318,8 @@ $result2 = $stmt2->fetchAll();
                }
              </script>
              <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> <!--Public Ip-->
-             <input class="Comment<?php echo $res2Temp?>" type="submit" name="" value="Send" >
+             <input class="Comment<?php echo $res2Temp?>" type="submit" onkeypress="acceptEula();" name="" value="Send" >
+
          </form>
          <?php
        }
@@ -334,10 +344,9 @@ $result2 = $stmt2->fetchAll();
               <?php
             }
             if (!empty($userID) && $result7[0]->Comment == 1) {
-              $sql9 = "SELECT * FROM report where UserID=:userID AND CommentID='$res3->ID'"; //Checks if user already reported the comment/post
+              $sql9 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res3->ID'"; //Checks if user already reported the comment/post
               //echo $sql5;
               $stmt9 = $dbh->prepare($sql9);
-              $stmt9->bindParam(':userID', $userID, PDO::PARAM_INT);
               $stmt9->execute();
               $result9 = $stmt9->fetchAll();
               if (empty($result9)) {
@@ -389,10 +398,9 @@ $result2 = $stmt2->fetchAll();
          }
          if (!empty($userID) && $result7[0]->Edit == 1) {
          //If not reported earlier
-         $sql4 = "SELECT * FROM report where UserID=:userID AND CommentID='$res2Temp'";
+         $sql4 = "SELECT * FROM report where UserID='$userID' AND CommentID='$res2Temp'";
          //cho $sql4;
          $stmt4 = $dbh->prepare($sql4);
-         $stmt4->bindParam(':userID', $userID, PDO::PARAM_INT);
          $stmt4->execute();
          $result4 = $stmt4->fetchAll();
          if (empty($result4)) {

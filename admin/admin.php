@@ -4,17 +4,15 @@
 
     $userID = $_SESSION['userID'];
     //Gets Blogg ID
-    $sql = "SELECT ID from blogg where UserID = :userID";
+    $sql = "SELECT ID from blogg where UserID = $userID";
     //echo $sql;
-	$stmt = $dbh->prepare($sql);
-	$stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt = $dbh->prepare($sql);
     $stmt->execute();
     $result = $stmt->FetchAll();
 		//Gets User Info
-		$sql2 = "SELECT * from userinfo where ID = :userID";
+		$sql2 = "SELECT * from userinfo where ID = $userID";
 		//echo $sql2;
 		$stmt2 = $dbh->prepare($sql2);
-		$stmt2->bindParam(':userID', $userID, PDO::PARAM_INT);
 		$stmt2->execute();
 		$result2 = $stmt2->FetchAll();
 ?>
@@ -54,10 +52,9 @@
             <br/>
 						<button href="#" class="adminLiButton btn" id="manageUser" onClick="MyProfile()"><span class="material-icons">assignment_ind </span> My Profile</button>
 						<?php
-							$sql3 = "SELECT * FROM blogg where UserID=:userID"; //Check if user has blogg
+							$sql3 = "SELECT * FROM blogg where UserID='$userID'"; //Check if user has blogg
 							//echo $sql;
 							$stmt3 = $dbh->prepare($sql3);
-							$stmt3->bindParam(':userID', $userID, PDO::PARAM_INT);
 							$stmt3->execute();
 							$result3 = $stmt3->fetchAll();
 							if (!empty($result3)) {
@@ -65,6 +62,7 @@
 						 	<button href="#" class="adminLiButton btn" id="customizeBlog" onClick="blogSettings()"><span class="material-icons">settings </span> Customize blog</button>
 							<button href="#" class="adminLiButton btn" id="manageUser" onClick="loadDoc()"><span class="material-icons">assignment_ind </span> Manage Users</button>
 							<button href="#" class="adminLiButton btn" id="flagReports" onClick="showFlagReports()"><span class="material-icons">feedback</span>Flag reports</button>
+							<button href="#" class="adminLiButton btn" id="flagReports" onClick="showDelete()"><span class="material-icons">feedback</span>Deleted</button>
 							</br>
 							<button href="#" class="adminLiButton btn" onClick="window.location.href='../blogg/sf/index.php?bloggID=<?PHP echo $result[0]->ID;?>'"><span class="material-icons">desktop_windows </span> Go to blog</button>
 						<?php
