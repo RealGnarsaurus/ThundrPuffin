@@ -1,0 +1,125 @@
+body{
+  background-color:;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: auto;
+  color:black;
+}
+div#container{
+  /* width: 100%; */
+  height: 100%;
+  background-image: url("Texture/BackGround.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+div#newPost textarea,form{
+  width: 80%;
+  height: 200px;
+  margin: auto;
+  font-size: 15px;
+   background-color:;
+  color:;
+}
+/* div#newPost input{
+  margin: auto;
+  width: 115px;
+  height: 50px;
+  font-size: 18px;
+    background-color:;
+} */
+div#header{
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  background-image: url("Texture/HeaderImage.jpg");
+  margin-top: -40px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color:;
+  font-size: 25px;
+}
+/* div#postFeed{
+  width: 80%;
+  margin-top: 5%;
+} */
+div#post{
+  width: 65%;
+  border-color: black;
+  border-width: 5px;
+  background-color: ;
+  font-size: 20px;
+  color: ;
+  background-color:;
+  opacity: 0.90;
+  margin: auto;
+  text-align: center;
+}
+div#comment{
+  width: 45%;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom: 1px solid black;
+  padding-bottom: 3%;
+  padding-top: 2%;
+  font-size: 10px;
+  text-align: center;
+    background-color:;
+  opacity: 0.90;
+}
+div#comment:nth-child(even){
+  width: 45%;
+  margin-right: auto;
+  margin-left: auto;
+  border-bottom: 1px solid black;
+  padding-bottom: 3%;
+  padding-top: 2%;
+  font-size: 10px;
+  text-align: center;
+    background-color:;
+  opacity: 0.90;
+}
+div#comment iframe{
+  max-width: 300px;
+  max-height: 180px;
+}
+/* *** Static styling *** */
+#header {
+    height: 40%;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#header h1 {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    color:;
+}
+#container {
+    background-color:;
+    height: 100%;
+}
+#newPost {
+    margin-top: 2%;
+}
+#post {
+    margin-right: auto;
+    margin-left: auto;
+    border-bottom: 1px solid black;
+    padding-bottom: 3%;
+    padding-top: 3%;
+    font-size: 16px;
+}
+#post h2 {
+   color:;
+}
+form {
+    height: 100%;
+}
+
+#postFeed p {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+   color:;
+}
